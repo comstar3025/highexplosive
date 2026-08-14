@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ theme }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ base_url }}/img/favicon-180.png">
+<meta name="theme-color" content="{{ theme_color }}">
+<link rel="icon" href="/img/favicon.ico" sizes="any">
+<link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/img/favicon-180.png">
+<style>
+@font-face{font-family:"HXDisplay";src:url("/fonts/Anta-Regular.ttf") format("truetype");
+           font-weight:400;font-display:swap}
+
+/* Palette taken from the sigil itself: silver, its blue field, its red star. */
+html[data-theme="light"]{--bg:#ffffff;--ink:#14171a;--link:#00609d;--hover:#970000;--faint:#c9ccd0}
+html[data-theme="dark"] {--bg:#0f1216;--ink:#e6e9ee;--link:#4da3ff;--hover:#ff9f43;--faint:#242a32}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:32px 22px;
+}
+
+.mark{display:block;width:auto;height:min(38vh,260px);margin:0 0 42px}
+
+.links{display:flex;flex-direction:column;align-items:center;gap:14px}
+.links a{
+  font-family:"HXDisplay",ui-sans-serif,system-ui,sans-serif;
+  font-size:clamp(15px,2.4vw,19px);
+  letter-spacing:.11em;
+  color:var(--link);
+  text-decoration:none;
+  padding:3px 2px;
+  border-bottom:1px solid transparent;
+}
+.links a:hover,.links a:focus-visible{color:var(--hover);border-bottom-color:currentColor}
+.links a:focus-visible{outline:none}
+
+.legal{
+  position:fixed;left:0;right:0;bottom:0;
+  padding:12px 18px;text-align:center;
+  font-size:9.5px;line-height:1.5;letter-spacing:.03em;
+  color:var(--faint);
+}
+
+@media (max-width:480px){
+  .mark{height:min(24vh,150px);margin-bottom:30px}
+  .legal{font-size:9px;padding-bottom:14px}
+}
+</style>
+</head>
+<body>
+
+<img class="mark" src="/img/comstar.png" alt="{{ site_name }}">
+
+<nav class="links">
+{{ content }}
+</nav>
+
+<p class="legal">{{ legal_short }}</p>
+
+</body>
+</html>

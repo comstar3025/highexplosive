@@ -1,0 +1,18 @@
+# Site-wide settings.
+name: HighExplosive.net
+tagline: HX3026
+base_url: https://www.highexplosive.net
+description: BattleTech tools.
+
+# "light" or "dark".
+theme: light
+
+# The one line at the foot of the bare homepage.
+legal_short: >
+  BattleTech is a trademark of The Topps Company, Inc. Unofficial fan site.
+
+# Footer of the full-chrome pages, once there are any. Markdown.
+legal: |
+  BattleTech, BattleMech, 'Mech and MechWarrior are trademarks of The Topps
+  Company, Inc. Catalyst Game Labs is the current licensee. This is an
+  unofficial fan site, not affiliated with or endorsed by either.

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ canonical }}">
+
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ base_url }}/img/favicon-180.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f1216">
+
+<link rel="icon" href="/img/favicon.ico" sizes="any">
+<link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/img/favicon-180.png">
+<link rel="alternate" type="application/atom+xml" title="{{ site_name }}" href="/feed.xml">
+<link rel="stylesheet" href="/css/site.css?v={{ cachebust }}">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="/">
+      <img src="/img/comstar.png" alt="" width="17" height="34">
+      <span class="brand-text">
+        <span class="brand-name">{{ site_name }}</span>
+        <span class="brand-tag">{{ tagline }}</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Main">
+{{ nav }}
+    </nav>
+  </div>
+</header>
+
+<main class="main" id="main">
+{{ content }}
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-legal">
+      {{ legal }}
+    </div>
+    <div class="foot-links">
+      <a href="/feed.xml">Feed</a>
+      <a href="/about/">About</a>
+      <a href="/colophon/">Colophon</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

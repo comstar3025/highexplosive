@@ -1,0 +1,24 @@
+# Build output — regenerated on every build, never committed.
+_site/
+
+# Source material that must not be published: rulebook PDFs, MekHQ dumps,
+# anything under a Sources folder anywhere in the tree.
+Sources/
+**/Sources/
+*.pdf
+
+# macOS and editor noise
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+~$*
+*.swp
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
