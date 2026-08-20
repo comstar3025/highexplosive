@@ -8,18 +8,34 @@
 template: racing.html
 title: MechSports Division
 back_label: HighExplosive.net
-standfirst: Competitor materials issued by ComStar Entertainment Ltd, MechSports Division.
+
+# The browser/search title and the social card. Kept apart from `title:`, which
+# is the h1 — people search for "BattleTech mech racing rules", not for the
+# name of a fictional division.
+page_title: BattleMech Racing — Formula Thunder rules and record sheets | HighExplosive.net
+summary: >
+  Free BattleTech 'Mech racing rules. The Formula Thunder competitor pack: full
+  regulations, ten record sheets and a printable circuit map, for use with the
+  BattleTech Core Rulebook. Unofficial fan-made material, no charge.
+og_title: BattleMech Racing — Formula Thunder
+og_description: >
+  Free BattleTech 'Mech racing rules: regulations, record sheets and a printable
+  circuit map. Two laps, ten machines, and a racing line seeded with mines.
+og_image: /racing/img/og-racing.jpg
+og_image_width: 1200
+og_image_height: 630
+og_image_alt: The five Formula Thunder racing BattleMechs in team livery
+standfirst: Competitor materials issued by ComStar Entertainment Ltd.
 
 hero: /racing/img/ft-grid-hero.webp
 hero2x: /racing/img/ft-grid-hero@2x.webp
 hero_fallback: /racing/img/ft-grid-hero.png
 hero_alt: The five Formula Thunder Type R racing BattleMechs in team livery.
-caption: Series 1, 3054 · Luthien · Defiance · Ceres · Robinson · Irian
 
 memo_head:
-  - TO: Adept Ilse Voss, MechSports Division
-  - FROM: Precentor Ansel Chen
-  - RE: "Handover: competitor materials, and what to do with them"
+  - To: Adept Ilse Voss, MechSports Division
+  - From: Precentor Ansel Chen
+  - Re: "Handover: competitor materials, and what to do with them"
 
 signoff:
   name: — A. Chen, Precentor

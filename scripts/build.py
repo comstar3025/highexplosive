@@ -390,7 +390,10 @@ class Builder:
               content: str, og_type: str = "website", template: str = "base.html",
               extra: dict | None = None) -> None:
         base = self.site["base_url"]
-        page_title = title if url == "/" else f"{title} — {self.site['name']}"
+        # A page may name its own browser/search title. Useful where the h1 is
+        # the in-fiction name and the title has to be what people search for.
+        page_title = (extra or {}).get("page_title") or (
+            title if url == "/" else f"{title} — {self.site['name']}")
         theme = str(self.site.get("theme", "dark")).lower()
         page = render_template(self.load_template(template), {
             **(extra or {}),
@@ -509,17 +512,48 @@ class Builder:
             signoff = (f'<p class="signoff"><span class="name">'
                        f'{esc(sign.get("name", ""))}</span><br>{lines}</p>')
 
+        # Social preview. A page that gets linked into a forum thread is judged
+        # on the card the forum draws, so the image and the wording of that card
+        # are worth setting apart from the page's own heading.
+        base = self.site["base_url"]
+        og_image = str(m.get("og_image") or "")
+        if og_image and not og_image.startswith("http"):
+            og_image = base + og_image
+        og = []
+        if og_image:
+            og.append(f'<meta property="og:image" content="{esc(og_image)}">')
+            for k in ("og_image_width", "og_image_height", "og_image_alt"):
+                if m.get(k):
+                    og.append(f'<meta property="og:image:{k[9:]}" '
+                              f'content="{esc(m[k])}">')
+        else:
+            og.append(f'<meta property="og:image" content="{esc(base)}'
+                      '/img/favicon-180.png">')
+        og.append('<meta name="twitter:card" content="'
+                  f'{"summary_large_image" if og_image else "summary"}">')
+
+        caption = esc(m.get("caption", ""))
         self.write(page.output_path, url=page.url, title=page.title,
                    description=page.summary or str(m.get("standfirst", "")),
                    content=md_to_html(page.body), template=str(m["template"]),
                    extra={
+                       "page_title": str(m.get("page_title") or "").strip(),
+                       "og_title": esc(str(m.get("og_title")
+                                             or page.title).strip()),
+                       "og_description": esc(str(m.get("og_description")
+                                                 or page.summary
+                                                 or m.get("standfirst", "")).strip()),
+                       "og_extra": "\n".join(og),
                        "standfirst": esc(m.get("standfirst", "")),
                        "hero": hero,
-                       "caption": esc(m.get("caption", "")),
+                       # Optional: an empty caption emits no element at all
+                       # rather than an empty one that still takes margin.
+                       "caption": (f'<p class="caption">{caption}</p>'
+                                   if caption else ""),
                        "memo_head": memo_head,
                        "signoff": signoff,
                        "schedule_heading": esc(m.get("schedule_heading", "")),
-                       "preamble": esc(m.get("preamble", "")),
+                       "preamble": esc(str(m.get("preamble", "")).strip()),
                        "schedule": self.schedule_html(page),
                        "back_label": esc(m.get("back_label", self.site["name"])),
                    })
