@@ -6,7 +6,7 @@
 # listing things.
 # ---------------------------------------------------------------------------
 template: racing.html
-title: BattleMech Racing
+title: MechSports Division
 back_label: HighExplosive.net
 standfirst: Competitor materials issued by ComStar Entertainment Ltd, MechSports Division.
 
