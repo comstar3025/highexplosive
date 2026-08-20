@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ description }}">
+<link rel="canonical" href="{{ canonical }}">
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ base_url }}/img/favicon-180.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/img/favicon.ico" sizes="any">
+<link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/img/favicon-180.png">
+<style>
+/* The homepage's bones: white, one centred column, the system stack. The only
+   additions are the accent, the chequered rule and the schedule cards.
+
+   The accent is burnt orange — the Type M Locusts are sealed, identical and
+   orange for every team, so it belongs to the promoter rather than to any one
+   constructor, which matters as soon as a second series shares the page.
+   Contrast on white is 4.9:1. If it changes, keep it above 4.5:1. */
+:root{ --accent:#C2410C; --ink:#1a1a1a; --muted:#6b6b6b; --rule:#e2e2e2; }
+*{box-sizing:border-box}
+body{margin:0;padding:2.5rem 1.25rem 4rem;background:#fff;color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:34rem;margin:0 auto}
+
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#fff;
+  padding:10px 16px;font-weight:700;z-index:10}
+.skip:focus{left:0}
+
+.back{display:inline-block;font-size:.8125rem;color:var(--muted);text-decoration:none;
+  letter-spacing:.02em;margin-bottom:2.5rem}
+.back:hover{color:var(--accent)}
+
+h1{font-size:1.5rem;line-height:1.2;letter-spacing:.06em;font-weight:700;
+  margin:0 0 .8rem;text-transform:uppercase}
+
+/* Two 45° gradients rather than an image: no request, crisp at any zoom. */
+.chequer{height:18px;margin:0 0 1rem;
+  background-image:
+    linear-gradient(45deg,#141414 25%,transparent 25%,transparent 75%,#141414 75%),
+    linear-gradient(45deg,#141414 25%,transparent 25%,transparent 75%,#141414 75%);
+  background-size:18px 18px;background-position:0 0,9px 9px}
+
+.standfirst{color:var(--muted);font-size:.9375rem;margin:0 0 1.75rem}
+.hero{width:100%;height:auto;display:block;margin:0 0 .5rem}
+.caption{color:var(--muted);font-size:.75rem;text-align:center;margin:0 0 3rem;
+  letter-spacing:.02em}
+
+.memo-head{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:.9rem 0;margin:0 0 2rem;font-size:.8125rem;line-height:1.9;letter-spacing:.02em}
+.memo-head span{display:block}
+.memo-head b{display:inline-block;min-width:3.25rem;color:var(--muted);
+  font-weight:600;letter-spacing:.06em}
+
+.memo p{margin:0 0 1.15rem}
+.signoff{margin-top:2rem;font-size:.9375rem;line-height:1.55}
+.signoff .name{font-weight:600}
+.signoff .role{color:var(--muted);font-style:italic;display:block}
+
+h2{font-size:.875rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  margin:3.5rem 0 1rem}
+.preamble{color:var(--muted);font-size:.9375rem;margin:0 0 2rem}
+
+/* ---------------------------------------------- one card per series */
+.card{border:1px solid var(--rule);padding:1.75rem 1.5rem 1.25rem;margin:0 0 1.5rem}
+.card .mark{width:170px;height:auto;display:block;margin:0 auto 1.25rem}
+.card .name{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:700;text-align:center;margin:0 0 1.25rem}
+.card .blurb{font-size:.9375rem;margin:0 0 1.5rem}
+.card .blurb p{margin:0 0 .7rem}
+.card .blurb p:last-child{margin-bottom:0}
+.card .files{border-top:1px solid var(--rule);padding-top:1.25rem}
+
+.item{margin:0 0 1.1rem;display:flex;gap:1rem;align-items:flex-start;
+  justify-content:space-between}
+.item:last-child{margin-bottom:0}
+.item .txt{flex:1 1 auto;min-width:0}
+/* Thumbnails on the right. On the left, an entry without one leaves a phantom
+   gap and the titles stop aligning. */
+.item .thumb{flex:0 0 150px;border:1px solid var(--rule);line-height:0}
+.item .thumb img{width:100%;height:auto}
+.item a{color:var(--accent);text-decoration:none;font-weight:600;
+  border-bottom:1px solid transparent}
+.item a:hover,.item a:focus-visible{border-bottom-color:var(--accent)}
+.item .pending{color:var(--muted);font-style:italic;font-weight:600}
+.item .meta{display:block;color:var(--muted);font-size:.8125rem;margin-top:.15rem}
+
+footer{margin-top:4rem;padding-top:1.25rem;border-top:1px solid var(--rule);
+  color:var(--muted);font-size:.75rem}
+
+@media (max-width:480px){
+  body{padding-top:1.75rem}
+  h1{font-size:1.25rem}
+  .item .thumb{flex-basis:104px}
+}
+@media print{
+  body{padding:0}
+  .back,.skip{display:none}
+  .item a{color:#000;border-bottom:none}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="wrap" id="main">
+
+  <a class="back" href="/">&larr; {{ back_label }}</a>
+
+  <h1>{{ title }}</h1>
+  <div class="chequer"></div>
+  <p class="standfirst">{{ standfirst }}</p>
+
+  {{ hero }}
+  <p class="caption">{{ caption }}</p>
+
+  <div class="memo-head">
+{{ memo_head }}
+  </div>
+
+  <div class="memo">
+{{ content }}
+  </div>
+
+  {{ signoff }}
+
+  <h2>{{ schedule_heading }}</h2>
+  <p class="preamble">{{ preamble }}</p>
+
+{{ schedule }}
+
+  <footer>{{ legal_short }}</footer>
+
+</div>
+
+</body>
+</html>

@@ -387,11 +387,13 @@ class Builder:
         return "\n".join(items)
 
     def write(self, out_path: Path, *, url: str, title: str, description: str,
-              content: str, og_type: str = "website", template: str = "base.html") -> None:
+              content: str, og_type: str = "website", template: str = "base.html",
+              extra: dict | None = None) -> None:
         base = self.site["base_url"]
         page_title = title if url == "/" else f"{title} — {self.site['name']}"
         theme = str(self.site.get("theme", "dark")).lower()
         page = render_template(self.load_template(template), {
+            **(extra or {}),
             "theme": theme,
             "theme_color": "#ffffff" if theme == "light" else "#0f1216",
             "legal_short": esc(self.site.get("legal_short", "")),
@@ -411,9 +413,122 @@ class Builder:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(page, encoding="utf-8")
 
+    # ---- schedule of issued material -------------------------------------
+
+    def schedule_html(self, page: Page) -> str:
+        """One card per series, each listing that series' files.
+
+        Everything here comes from `series:` and `releases:` in the page's front
+        matter. Adding a download is one entry in that list and nothing else —
+        no markup, no prose. Grouping follows the `series` key; order within a
+        group follows the list; group order follows first appearance.
+
+        An entry with `status` instead of `href` renders unlinked and italic,
+        which is the "in preparation" state.
+        """
+        series = page.meta.get("series") or {}
+        releases = page.meta.get("releases") or []
+
+        groups: dict[str, list[dict]] = {}
+        for item in releases:
+            groups.setdefault(str(item.get("series", "")), []).append(item)
+
+        cards = []
+        for name, items in groups.items():
+            info = series.get(name) or {}
+            head = ""
+            if info.get("mark"):
+                fallback = info.get("mark_fallback")
+                img = (f'<img class="mark" src="{esc(info["mark"])}" '
+                       f'alt="{esc(name)}" loading="lazy">')
+                if fallback:
+                    img = (f'<picture><source srcset="{esc(info["mark"])}" '
+                           f'type="image/webp">'
+                           f'<img class="mark" src="{esc(fallback)}" '
+                           f'alt="{esc(name)}" loading="lazy"></picture>')
+                head = img
+            else:
+                head = f'<p class="name">{esc(name)}</p>'
+
+            blurb = (f'<div class="blurb">{md_to_html(str(info["blurb"]))}</div>'
+                     if info.get("blurb") else "")
+
+            rows = []
+            for item in items:
+                label, meta = str(item.get("label", "")), str(item.get("meta", ""))
+                if item.get("href"):
+                    title = f'<a href="{esc(item["href"])}">{esc(label)}</a>'
+                else:
+                    title = (f'<span class="pending">{esc(label)}'
+                             f'{" — " + esc(item["status"]) if item.get("status") else ""}'
+                             "</span>")
+                # Thumbnails sit on the RIGHT. On the left, an entry without one
+                # leaves a gap and the titles stop aligning.
+                thumb = ""
+                if item.get("thumb"):
+                    srcset = (f' srcset="{esc(item["thumb"])} 1x, '
+                              f'{esc(item["thumb2x"])} 2x"' if item.get("thumb2x") else "")
+                    thumb = (f'<span class="thumb"><img src="{esc(item["thumb"])}"'
+                             f'{srcset} alt="" loading="lazy"></span>')
+                rows.append(f"""        <div class="item">
+          <span class="txt">{title}
+            <span class="meta">{esc(meta)}</span></span>
+{thumb and "          " + thumb}
+        </div>""")
+
+            cards.append(f"""    <section class="card">
+      {head}
+      {blurb}
+      <div class="files">
+{chr(10).join(rows)}
+      </div>
+    </section>""")
+        return "\n".join(cards)
+
+    # ---- a page that brings its own template ------------------------------
+
+    def write_templated_page(self, page: Page) -> None:
+        """Front matter names a template; the front matter fills it in."""
+        m = page.meta
+        hero = ""
+        if m.get("hero"):
+            srcset = (f' srcset="{esc(m["hero"])} 1x, {esc(m["hero2x"])} 2x"'
+                      if m.get("hero2x") else "")
+            hero = (f'<img class="hero" src="{esc(m.get("hero_fallback") or m["hero"])}"'
+                    f'{srcset} alt="{esc(m.get("hero_alt", ""))}">')
+
+        memo_head = "\n".join(
+            f'      <span><b>{esc(k)}</b> {esc(v)}</span>'
+            for row in (m.get("memo_head") or []) for k, v in row.items())
+
+        sign = m.get("signoff") or {}
+        signoff = ""
+        if sign:
+            lines = "".join(f'<span class="role">{esc(l)}</span>'
+                            for l in (sign.get("lines") or []))
+            signoff = (f'<p class="signoff"><span class="name">'
+                       f'{esc(sign.get("name", ""))}</span><br>{lines}</p>')
+
+        self.write(page.output_path, url=page.url, title=page.title,
+                   description=page.summary or str(m.get("standfirst", "")),
+                   content=md_to_html(page.body), template=str(m["template"]),
+                   extra={
+                       "standfirst": esc(m.get("standfirst", "")),
+                       "hero": hero,
+                       "caption": esc(m.get("caption", "")),
+                       "memo_head": memo_head,
+                       "signoff": signoff,
+                       "schedule_heading": esc(m.get("schedule_heading", "")),
+                       "preamble": esc(m.get("preamble", "")),
+                       "schedule": self.schedule_html(page),
+                       "back_label": esc(m.get("back_label", self.site["name"])),
+                   })
+
     # ---- individual content page ----------------------------------------
 
     def write_page(self, page: Page) -> None:
+        if page.meta.get("template"):
+            return self.write_templated_page(page)
         body_html = md_to_html(page.body, use_toc=bool(page.meta.get("toc")))
         bits = []
         if page.section:

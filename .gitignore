@@ -22,3 +22,6 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+
+# Local verification screenshots.
+shots/

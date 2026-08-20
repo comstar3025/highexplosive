@@ -2,6 +2,8 @@
 bare: true
 title: HighExplosive.net
 links:
-  - title: Weapon Package Comparator
+  - title: Com Guard Weapon Package Comparator
     url: /tools/comparator/
+  - title: MechSports Division
+    url: /racing/
 ---
