@@ -9,22 +9,30 @@ template: racing.html
 title: MechSports Division
 back_label: HighExplosive.net
 
-# The browser/search title and the social card. Kept apart from `title:`, which
-# is the h1 — people search for "BattleTech mech racing rules", not for the
-# name of a fictional division.
-page_title: BattleMech Racing — Formula Thunder rules and record sheets | HighExplosive.net
+# The browser/search title, the meta description and the social card. Kept in
+# one block, in front matter, so there is one place to edit and nowhere to
+# forget.
+#
+# NOTHING HERE MAY NAME A SERIES, OR COUNT SERIES, MACHINES OR DOCUMENTS.
+# The test is that adding Formula X tomorrow needs no edit to this block. The
+# previous version failed it three times over: it named Formula Thunder, it
+# counted ten record sheets, and it said "a printable circuit map" when there
+# were already two.
+page_title: ComStar Entertainment Ltd · MechSports Division
 summary: >
-  Free BattleTech ‘Mech racing rules. The Formula Thunder competitor pack: full
-  regulations, ten record sheets and a printable circuit map, for use with the
-  BattleTech Core Rulebook. Unofficial fan-made material, no charge.
-og_title: BattleMech Racing — Formula Thunder
+  Free BattleTech ‘Mech racing rules: regulations, technical specification,
+  record sheets and printable circuit maps.
+og_title: ComStar Entertainment Ltd · MechSports Division
 og_description: >
-  Free BattleTech ‘Mech racing rules: regulations, record sheets and a printable
-  circuit map. Two laps, ten machines, and a racing line seeded with mines.
-og_image: /racing/img/og-racing.jpg
+  Free BattleTech ‘Mech racing rules: regulations, technical specification,
+  record sheets and printable circuit maps.
+# Any change to the card's artwork gets a NEW FILENAME. Every scraper caches
+# og:image by URL and re-fetches lazily or never, so replacing the file in
+# place leaves the old card on links already posted.
+og_image: /racing/img/og-msd.png
 og_image_width: 1200
 og_image_height: 630
-og_image_alt: The five Formula Thunder racing BattleMechs in team livery
+og_image_alt: The MechSports Division seal
 standfirst: Competitor materials issued by ComStar Entertainment Ltd.
 
 # The Division's seal, in the masthead's left gutter. SVG for the masthead;
@@ -80,11 +88,13 @@ series:
       being quick stops being an answer and the other nine are the hazard.
 
   MechSports Division:
-    mark: /racing/img/msd-logo.webp
-    mark_fallback: /racing/img/msd-logo.png
-    # Lower than the shared 140px cap. The seal is authority, not merchandise,
-    # and should not outweigh the two series marks beside it.
-    mark_max_height: 83
+    # The lockup, not the bare seal — the masthead keeps the seal, and one mark
+    # doing both jobs on one page dilutes it. At 4.27:1 the lockup is
+    # width-constrained under the shared caps and lands at 326 × 76, a hair
+    # shorter than Crossfire's 326 × 83. So it takes NO height cap of its own:
+    # the old 83px override would now force it narrower than its siblings.
+    mark: /racing/img/msd-lockup.webp
+    mark_fallback: /racing/img/msd-lockup.png
     blurb: |
       This section contains technical specification forms for sanctioned
       MechSports events, and other administrative materials.
