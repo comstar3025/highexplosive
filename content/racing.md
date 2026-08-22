@@ -27,6 +27,11 @@ og_image_height: 630
 og_image_alt: The five Formula Thunder racing BattleMechs in team livery
 standfirst: Competitor materials issued by ComStar Entertainment Ltd.
 
+# The Division's seal, in the masthead's left gutter. SVG for the masthead;
+# the card instance uses the raster.
+seal: /racing/img/msd-logo.svg
+seal_alt: MechSports Division
+
 hero: /racing/img/ft-grid-hero.webp
 hero2x: /racing/img/ft-grid-hero@2x.webp
 hero_fallback: /racing/img/ft-grid-hero.png
@@ -45,11 +50,12 @@ signoff:
 
 schedule_heading: Schedule of issued material
 preamble: >
-  Issued without charge to any party intending to run a sanctioned event. The
-  competitor pack for each series contains the regulations and the full set of
-  record sheets in a single document. Circuit surveys are issued separately, at
-  full survey scale. Nothing here restates general 'Mech operating doctrine, and
-  competitors are assumed to hold a current copy.
+  Issued without charge to any party intending to run a sanctioned event.
+  Materials include racing regulations, technical specifications and record
+  sheets. Circuit surveys are issued separately, at full survey scale. Nothing
+  here restates general 'Mech operating doctrine; organisers and competitors
+  are assumed to hold a current copy.
+
 
 # One entry per series. A second series brings its own mark, blurb and files,
 # and nothing about the page changes.
@@ -65,6 +71,24 @@ series:
       Control is a 90-ton Highlander that sets the pace, and three turrets that
       shoot rule-breakers.
 
+  Formula Crossfire:
+    mark: /racing/img/fc-logo.webp
+    mark_fallback: /racing/img/fc-logo.png
+    blurb: |
+      Two laps of a figure-eight. Ten machines, all of them hostile. Twice a lap
+      the crossover brings the whole field back together nose to nose, where
+      being quick stops being an answer and the other nine are the hazard.
+
+  MechSports Division:
+    mark: /racing/img/msd-logo.webp
+    mark_fallback: /racing/img/msd-logo.png
+    # Lower than the shared 140px cap. The seal is authority, not merchandise,
+    # and should not outweigh the two series marks beside it.
+    mark_max_height: 83
+    blurb: |
+      This section contains technical specification forms for sanctioned
+      MechSports events, and other administrative materials.
+
 # `href` publishes a link. `status` instead of `href` renders it italic and
 # unlinked — the "in preparation" state. `href` may be a path on this site or a
 # full URL somewhere else.
@@ -72,14 +96,41 @@ releases:
   - series: Formula Thunder
     label: Competitor Pack — Series 1, 3054 season
     meta: PDF · regulations and record sheets
-    href: https://archive.highexplosive.net/ft-pack-3054.pdf
+    href: https://archive.highexplosive.net/Formula-Thunder-Competitor-Pack-3054-Series-1.pdf
 
   - series: Formula Thunder
     label: Circuit Survey — Kinnekulle Speedway
     meta: JPG · prints at 44 × 25 in
-    href: https://archive.highexplosive.net/ft-kinnekulle.jpg
+    href: https://archive.highexplosive.net/Kinnekulle-Speedway-Oval-300dpi.jpg
     thumb: /racing/img/ft-kinnekulle-thumb.webp
-    thumb2x: /racing/img/ft-kinnekulle-thumb@2x.webp
+    thumb_fallback: /racing/img/ft-kinnekulle-thumb.png
+
+  - series: Formula Thunder
+    label: Form TS-1 — Series 1, 3054 season
+    meta: PDF · technical specification
+    href: https://archive.highexplosive.net/Formula-Thunder-Form-TS-1-3054-Series-1.pdf
+
+  - series: Formula Crossfire
+    label: General Regulations
+    meta: PDF · sporting regulations and race formats
+    href: https://archive.highexplosive.net/Formula-Crossfire-General-Regulations.pdf
+
+  - series: Formula Crossfire
+    label: Form TS-1 — Crossfire Trophy, 3131 season
+    meta: PDF · technical specification
+    href: https://archive.highexplosive.net/Formula-Crossfire-Form-TS-1-3131-Trophy.pdf
+
+  - series: Formula Crossfire
+    label: Circuit Survey — Magna Speedrome
+    meta: JPG · prints at 44 × 25 in
+    href: https://archive.highexplosive.net/Magna-Speedrome-Figure-eight-300dpi.jpg
+    thumb: /racing/img/fc-magna-thumb.webp
+    thumb_fallback: /racing/img/fc-magna-thumb.png
+
+  - series: MechSports Division
+    label: Form TS-1 — blank
+    meta: PDF · blank form, fillable
+    href: https://archive.highexplosive.net/MechSports-Division-Form-TS-1-Blank.pdf
 ---
 
 You have the Division from the first of next month, so this is the last of these I write.

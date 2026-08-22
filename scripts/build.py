@@ -442,12 +442,17 @@ class Builder:
             head = ""
             if info.get("mark"):
                 fallback = info.get("mark_fallback")
-                img = (f'<img class="mark" src="{esc(info["mark"])}" '
+                # A series may lower the shared 140px height cap for its own
+                # mark. The Division seal does: it is authority rather than
+                # merchandise and should not outweigh the two series marks.
+                cap = (f' style="max-height:{int(info["mark_max_height"])}px"'
+                       if info.get("mark_max_height") else "")
+                img = (f'<img class="mark" src="{esc(info["mark"])}"{cap} '
                        f'alt="{esc(name)}" loading="lazy">')
                 if fallback:
                     img = (f'<picture><source srcset="{esc(info["mark"])}" '
                            f'type="image/webp">'
-                           f'<img class="mark" src="{esc(fallback)}" '
+                           f'<img class="mark" src="{esc(fallback)}"{cap} '
                            f'alt="{esc(name)}" loading="lazy"></picture>')
                 head = img
             else:
@@ -467,12 +472,23 @@ class Builder:
                              "</span>")
                 # Thumbnails sit on the RIGHT. On the left, an entry without one
                 # leaves a gap and the titles stop aligning.
+                # A 480px thumbnail displayed at 150px CSS is already better
+                # than 3x, so there is no separate retina file — `thumb` is the
+                # WebP and `thumb_fallback` the PNG for anything that cannot
+                # read it. `thumb2x` is still honoured for older entries.
                 thumb = ""
                 if item.get("thumb"):
-                    srcset = (f' srcset="{esc(item["thumb"])} 1x, '
-                              f'{esc(item["thumb2x"])} 2x"' if item.get("thumb2x") else "")
-                    thumb = (f'<span class="thumb"><img src="{esc(item["thumb"])}"'
-                             f'{srcset} alt="" loading="lazy"></span>')
+                    img = f'<img src="{esc(item["thumb"])}" alt="" loading="lazy">'
+                    if item.get("thumb2x"):
+                        img = (f'<img src="{esc(item["thumb"])}" srcset="'
+                               f'{esc(item["thumb"])} 1x, {esc(item["thumb2x"])} 2x"'
+                               ' alt="" loading="lazy">')
+                    elif item.get("thumb_fallback"):
+                        img = (f'<picture><source srcset="{esc(item["thumb"])}" '
+                               f'type="image/webp">'
+                               f'<img src="{esc(item["thumb_fallback"])}" alt="" '
+                               'loading="lazy"></picture>')
+                    thumb = f'<span class="thumb">{img}</span>' 
                 rows.append(f"""        <div class="item">
           <span class="txt">{title}
             <span class="meta">{esc(meta)}</span></span>
@@ -532,6 +548,13 @@ class Builder:
         og.append('<meta name="twitter:card" content="'
                   f'{"summary_large_image" if og_image else "summary"}">')
 
+        # The masthead seal. SVG by preference — it is a line device and scales
+        # without a second file — with the raster as fallback.
+        seal = ""
+        if m.get("seal"):
+            seal = (f'    <img class="seal" src="{esc(m["seal"])}" '
+                    f'alt="{esc(m.get("seal_alt", ""))}">')
+
         caption = esc(m.get("caption", ""))
         self.write(page.output_path, url=page.url, title=page.title,
                    description=page.summary or str(m.get("standfirst", "")),
@@ -544,6 +567,7 @@ class Builder:
                                                  or page.summary
                                                  or m.get("standfirst", "")).strip()),
                        "og_extra": "\n".join(og),
+                       "seal": seal,
                        "standfirst": esc(m.get("standfirst", "")),
                        "hero": hero,
                        # Optional: an empty caption emits no element at all
