@@ -93,8 +93,11 @@ h1{font-family:var(--display);font-size:23px;line-height:1.2;letter-spacing:.09e
 
 .memo-head{border-top:1px solid var(--rule-firm);border-bottom:1px solid var(--rule-firm);
   padding:.9rem 0;margin:0 0 2rem;font-size:.8125rem;line-height:1.9;letter-spacing:.02em}
-.memo-head span{display:block}
-.memo-head b{display:inline-block;min-width:3.5rem;color:var(--navy);font-weight:400;
+/* A real two-column row, not a min-width fake: the RE line is long enough to
+   wrap, and an inline-block label lets the second line run back to the page
+   margin instead of hanging under the first. */
+.memo-head span{display:grid;grid-template-columns:3.5rem 1fr;align-items:baseline}
+.memo-head b{color:var(--navy);font-weight:400;
   font-family:var(--display);font-size:.6875rem;letter-spacing:.09em;text-transform:uppercase}
 
 .memo p{margin:0 0 1.15rem}
