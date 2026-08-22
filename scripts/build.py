@@ -84,11 +84,17 @@ OUT = ROOT / "_site"
 MD_EXTENSIONS = [
     "extra",        # tables, fenced code, footnotes, attribute lists, def lists
     "sane_lists",
-    "smarty",       # curly quotes and proper dashes
+    "smarty",       # proper dashes and ellipses — see below on quotes
     "toc",
     "admonition",
 ]
-MD_CONFIG = {"toc": {"permalink": False}}
+# Dashes and ellipses get typeset; quotes deliberately do not. The house style
+# is the straight apostrophe throughout, `'Mech included, and smarty's quote
+# pass is the only thing that would curl them. Front matter never goes through
+# Markdown at all, so leaving this on would also have curled the body and left
+# the metadata straight — two conventions on one page.
+MD_CONFIG = {"toc": {"permalink": False},
+             "smarty": {"smart_quotes": False}}
 
 
 # --------------------------------------------------------------------------

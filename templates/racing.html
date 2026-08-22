@@ -54,10 +54,13 @@ body{margin:0;padding:2.5rem 1.25rem 4rem;background:var(--paper);color:var(--in
   padding:10px 16px;font-weight:700;z-index:10}
 .skip:focus{left:0}
 
-/* The back link and the footer are the real world. Plain, quiet, no display
-   face and no small caps — they should not sound like the material. */
-.back{display:inline-block;font-size:.8125rem;color:var(--muted);
-  text-decoration:none;margin-bottom:2.5rem}
+/* The back link takes the display face — it is the one piece of site furniture
+   that names the site, so it may as well be set in the site's face. Tracked at
+   .06em: Anta needs air at this size, but less than the uppercase headings get,
+   because this is mixed case and still meant to be quiet. The footer stays
+   plain — it is a trademark notice, not a wayfinder. */
+.back{display:inline-block;font-family:var(--display);font-size:.8125rem;
+  letter-spacing:.06em;color:var(--muted);text-decoration:none;margin-bottom:2.5rem}
 .back:hover{color:var(--navy)}
 
 /* ------------------------------------------------------- masthead

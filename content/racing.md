@@ -18,13 +18,16 @@ back_label: HighExplosive.net
 # previous version failed it three times over: it named Formula Thunder, it
 # counted ten record sheets, and it said "a printable circuit map" when there
 # were already two.
-page_title: ComStar Entertainment Ltd · MechSports Division
+# `page_title` and `og_title` are separate tags and do not have to agree. The
+# tab and the search result lead with the identity, then carry the words people
+# actually search for; the share card carries the identity alone.
+page_title: ComStar Entertainment Ltd MechSports Division - BattleTech 'Mech Racing Rules
 summary: >
-  Free BattleTech ‘Mech racing rules: regulations, technical specification,
+  Free BattleTech 'Mech racing rules: regulations, technical specification,
   record sheets and printable circuit maps.
 og_title: ComStar Entertainment Ltd · MechSports Division
 og_description: >
-  Free BattleTech ‘Mech racing rules: regulations, technical specification,
+  Free BattleTech 'Mech racing rules: regulations, technical specification,
   record sheets and printable circuit maps.
 # Any change to the card's artwork gets a NEW FILENAME. Every scraper caches
 # og:image by URL and re-fetches lazily or never, so replacing the file in
@@ -33,7 +36,7 @@ og_image: /racing/img/og-msd.png
 og_image_width: 1200
 og_image_height: 630
 og_image_alt: The MechSports Division seal
-standfirst: Competitor materials issued by ComStar Entertainment Ltd.
+standfirst: Materials issued by ComStar Entertainment Ltd.
 
 # The Division's seal, in the masthead's left gutter. SVG for the masthead;
 # the card instance uses the raster.
@@ -59,9 +62,9 @@ signoff:
 schedule_heading: Schedule of issued material
 preamble: >
   Issued without charge to any party intending to run a sanctioned event.
-  Materials include racing regulations, technical specifications and record
+  Materials include sporting regulations, technical specifications and record
   sheets. Circuit surveys are issued separately, at full survey scale. Nothing
-  here restates general ‘Mech operating doctrine; organisers and competitors
+  here restates general 'Mech operating doctrine; organisers and competitors
   are assumed to hold a current copy.
 
 
@@ -74,7 +77,7 @@ series:
     blurb: |
       Two laps. Ten machines. You win by crossing the line, not by winning a fight.
 
-      Every team fields two ‘Mechs: a runner, and a Locust whose only job is to
+      Every team fields two 'Mechs: a runner, and a Locust whose only job is to
       put mines on the racing line and survive long enough to do it again. Race
       Control is a 90-ton Highlander that sets the pace, and three turrets that
       shoot rule-breakers.
@@ -149,13 +152,13 @@ The official history says Series 1 began with a wager between two men. There was
 
 In my youth I worked for the Mercenary Review Board on Rasalhague. I was the clerk who received the applications when the hall opened, and I was still receiving them a decade later, which will tell you as much about my early career as you need to know. The Board itself no longer exists. It was wound up the year before last and nobody thought to write and tell me.
 
-Part of that desk was contract outcomes. Who came back, who did not, and how much of the machine came back with them. After four years of it I could tell you which scout pilots were going to lose their ‘Mech before they signed. It was not skill; the good ones and the dead ones scored the same on skill. It was something else, and there was no box on the form for it.
+Part of that desk was contract outcomes. Who came back, who did not, and how much of the machine came back with them. After four years of it I could tell you which scout pilots were going to lose their 'Mech before they signed. It was not skill; the good ones and the dead ones scored the same on skill. It was something else, and there was no box on the form for it.
 
 So I proposed a screening ground. Surplus land, some borrowed light machines, and a set of exercises to sort the ones who could judge a risk from the ones who simply enjoyed taking one. It was approved because it was cheap. I will be honest with you: it did not work. It never told me anything the contract outcomes had not already told me.
 
 What it did do was this. I went out there one afternoon in the fourth month and found six of them racing. Not exercising — racing, on a course they had marked out themselves, watched by about forty people who had walked out from the hall, with a book being run on the outcome by a man from the commissary.
 
-I want something on the record, because I have heard it said and I have not always corrected it. I did not invent ‘Mech racing. People have raced these machines for as long as there have been machines to race, locally and amateurishly, on stock chassis, in front of whoever could be bothered to turn up. What I saw at that fence was not new. It was only the first time I had seen it and understood that somebody could sell tickets.
+I want something on the record, because I have heard it said and I have not always corrected it. I did not invent 'Mech racing. People have raced these machines for as long as there have been machines to race, locally and amateurishly, on stock chassis, in front of whoever could be bothered to turn up. What I saw at that fence was not new. It was only the first time I had seen it and understood that somebody could sell tickets.
 
 The mines were not mine either. The screening ground had live charges scattered across it, a legacy of an earlier exercise and a filing failure I was too junior to be blamed for, and the men out there worked out inside a fortnight that this made the course more interesting. All I did was write it down as a regulation instead of as an incident. Getting it up off the ground and into a launcher took rather longer, and took an Adept-Zeta in Science and Research who agreed to build me a few prototype warheads as an after-hours matter. I never asked what she booked them as. She never asked what I wanted them for.
 
@@ -175,6 +178,6 @@ You will be asked to approve new material. An amended technical specification, a
 
 One last thing, and it is not administrative.
 
-The screening ground never told me which pilots would come home. It was a bad instrument and I have said so in writing. But I have now watched fifteen seasons of people who volunteer to drive twenty tons of unarmoured scout ‘Mech into a minefield they laid themselves, and I have formed a view about the type, and it is not the view I held at that desk, on a world that still had a queue outside it.
+The screening ground never told me which pilots would come home. It was a bad instrument and I have said so in writing. But I have now watched fifteen seasons of people who volunteer to drive twenty tons of unarmoured scout 'Mech into a minefield they laid themselves, and I have formed a view about the type, and it is not the view I held at that desk, on a world that still had a queue outside it.
 
 They are the best of them. Write that down somewhere the Order will not find it.
