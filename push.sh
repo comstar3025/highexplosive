@@ -10,18 +10,18 @@
 
 set -euo pipefail
 
-BUNDLE_DIR="$HOME/Library/CloudStorage/Dropbox/Games/BattleTech/Projects"
+# One exact file, not the newest match in a directory. The old version took
+# whatever *.bundle was newest in Projects/, which meant any second bundle left
+# nearby — the full-history backup, say — could quietly become the thing that
+# got pushed.
+DEFAULT_BUNDLE="$HOME/Library/CloudStorage/Dropbox/Games/BattleTech/Projects/HighExplosive.net/_Claude/hx-racing.bundle"
 
 cd "$(dirname "$0")"
 
 # --- find the bundle -------------------------------------------------------
-bundle="${1:-}"
-if [ -z "$bundle" ]; then
-  # Newest *.bundle in the Dropbox folder. Explicit path as $1 overrides.
-  bundle=$(ls -t "$BUNDLE_DIR"/*.bundle 2>/dev/null | head -1 || true)
-fi
-if [ -z "$bundle" ] || [ ! -f "$bundle" ]; then
-  echo "No bundle found in $BUNDLE_DIR" >&2
+bundle="${1:-$DEFAULT_BUNDLE}"
+if [ ! -f "$bundle" ]; then
+  echo "No bundle at $bundle" >&2
   echo "Pass one explicitly:  ./push.sh /path/to/file.bundle" >&2
   exit 1
 fi
