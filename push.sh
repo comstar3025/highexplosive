@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Apply the newest bundle Claude left in Dropbox, then push.
+# Apply the bundle Claude left in Dropbox, then push.
 #
 #     cd ~/Projects/highexplosive && ./push.sh
 #
