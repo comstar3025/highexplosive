@@ -19,8 +19,10 @@
            font-weight:400;font-display:swap}
 
 /* Palette taken from the sigil itself: silver, its blue field, its red star. */
-html[data-theme="light"]{--bg:#ffffff;--ink:#14171a;--link:#00609d;--hover:#970000;--faint:#c9ccd0}
-html[data-theme="dark"] {--bg:#0f1216;--ink:#e6e9ee;--link:#4da3ff;--hover:#ff9f43;--faint:#242a32}
+html[data-theme="light"]{--bg:#ffffff;--ink:#14171a;--link:#00609d;--hover:#970000;--faint:#c9ccd0;
+                         --faint-ink:#8b9096}
+html[data-theme="dark"] {--bg:#0f1216;--ink:#e6e9ee;--link:#4da3ff;--hover:#ff9f43;--faint:#242a32;
+                         --faint-ink:#7d8896}
 
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -32,20 +34,43 @@ body{
   padding:32px 22px;
 }
 
-.mark{display:block;width:auto;height:min(38vh,260px);margin:0 0 42px}
+.mark{display:block;width:auto;height:min(38vh,260px);margin:0 0 48px}
 
-.links{display:flex;flex-direction:column;align-items:center;gap:14px}
-.links a{
+/* Grouping is carried by spacing alone — nothing is added to the page but
+   words. 16px from a heading to its links against 44px between groups: the
+   2.75 ratio is the design. Below about 2.5 the groups bleed into each other;
+   above about 3.5 the page fragments into two unrelated blocks. */
+.links{display:flex;flex-direction:column;align-items:center}
+.grp+.grp{margin-top:44px}
+.lk{
   font-family:"HXDisplay",ui-sans-serif,system-ui,sans-serif;
   font-size:clamp(15px,2.4vw,19px);
   letter-spacing:.11em;
   color:var(--link);
   text-decoration:none;
   padding:3px 2px;
+  display:block;text-align:center;
   border-bottom:1px solid transparent;
 }
-.links a:hover,.links a:focus-visible{color:var(--hover);border-bottom-color:currentColor}
-.links a:focus-visible{outline:none}
+.lk+.lk{margin-top:14px}
+.lk:hover,.lk:focus-visible{color:var(--hover);border-bottom-color:currentColor}
+.lk:focus-visible{outline:none}
+
+/* The headings must read as unclickable at a glance, or the one-item group is
+   taken for a third link. Smaller, uppercase, widely tracked, and in a grey
+   that is neither the ink nor the link blue. text-indent matches the tracking:
+   Anta's trailing sidebearing pushes a centred tracked line visibly left
+   otherwise. */
+.hd{
+  font-family:"HXDisplay",ui-sans-serif,system-ui,sans-serif;
+  text-transform:uppercase;
+  font-size:clamp(10.5px,1.5vw,12.5px);
+  letter-spacing:.26em;
+  text-indent:.26em;
+  color:var(--faint-ink);
+  text-align:center;
+  margin:0 0 16px;
+}
 
 .legal{
   position:fixed;left:0;right:0;bottom:0;
@@ -55,7 +80,8 @@ body{
 }
 
 @media (max-width:480px){
-  .mark{height:min(24vh,150px);margin-bottom:30px}
+  .mark{height:min(24vh,150px);margin-bottom:34px}
+  .grp+.grp{margin-top:32px}
   .legal{font-size:9px;padding-bottom:14px}
 }
 </style>

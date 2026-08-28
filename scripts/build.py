@@ -709,20 +709,46 @@ class Builder:
     def write_bare_home(self, home: Page) -> None:
         """The sigil and a list of links. Nothing else on the page.
 
-        Links come from the front matter of content/index.md:
+        Either a flat list:
 
             links:
               - title: Weapon Package Comparator
                 url: /tools/comparator/
+
+        or groups under in-universe headings:
+
+            groups:
+              - heading: Focht War College
+                links:
+                  - title: Weapon Package Comparator
+                    url: /tools/comparator/
+
+        A heading may only ever be a proper noun inside the fiction — the name
+        of a body that could plausibly have letterhead. Never a category
+        ("Tools"), never a descriptor. That is the whole rule, and it is what
+        keeps a heading from reading as the explanatory label the page refuses
+        to carry.
         """
-        rows = []
-        for item in (home.meta.get("links") or []):
+        def link(item) -> str:
             if isinstance(item, str):
                 item = {"title": item, "url": item}
             url = str(item.get("url", "")).strip()
             external = url.startswith(("http://", "https://"))
             attrs = ' target="_blank" rel="noopener"' if external else ""
-            rows.append(f'  <a href="{esc(url)}"{attrs}>{esc(item.get("title", url))}</a>')
+            return (f'    <a class="lk" href="{esc(url)}"{attrs}>'
+                    f'{esc(item.get("title", url))}</a>')
+
+        rows = []
+        groups = home.meta.get("groups") or []
+        if groups:
+            for g in groups:
+                links = "\n".join(link(i) for i in (g.get("links") or []))
+                heading = str(g.get("heading", "")).strip()
+                rows.append('  <div class="grp">'
+                            + (f'\n    <p class="hd">{esc(heading)}</p>' if heading else "")
+                            + f"\n{links}\n  </div>")
+        else:
+            rows = [link(i) for i in (home.meta.get("links") or [])]
 
         self.write(OUT / "index.html", url="/", title=self.site["name"],
                    description=self.site.get("description", ""),
