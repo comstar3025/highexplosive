@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Com Guard weapon package comparator</title>
+<title>Weapon Package Comparator</title>
 <!-- Baked in by build_assets.py alongside the mark and the font, for the same
      reason: a linked icon file would break the one property that makes this
      page shareable. -->
@@ -14,7 +14,7 @@
      build_assets.py. It ships with MekHQ under the SIL Open Font License, so
      it comes out of Sources/ like everything else and the page stays offline -
      a remote font would break the one property that makes this shareable. */
-  @font-face{font-family:"BTDisplay";src:url("data:font/ttf;base64,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") format("truetype");
+  @font-face{font-family:"HXDisplay";src:url("data:font/ttf;base64,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") format("truetype");
              font-weight:400;font-display:swap}
   :root{
     --bg:#0f1216; --panel:#171b21; --panel2:#1e242c; --line:#2b323c; --line2:#39424f;
@@ -35,12 +35,20 @@
        font:14px/1.45 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
   /* Display face on the title and the section headings only. Body text stays
      on the system stack, which is what holds up at 11px in a dense table. */
-  h1,h2,.bandhdr{font-family:"BTDisplay",ui-sans-serif,system-ui,sans-serif}
+  h1,h2,.bandhdr{font-family:"HXDisplay",ui-sans-serif,system-ui,sans-serif}
   h1{font-size:17px;margin:0;letter-spacing:.09em;text-transform:uppercase}
   .titlebar .brand{display:flex;align-items:center;gap:11px;min-width:0}
   .titlebar .brand img{height:30px;width:auto;display:block;flex:none;
                        filter:drop-shadow(0 0 6px rgba(77,163,255,.25))}
   .titlebar .brand h1{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  /* Title and subtitle stack; the mark and the version sit either side of the
+     pair. Set in the body face rather than the display one, unspaced and in
+     sentence case - it is a line of prose under a piece of lettering, and the
+     simulator's masthead does the same. */
+  .titlebar .brand .titles{min-width:0}
+  .titlebar .brand .subtitle{font-size:12px;color:var(--dim);margin:2px 0 0;
+                             white-space:nowrap;overflow:hidden;
+                             text-overflow:ellipsis}
   .titlebar .ver{font-size:10px;color:var(--faint);align-self:flex-start;
                  margin-top:3px;letter-spacing:.06em;flex:none}
   h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin:0 0 10px}
@@ -348,6 +356,30 @@
   .notes .sig{margin-top:18px;padding-top:12px;border-top:1px solid var(--line);
               color:var(--ink)}
   .notes em{color:var(--faint)}
+  /* ------------------------------------------------------ detail level
+     Acolyte strips the sheet back to the question a player actually asked:
+     which of these packages hits harder, and where. Everything it hides is
+     either a condition of the shot - which it resets to default, so the
+     numbers always match what is on screen - or an instrument for reading the
+     answer rather than the answer itself.
+
+     Done in CSS wherever the thing being hidden is markup, because a
+     stylesheet rule cannot fall out of step with a render the way a second
+     copy of the layout would. */
+  body.acolyte #targetRow,
+  body.acolyte #rulesRow,
+  body.acolyte #envBandCtl,
+  body.acolyte .a-hide,
+  body.acolyte .ammoplan{display:none}
+  /* The weights behind ComScore are the working, not the answer, so they keep
+     company with the rest of the working rather than with the instruments. */
+  body:not(.precentor) .params{display:none}
+  /* The ammunition column goes with the ammunition controls, so the row loses
+     a column rather than keeping an empty one. */
+  body.acolyte .itemhdr,
+  body.acolyte .itemrow{grid-template-columns:52px 1fr 92px 82px 42px}
+  body.acolyte .itemhdr>span:nth-child(5),
+  body.acolyte .itemrow>*:nth-child(5){display:none}
   .rulesopts{justify-content:flex-start}
   .rulesopts .chk{padding:1px 0;white-space:nowrap}
   /* Four checkboxes read as a block, not as a column: two rows of two keeps
@@ -364,7 +396,8 @@
      app: the screen layout is a workbench and a report is not. On screen the
      container is hidden; for printing everything else is. */
   #report{background:#fff;color:#111;font-size:10pt;line-height:1.35;padding:0 14mm}
-  #report h1{font-size:16pt;margin:0 0 2mm;color:#111;letter-spacing:0}
+  #report h1{font-size:16pt;margin:0 0 1mm;color:#111;letter-spacing:0}
+  #report .rptsub{font-size:8pt;color:#666;margin:0 0 3mm}
   #report h2{font-size:11pt;margin:6mm 0 2mm;color:#111;text-transform:none;
              letter-spacing:0;border-bottom:1px solid #bbb;padding-bottom:1mm}
   #report h3{font-size:10pt;margin:0 0 1.5mm;color:#111;text-transform:none;
@@ -436,8 +469,11 @@
   <div class="titlebar" id="titlebar">
     <div class="brand">
       <img src="data:image/png;base64,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" alt="" width="14" height="30">
-      <h1>Com Guard weapon package comparator</h1>
-      <span class="ver">v1.06</span>
+      <div class="titles">
+        <h1>Weapon Package Comparator</h1>
+        <p class="subtitle">Property of the Focht War College, Tukayyid.</p>
+      </div>
+      <span class="ver">v1.07</span>
     </div>
     <div class="toolbar">
       <span class="note" id="loadNote"></span>
@@ -480,7 +516,7 @@
       </div>
       <!-- Everything else about the target sits on its own line below: what it
            is wearing, and what it is carrying to spoil the shot. -->
-      <div class="inline subrow">
+      <div class="inline subrow" id="targetRow">
         <div class="field"><label>Hostile ECM</label>
           <select id="ecm" title="Attack is under the infuence of hostile ECM, which affects numerous electronic components"></select></div>
         <div class="field"><label title="The armour the target is wearing, which affects damage calculations (or to-hit, for Stealth armour)">Target armour</label>
@@ -517,19 +553,26 @@
     <section class="grp">
       <h3 title="Preferences for information display; does not affect calculations">Settings</h3>
       <div class="inline">
-        <div class="field"><label>Evaluate by</label>
+        <!-- Leftmost, and first at every level: it is the control that decides
+             what the rest of the row contains, so it must not move when the
+             row around it changes shape. -->
+        <div class="field"><label title="Two switches that add information to the sheet without changing a single number in it.">Clearance</label>
+          <select id="detail" title="How much of the sheet to show. Acolyte is the short answer; Adept adds the instruments; Precentor shows the working behind every figure. Acolyte resets the conditions it hides, so the numbers always match what is on screen.">
+            <option value="acolyte">Acolyte</option>
+            <option value="adept" selected>Adept</option>
+            <option value="precentor">Precentor</option>
+          </select></div>
+        <div class="field a-hide"><label>Evaluate by</label>
           <select id="autoBy" title="Toggles whether package performance is measured against raw damage or against &quot;Bang&quot;: a measure of killing power adjusted by piercing and crit-seeking potential. Ammunition Auto-loading optimises for the selected parameter.">
             <option value="dmg" selected>Expected damage</option>
             <option value="bang">Bang</option>
           </select></div>
-        <div class="field"><label>Normalise by</label>
+        <div class="field a-hide"><label>Normalise by</label>
           <select id="normBy" title="What to divide output by. Buck, Burn and Bulk are the same three costs the performance evaluation grades on."></select></div>
-        <div class="field rulesopts"><label title="Two switches that add information to the sheet without changing a single number in it.">Detail</label>
-          <label class="chk" title="Shows the working behind the figures: each weapon's Target Number and cluster roll at the selected range, the modifiers behind them, and what the numbers assume. Presentation only.">
-            <input id="showDetail" type="checkbox"> Show calculations</label>
+        <div class="field rulesopts a-hide"><label>Display</label>
           <label class="chk" title="Displays an additional predefined baseline package">
             <input id="showBase" type="checkbox"> Show baseline</label></div>
-        <div class="field"><label>Baseline</label>
+        <div class="field a-hide"><label>Baseline</label>
           <div class="baserow">
             <select id="baseline" title="The package the evaluation grades everything against, at 1.00"></select>
             <span id="loadBtns" class="loadinto"></span>
@@ -538,7 +581,7 @@
       <!-- Both of these are opt-in departures from the default ruleset, so
            they sit under one heading rather than reading as two unrelated
            controls that happen to be checkboxes. -->
-      <div class="inline subrow">
+      <div class="inline subrow" id="rulesRow">
         <div class="field rulesopts"><label title="Departures from the default (Core Rulebook) ruleset">Rules options</label>
           <label class="chk" title="When using this optional rule, through-armour criticals (TACs) may &quot;float&quot; to other locations. Affects headshot chance.">
             <input id="floatingCrit" type="checkbox"> Floating crits</label>
@@ -613,7 +656,7 @@
   <!-- The whole range band. -->
   <section class="band">
     <h2 class="bandhdr"><span title="The same calculation repeated at every hex in the band, showing where each package performs best">Performance by range</span>
-      <span class="sub">hexes
+      <span class="sub" id="envBandCtl">hexes
         <input id="envFrom" class="num inl" type="number" min="1" max="30" value="1"> to
         <input id="envTo" class="num inl" type="number" min="1" max="30" value="24">
       </span></h2>
@@ -683,8 +726,7 @@
     <ul><li><b>Physical attacks and physical weapons.</b> While inarguably effective, a fist is not a weapons package.</li><li><b>One-shot launchers</b> popular with Periphery bandits but largely ineffective for serious warfare.</li><li><b>Arrow IV artillery</b> and its munitions.</li><li><b>Thunder munitions</b> and the minefields they lay.</li><li><b>Flak ammunition.</b> Deliberately omitted: against a BattleMech it is inferior to every alternative, and its proper work is against aircraft and infantry, which lie outside this study.</li><li><b>Inferno missiles</b>, and all heat delivered to a target. The Plasma Rifle shows only half of what it does, and the Plasma Cannon shows nothing at all.</li><li><b>Heat-dissipating and impact-resistant armour.</b> The first awaits target heat; the second answers only physical attacks and collisions.</li><li><b>Heat as a constraint.</b> Although net heat generation is simulated, the tool does not account for buildup due to continuous firing. A commander must supply that discipline themselves.</li><li><b>Called and aimed shots.</b> The simulation reports damage to a Mech, not to a location a gunner has chosen.</li><li><b>Targets other than a standard BattleMech.</b> Vehicles, infantry, battle armour, ProtoMechs, aerospace and structures are outside the scope of this study.</li><li><b>The iNarc's utility pods</b>: ECM, Haywire and Nemesis, which hinder rather than harm.</li><li><b>Probes, ECCM and the wider electronic-warfare arms race.</b> This simulation asks but one question of the electromagnetic spectrum: is the attack jammed, or is it not.</li><li><b>The consequences of critical damage.</b> The odds of finding something vital are reported; what breaks when you do is not.</li></ul>
     <h3>What comes next</h3>
     <p>Priority for the coming cycle is correcting bugs, cleaning up the interface, and adding the Arrow IV artillery launcher. This will be followed by a revision of the ComScore weighting against a wider set of doctrinal baselines. A more extensive collection of pre-set BattleMech loadouts, as seen on Tukayyid and beyond, is under consideration to facilitate analysis of (and calibration against) real-world militaries of the Inner Sphere. Finally, a future revision of the tool will aim at increasing the transparency of ROM's evaluation and the underlying technical assumptions.</p>
-    <p><em>Blake's blessings upon your calculations.</em></p>
-    <p class="sig">— <b>Precentor Martial Kurt E.W. Kajal</b></p>
+    <p class="sig"><em>Blake's blessings upon your calculations.</em><br>— <b>Precentor Kurt E.W. Kajal, Focht War College, Tukayyid</b></p>
 </aside>
 
 <script>
@@ -2953,6 +2995,12 @@ const modeAvailable = (v, fcs) =>
    label is free to say what the rulebook says. Hence "Narc-equipped" rather
    than "Narc" - the pod on the target is a control of its own now, and the
    mode is the missiles that home on it. */
+/* The tool's name, shouted, for the plain-text summary a player pastes into a
+   forum post. Derived rather than typed a second time: the name lives in one
+   cell of data/ui-text.xlsx and every one of the five places it appears reads
+   from there, so renaming it is one edit. */
+const TITLE_CAPS = "Weapon Package Comparator".toUpperCase();
+
 const modeLabel = v => !v ? "Normal"
   : ((!isLegacy() && v.core && v.core.variant_label) || v.variant_label
      || v.variant || "Normal");
@@ -3197,7 +3245,7 @@ function renderAllPanels(){
    blanket modifiers) are stated once above the packages and collapsed here
    into a single "base" figure. Repeating "+1 walked" on forty rows would bury
    the four or five terms that actually differ, which are the whole point. */
-const APP_VERSION = "1.06";
+const APP_VERSION = "1.07";
 
 /* A stable stem plus the time, so a folder of saved comparisons sorts itself
    and each file says when it was made. */
@@ -3212,7 +3260,49 @@ const esc = t => String(t==null?"":t)
 const sgn = v => (v>0?"+":v<0?"\u2212":"") + Math.abs(v);
 const hexes = () => +document.getElementById("rangePick").value;
 
-const showDetail = () => document.getElementById("showDetail").checked;
+/* Three levels, not a switch. "Show calculations" only ever hid explanation -
+   every figure was identical either way - so one boolean was enough. Acolyte
+   is a different kind of hiding: it takes away controls, which would change
+   the numbers, so it resets what it hides and the sheet stays honest.
+
+   showDetail() keeps its name and its meaning (the fullest view), so every
+   existing call site reads correctly without being touched. */
+const detail = () => {
+  const el = document.getElementById("detail");
+  return (el && el.value) || "adept";
+};
+const showDetail = () => detail() === "precentor";
+const acolyte = () => detail() === "acolyte";
+
+/* The conditions of the shot, which Acolyte hides and therefore resets. NOT
+   the package's own composition - its ammunition, sinks and network are what
+   is being compared, like the weapons themselves, and silently rewriting
+   someone's package is worse than hiding a control. */
+const ACOLYTE_RESETS = ["ecm", "armour", "sig", "ams", "blueShield",
+                        "los", "spotter", "tag", "narcPod", "spotMod",
+                        "autoBy", "normBy", "floatingCrit", "legacy",
+                        "showBase"];
+function applyDetail(){
+  document.body.classList.toggle("acolyte", acolyte());
+  document.body.classList.toggle("precentor", showDetail());
+}
+function resetForAcolyte(){
+  ACOLYTE_RESETS.forEach(id=>{
+    const el=document.getElementById(id); if(!el) return;
+    const want=DEFAULTS[id];
+    if(want===undefined) return;
+    if(typeof want==="boolean") el.checked=want; else el.value=want;
+  });
+  /* The baseline goes back to the default roster too. Acolyte shows nothing
+     about it - not the switch, not the picker, not the load buttons - and
+     ComScore still grades against one, so leaving a hand-picked reference in
+     place would make the same package grade differently for two readers with
+     no way to see why. */
+  baseline.value = String(Math.max(0,
+    PRESETS.findIndex(p=>/HGN-732/.test(p.name))));
+  syncMovement();
+  showSpotMod();
+}
 const f1 = x => (Math.round(x*10)/10).toFixed(1);
 
 /* The two modifier stacks, one row each. The to-hit stack decides whether the
@@ -3625,15 +3715,15 @@ function renderPanel(key){
           depend on which rounds Auto picks, and so on the shot. -->
 
      <div class="inline opts">
-       <div class="field"><label>Ammo</label>
+       <div class="field a-hide"><label>Ammo</label>
          <select data-auto="${key}"><option value="1" ${b.autoAmmo?"selected":""}>Auto</option>
          <option value="0" ${!b.autoAmmo?"selected":""}>Manual</option></select></div>
-       <div class="field"><label>Rounds</label>
+       <div class="field a-hide"><label>Rounds</label>
          <input type="number" min="1" max="30" value="${b.rounds}" data-rd="${key}"
                 ${b.autoAmmo?"":"disabled"}></div>
-       <div class="field"><label>Heat sinks</label>
+       <div class="field a-hide"><label>Heat sinks</label>
          <input type="number" min="0" value="${b.heatSinks}" data-hs="${key}"></div>
-       <div class="field"><label>Sink type</label>
+       <div class="field a-hide"><label>Sink type</label>
          <select data-dhs="${key}">${Object.entries(ENG.HEAT_SINKS).map(([id,h])=>
            `<option value="${id}" ${b.hsType===id?"selected":""}>${h.label}</option>`).join("")}
          </select></div>
@@ -3643,7 +3733,7 @@ function renderPanel(key){
            <option value="is" ${b.tc==="is"?"selected":""}>Inner Sphere</option>
            <option value="clan" ${b.tc==="clan"?"selected":""}>Clan</option>
          </select></div>
-       <div class="field rulesopts"><label title="Whether this package is fighting inside a C3, C3i or Boosted C3 network">Network</label>
+       <div class="field rulesopts a-hide"><label title="Whether this package is fighting inside a C3, C3i or Boosted C3 network">Network</label>
          <label class="chk" title="This package is in a C3 network, so its range modifier is read from the C3 range slider rather than from the shooter's own range. Minimum ranges, variable damage and whether a weapon reaches at all still use the real distance. Raises the package's Battle Value by a flat 20%, i.e. assumes a lance-sized network with no boosting.">
            <input type="checkbox" data-c3="${key}" ${b.c3?"checked":""}>
            C3/C3i</label></div>
@@ -3864,15 +3954,36 @@ function renderEnvelope(g, keys, nm){
     ? r.map(x=>x.from===x.to?`${x.from}`:`${x.from}–${x.to}`).join(", ") : "—";
   /* Rows give the cell's contents and any class of their own; the wrapper is
      built centrally so the baseline column can be coloured in one place. */
+  /* Adjacent runs, joined. Optimal and Strong touch by construction, as do
+     Average and Weak, so coalescing anything that meets or overlaps gives the
+     same hexes without sweeping the range a second time. */
+  const mergeRuns=(a,b)=>{
+    const out=[];
+    [...(a||[]), ...(b||[])].slice().sort((x,y)=>x.from-y.from).forEach(r=>{
+      const last=out[out.length-1];
+      if(last && r.from<=last.to+1) last.to=Math.max(last.to, r.to);
+      else out.push({from:r.from, to:r.to});
+    });
+    return out;
+  };
   const rows=[
     [`<span title="The theoretical maximum output per turn: every shot landing and every cluster roll a 12">Maximum damage</span>`,
      k=>f(E[k].ceiling,0), "dim"],
-    [`Peak ${bang?"bang":"expected damage"}`,
-     k=>`<b>${f(E[k].peak.dmg)}</b> at ${hexRuns(E[k].peak.hexes)}`],
-    [`<span title="Hexes where the package delivers at least 90 per cent of its own peak output">Optimal band</span>`, k=>hexRuns(E[k].bands.optimal)],
-    [`<span title="Hexes where output is between 66 and 90 per cent of peak">Strong band</span>`, k=>hexRuns(E[k].bands.strong)],
-    [`<span title="Hexes where output is between 33 and 66 per cent of peak">Average band</span>`, k=>hexRuns(E[k].bands.average)],
-    [`<span title="Hexes where output is below a third of peak">Weak band</span>`, k=>hexRuns(E[k].bands.weak)],
+    ...(acolyte() ? [] : [
+      [`Peak ${bang?"bang":"expected damage"}`,
+       k=>`<b>${f(E[k].peak.dmg)}</b> at ${hexRuns(E[k].peak.hexes)}`],
+    ]),
+    ...(acolyte() ? [
+      [`<span title="Hexes where output is between 66 and 90 per cent of peak">Strong band</span>`,
+       k=>hexRuns(mergeRuns(E[k].bands.optimal, E[k].bands.strong))],
+      [`<span title="Hexes where output is below a third of peak">Weak band</span>`,
+       k=>hexRuns(mergeRuns(E[k].bands.average, E[k].bands.weak))],
+    ] : [
+      [`<span title="Hexes where the package delivers at least 90 per cent of its own peak output">Optimal band</span>`, k=>hexRuns(E[k].bands.optimal)],
+      [`<span title="Hexes where output is between 66 and 90 per cent of peak">Strong band</span>`, k=>hexRuns(E[k].bands.strong)],
+      [`<span title="Hexes where output is between 33 and 66 per cent of peak">Average band</span>`, k=>hexRuns(E[k].bands.average)],
+      [`<span title="Hexes where output is below a third of peak">Weak band</span>`, k=>hexRuns(E[k].bands.weak)],
+    ]),
     [`<span title="Hexes where nothing in the package has a chance to hit (out of range or TN 13+)">Dead band</span>`,
      k=>hexRuns(E[k].silent), "dim"],
   ];
@@ -3897,6 +4008,9 @@ function renderEnvelope(g, keys, nm){
                ["bulk","per Bulk"], ["burn","per Burn"]];
   if(normBy.value==="tons"||normBy.value==="slots")
     NORMS.push(["tons","per ton"], ["slots","per slot"]);
+  /* Acolyte keeps the top strip - who leads, in plain output - and drops the
+     cost-normalised ones, which answer a question it is not asking. */
+  const STRIPS = acolyte() ? NORMS.slice(0,1) : NORMS;
   const leadFor=key=>{
     const scaled={};
     keys.forEach(k=>{ const d=normDiv(packages[k], key);
@@ -3921,6 +4035,9 @@ function renderEnvelope(g, keys, nm){
       <div class="stripcells">${lead.map(x=>
         `<span title="${tip(x,unit)}" ${fill(x.keys)}></span>`).join("")}</div>
     </div>`;
+  /* Two bands out of four, for Acolyte: the runs are adjacent by
+     construction, so joining the lists and coalescing anything that touches
+     gives the same hexes without re-sweeping the range. */
   /* Ticked where the evaluation's brackets end - 1-6, 7-12, 13-18, 19-24 - so
      a run read off a strip lands on the same boundaries as a grade. */
   const TICKS=[1,6,12,18,24,30];
@@ -3928,7 +4045,7 @@ function renderEnvelope(g, keys, nm){
   const units={}; NORM_ORDER.forEach(k=>{ units[k]=normOf(k).div; });
   document.getElementById("leadStrip").innerHTML = `<div class="strip">
     <div class="striplab" title="Which package performs best at each range, by parameter">Best performer by range</div>
-    ${NORMS.map(([k,label])=>row(label, k==="none"?rawLead:leadFor(k), units[k])).join("")}
+    ${STRIPS.map(([k,label])=>row(label, k==="none"?rawLead:leadFor(k), units[k])).join("")}
     <div class="striprow"><span class="rowlab"></span>
       <div class="stripax">${rawLead.map(x=>
         `<span>${TICKS.includes(x.hex)||x.hex===from?x.hex:""}</span>`).join("")}</div></div>
@@ -4035,10 +4152,15 @@ function renderRating(g, keys, nm){
        R.silent ? `${esc(baselineName())} cannot engage — no comparison`
                 : `${esc(baselineName())} = 1.00`}</span>`,
      k=>`<td>${code(R[k],"com","code",true)}</td>`],
-    ["sep"],
-    [`<span title="Output per point of Battle Value, relative to the baseline">Bang per <b>Buck</b></span>`, k=>`<td>${code(R[k],"buck","buckCode")}</td>`],
-    [`<span title="Output per ton and critical slot, relative to the baseline">Bang per <b>Bulk</b></span>`, k=>`<td>${code(R[k],"bulk","bulkCode")}</td>`],
-    [`<span title="Output per point of heat, relative to the baseline">Bang per <b>Burn</b></span>`, k=>`<td>${code(R[k],"burn","burnCode")}</td>`],
+    /* Acolyte gets the grade and not the three measures behind it - one
+       letter per bracket is the whole of what it came for, and the sliders
+       that weight it are hidden anyway. */
+    ...(acolyte() ? [] : [
+      ["sep"],
+      [`<span title="Output per point of Battle Value, relative to the baseline">Bang per <b>Buck</b></span>`, k=>`<td>${code(R[k],"buck","buckCode")}</td>`],
+      [`<span title="Output per ton and critical slot, relative to the baseline">Bang per <b>Bulk</b></span>`, k=>`<td>${code(R[k],"bulk","bulkCode")}</td>`],
+      [`<span title="Output per point of heat, relative to the baseline">Bang per <b>Burn</b></span>`, k=>`<td>${code(R[k],"burn","burnCode")}</td>`],
+    ]),
   ];
   document.getElementById("scTable").innerHTML =
     `<thead><tr><th>1–6 / 7–12 / 13–18 / 19–24 hexes</th>${
@@ -4204,13 +4326,28 @@ function run(){
   const critRows =
     [M(`<span title="Chance of successfully scoring at least one through-armour critical hit">P(≥1 critical hit)</span>`, k=>C[k].pTac, pc, "high"),
      M(`<span title="Chance of at least one hit landing on the head">P(≥1 head hit)</span>`, k=>C[k].pHead, pc, "high")];
-  const R=[
+  const dmgRow = M(`<span title="The maximum theoretical damage, if every shot hits and every cluster roll is a 12">Maximum damage</span>`,
+                   ceilOf, x=>f(x,0), "high");
+  const expRow = M(`<span title="The average outcome of this attack">Expected damage</span>`,
+                   k=>mean(D[k].dmg), x=>f(x), "high");
+  const missRow = M(`<span title="Probability of the attack missing entirely and dealing no damage">Miss chance</span>`,
+                    k=>D[k].dmg[0]||0, pc, "low");
+  const decapRow = M(`<span title="Chance of destroying the head (or scoring a cockpit critical hit) this turn">P(decapitation)</span>`,
+                     k=>pDecap(D[k]), pc, "high");
+  const heatRow = M(`<span title="Heat generated by weapons, before dissipation by the package's heat sinks (ignores out-of-range weapons)">Heat generated</span>`,
+                    k=>heatAt(EB[k], hexes, !g.legacy, g), x=>f(x,0), "low");
+  /* Acolyte: no section headings, because there is only one section left and
+     the card is already called Attack outcomes. What survives is what a player
+     asked - how much, how often it misses, and what it might take off. */
+  const R = acolyte()
+    ? [dmgRow, expRow, missRow, heatRow]
+    : [
     SEC(`<span title="What the attack delivers, before any adjustment for what it cost">Damage</span>`),
-    M(`<span title="The maximum theoretical damage, if every shot hits and every cluster roll is a 12">Maximum damage</span>`,       ceilOf,            x=>f(x,0), "high"),
-    M(`<span title="The average outcome of this attack">Expected damage</span>`,      k=>mean(D[k].dmg), x=>f(x), "high"),
+    dmgRow,
+    expRow,
     M(`<span title="Damage-weighted average group size (one 15-point group scores 15; three 5-point groups score 5)">Damage concentration</span>`, k=>piercing(D[k]), x=>f(x), "high"),
     SEC(`<span title="How reliable that damage is: the shape of the distribution rather than its average">Spread</span>`),
-    M(`<span title="Probability of the attack missing entirely and dealing no damage">Miss chance</span>`,          k=>D[k].dmg[0]||0, pc, "low"),
+    missRow,
     /* Ranked on the average of the three, which is the package that holds up
        across the luck: a high 90th on its own is a lottery ticket. */
     MC(`<span title="Bad luck, median, good luck. Ranked on the average of the three, so a high 90th alone does not win the row.">10th / 50th / 90th percentile</span>`,
@@ -4224,7 +4361,7 @@ function run(){
     SEC(`<span title="The threat to vital components, due to critical hits and headshots">Criticals</span>`),
     M(`<span title="How many separate hit locations the attack rolls for">Hit-location rolls</span>`,   k=>mean(D[k].grp), x=>f(x), "high"),
     ...critRows,
-    M(`<span title="Chance of destroying the head (or scoring a cockpit critical hit) this turn">P(decapitation)</span>`,      k=>pDecap(D[k]), pc, "high"),
+    decapRow,
   ];
   /* Armor-Piercing used to get a row of its own here, reporting the expected
      COUNT of the extra criticals it forces. It is gone: the checks are now
@@ -4237,9 +4374,9 @@ function run(){
      these answer "what is this shot worth per point of cost, here". Bang
      rather than damage, because concentration and location rolls are most of
      what a cost is buying. */
-  R.push(SEC(`<span title="What this shot is worth per point of what it costs to carry and to fire">Efficiency</span>`),
-    M(`<span title="Heat generated by weapons, before dissipation by the package's heat sinks (ignores out-of-range weapons)">Heat generated</span>`,
-      k=>heatAt(EB[k], hexes, !g.legacy, g), x=>f(x,0), "low"),
+  if(!acolyte()) R.push(
+    SEC(`<span title="What this shot is worth per point of what it costs to carry and to fire">Efficiency</span>`),
+    heatRow,
     M(`<span title="Bang divided by Battle Value, in hundreds">Bang per <b>Buck</b> <span class="dim">(100 BV)</span></span>`,
       k=>bang(k)/div(k,"bv"),   x=>f(x), "high"),
     M(`<span title="Bang divided by tonnage plus critical slots">Bang per <b>Bulk</b> <span class="dim">(tons + crits)</span></span>`,
@@ -4313,6 +4450,7 @@ function run(){
      the switch, and the sliders have to follow. Same for the spotter. */
   showC3();
   showSpotMod();
+  applyDetail();
 }
 
 /* -------------------------------------------------------------- events */
@@ -4348,10 +4486,14 @@ document.addEventListener("change", e=>{
   else if(["fTech","fRules","fSection"].includes(t.id)){renderPicker(); saveState();}
   // The switch also governs the assumptions note under the summary, which is
   // written by run() - so toggling it has to reach both.
-  else if(t.id==="showDetail"){
-    refreshToHit();
-    document.getElementById("normNote").hidden = !showDetail();
-    saveState(); }
+  else if(t.id==="detail"){
+    /* Acolyte hides conditions, so it resets them: a figure computed against
+       a Void-Signature target through a Guardian bubble, with none of that on
+       screen and no way to reach it, would be a number the sheet cannot
+       explain. Mario's call, 29 Aug. */
+    if(acolyte()) resetForAcolyte();
+    applyDetail();
+    pkgKeys().forEach(renderPanel); run(); }
   else if(t.id==="sig"){ syncMovement(); pkgKeys().forEach(renderPanel); run(); }
   else if(["normBy","atkMove","armour","floatingCrit","ecm","scFree","autoBy",
             "showBase","ams","blueShield","baseline","tgtMove","otherMod",
@@ -4506,7 +4648,8 @@ function buildReport(){
   const moveLabel=({0:"Stationary",1:"Walked (+1)",2:"Ran (+2)",3:"Jumped (+3)"})[g.atkMove];
   const normLabel=normOf(normBy.value).per||"none";
 
-  let html = `<h1>Com Guard weapon package comparator</h1>
+  let html = `<h1>Weapon Package Comparator</h1>
+    <p class="rptsub">Property of the Focht War College, Tukayyid.</p>
     <p class="cap">Generated ${esc(when)}</p>
     <h2>Conditions</h2>
     <div class="meta">
@@ -4705,7 +4848,7 @@ function summaryText(){
      their own, so the span trims itself. */
   const SPAN=30;
   const keys=pkgKeys().filter(k=>packages[k].items.length);
-  if(!keys.length) return "COM GUARD WEAPON PACKAGE COMPARATOR\n\nNothing to compare.\n";
+  if(!keys.length) return TITLE_CAPS + "\n\nNothing to compare.\n";
   const f=(x,p=1)=>Number(x).toFixed(p);
   const pc=(x)=>f(x*100,1)+"%";
   const move=["stationary","walked","ran","jumped"][g.atkMove]||"walked";
@@ -4717,7 +4860,7 @@ function summaryText(){
       if(l && l[1]===h-1) l[1]=h; else r.push([h,h]); });
     return r.map(([a,b])=>a===b?`${a}`:`${a}–${b}`).join(", ");
   };
-  const L=["COM GUARD WEAPON PACKAGE COMPARATOR",
+  const L=[TITLE_CAPS,
     `At ${hx} hexes · gunnery ${g.gunnery} · attacker ${move} · TMM +${
       g.tgtMove}${g.otherMod?` · other ${g.otherMod>0?"+":""}${g.otherMod}`:""}`,
     `${g.legacy?"Legacy (Total Warfare) rules":"Core Rulebook"} · ${arm} armour${
@@ -4843,7 +4986,7 @@ const DEFAULTS = {
   envFrom:"1", envTo:"24", scFree:"single",
   scCbv:"0.7", scCbulk:"0.2", scCheat:"0.1", scKp:"1.5", scKc:"1",
   ams:false, blueShield:false, floatingCrit:false, legacy:false,
-  showDetail:false, showBase:false,
+  detail:"adept", showBase:false,
   // Line of sight is the ordinary case, and nobody has painted anything.
   los:true, spotter:false, tag:false, narcPod:false, spotMod:"1",
 };
@@ -4961,7 +5104,7 @@ function stateObject(){
         // Target Lock, appended so older links keep their shape.
         los.checked?1:0, spotter.checked?1:0, tag.checked?1:0,
         narcPod.checked?1:0, +spotMod.value||0],
-    a: [normBy.value, +rangePick.value, showDetail()?1:0,
+    a: [normBy.value, +rangePick.value, detail(),
         +envFrom.value, +envTo.value,
         +scCbv.value, +scCbulk.value, +scCheat.value,
         +scKp.value, +scKc.value, scFree.value, autoBy.value,
@@ -5075,10 +5218,19 @@ function applyState(st){
   if(a.length){
     // Heat normalisation was renamed to Burn, to match the evaluation's term.
     normBy.value = a[0]==="heat" ? "burn" : a[0]; rangePick.value=a[1];
-    // Links written while this was a four-level select carry a name here.
+    /* The detail level. Three shapes have occupied this slot: an old
+       four-level select's name, the Show calculations boolean that replaced
+       it, and now the level itself. A link written before v1.07 cannot name a
+       level, so it maps onto the two it knew - which is right, because Acolyte
+       resets conditions and no old link should have its conditions reset by
+       being opened. */
     const lv=a[2];
-    document.getElementById("showDetail").checked =
-      lv==="off" ? false : (lv===1 || lv==="1" || typeof lv==="string");
+    const LEVELS=["acolyte","adept","precentor"];
+    document.getElementById("detail").value =
+      LEVELS.includes(lv) ? lv
+      : (lv===1 || lv==="1" || (typeof lv==="string" && lv!=="off"))
+        ? "precentor" : "adept";
+    applyDetail();
     if(a[3]) envFrom.value=a[3];
     if(a[4]) envTo.value=a[4];
     if(a[5]!=null) scCbv.value=a[5];
