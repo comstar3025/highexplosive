@@ -10,11 +10,19 @@
 
 set -euo pipefail
 
-# One exact file, not the newest match in a directory. The old version took
+# One exact file, not the newest match in a directory. An older version took
 # whatever *.bundle was newest in Projects/, which meant any second bundle left
 # nearby — the full-history backup, say — could quietly become the thing that
 # got pushed.
-DEFAULT_BUNDLE="$HOME/Library/CloudStorage/Dropbox/Games/BattleTech/Projects/HighExplosive.net/_Claude/hx-racing.bundle"
+#
+# The name is site-update.bundle because it carries whatever changed: the
+# simulator, the comparator, the racing page, the splash. It was called
+# hx-racing.bundle until the v1.3 release, from the first thing it ever
+# carried, which made every later push look like it was touching the racing
+# page. It was not.
+BUNDLE_DIR="$HOME/Library/CloudStorage/Dropbox/Games/BattleTech/Projects/HighExplosive.net/_Claude"
+DEFAULT_BUNDLE="$BUNDLE_DIR/site-update.bundle"
+LEGACY_BUNDLE="$BUNDLE_DIR/hx-racing.bundle"
 
 cd "$(dirname "$0")"
 
@@ -22,6 +30,18 @@ cd "$(dirname "$0")"
 bundle="${1:-$DEFAULT_BUNDLE}"
 if [ ! -f "$bundle" ]; then
   echo "No bundle at $bundle" >&2
+  # Transitional: say so plainly rather than leaving a stale bundle under the
+  # old name looking like the answer. Never apply it silently — it predates
+  # the rename and is therefore already pushed.
+  if [ "$bundle" = "$DEFAULT_BUNDLE" ] && [ -f "$LEGACY_BUNDLE" ]; then
+    echo >&2
+    echo "There is still a bundle under the old name:" >&2
+    echo "  $LEGACY_BUNDLE" >&2
+    echo "That one predates the rename and has already been pushed. It is not" >&2
+    echo "the release you are looking for — tell Claude the new bundle is" >&2
+    echo "missing rather than reaching for it." >&2
+  fi
+  echo >&2
   echo "Pass one explicitly:  ./push.sh /path/to/file.bundle" >&2
   exit 1
 fi
