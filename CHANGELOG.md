@@ -22,10 +22,55 @@ record those commits do not carry.
 
 ---
 
+## v1.33 — Tactical Scenario Simulator · 9 Sep 2026
+
+4,022,745 bytes · `15b56986e019692a848b2ce9300184fc`
+Rollback: v1.32, `36f119ec71240681bc5cb2c94df31b34`
+
+**The plate draws the printed sheet edge to edge.** Everything is in the drawing;
+*measured against the live v1.32 over 70 seeds, the exercise text is identical on
+all 70* — so unlike v1.32, this release moves no shared link.
+
+1. **A mapsheet is seventeen hexes tall.** MegaMek stores a whole hex where the
+   paper prints only the top half of one, so the south edge is trimmed: one clip
+   rectangle, the printed sheet, cuts every hex, contour, road and overlay.
+   *Measured:* the plate's height falls from 372 to 364 units.
+2. **The north half row is drawn** — the half hexes above a pushed-down column,
+   which two stacked sheets share and MegaMek stores in neither. Four rules
+   supply them (road connector, river connector, both flankers paved or both
+   water, then clear level 0) and 59 boards carry a row set by hand. Over the
+   shelf, 1,686 north half hexes: the rules settle 13.5% and the floor takes the
+   rest. *Measured:* hex count per plate rises from 1,107 to 1,140.
+3. **A turned sheet uses its own real data at both edges.** A 180° turn maps
+   printed column `c` to `16-c` and row `r` to `17-r`, and both preserve parity,
+   so a cut column maps to a cut column: a turned sheet's north half row is its
+   own stored row 17, and its trimmed south edge is the hand-set row 00 mirrored.
+   Turned Archipelago 1's row 17 now reads identically to the same sheet upright.
+4. **Roads join across the sheet's edge.** The no-exits inference stopped at the
+   playable field, so column 01 could not see column 00. Six boards affected.
+5. **A half-hex road with no exits recorded draws its road** — mask 0 means "work
+   it out from the neighbours" everywhere else in the file and now means it here.
+6. **The seam corner takes each half from its own sheet** whichever way either
+   sheet is laid, including a middle piece with a seam on both sides.
+
+*Known and accepted:* nine hand-set north rows carry a dash where a code belongs
+and fall back to the rule; `16x17 Business District`'s terrain string is shifted
+one place, so its north edge draws as pavement throughout. Two road stubs on
+Corporate Campus reach a hexside and meet nothing, because that is what the data
+says.
+
+---
+
 ## v1.32 — Tactical Scenario Simulator · 9 Sep 2026
 
 3,997,507 bytes · `36f119ec71240681bc5cb2c94df31b34`
 Rollback: v1.31, `bf383da46714ff81a90e3cc4250b2765`
+
+**Two different files carry the string `v1.32`.** The one above is what was
+built, pushed and served. A later cut of the same number,
+`e97b1a6d9848be25e183e905e1eb93c9` (3,999,814 bytes), was made after this one had
+already shipped and **was never live**. If a rollback to v1.32 is ever needed it
+is the md5 above, which is in this repo at the v1.32 commit.
 
 **The deployment plate now draws the mapsheet as it is printed**, which is a
 functional addition rather than a fix.
