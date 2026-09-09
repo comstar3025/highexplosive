@@ -60,6 +60,14 @@ functional addition rather than a fix.
    stream, and the board draw still takes exactly one number from the main stream
    in every branch.
 
+Riding with this release, in `push.sh`: **the script now fetches `origin` and
+fast-forwards to it before applying the bundle.** A release uploaded through
+GitHub's web interface lands on `origin/main` and never reaches the Mac, so the
+next bundle is built on a base that clone does not have and the push fails with
+*"Repository lacks these prerequisite commits"*. That happened twice. It
+fast-forwards only, so real divergence still stops rather than being papered over
+with a merge.
+
 **Shared links.** This release changes which boards some exercises draw, so a
 link shared before it can render a different battlefield. *Measured over 150
 seeds against v1.31, masthead excluded:* 111 identical, 39 changed — 34 of them

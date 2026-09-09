@@ -55,6 +55,29 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1
 fi
 
+# --- catch up with the remote first ----------------------------------------
+# A release uploaded through GitHub's web UI lands on origin/main and never
+# reaches this clone, so the next bundle is built on a base this repo does not
+# have and `git fetch <bundle>` fails with "Repository lacks these prerequisite
+# commits". That happened twice before this guard existed. Fast-forwarding to
+# origin/main first heals it; --ff-only so real divergence stops here instead
+# of being papered over with a merge.
+echo "Fetching origin…"
+git fetch --quiet origin
+if [ -n "$(git rev-list --count HEAD..origin/main 2>/dev/null)" ] &&
+   [ "$(git rev-list --count HEAD..origin/main)" -gt 0 ]; then
+  behind=$(git rev-list --count HEAD..origin/main)
+  echo "Behind origin/main by $behind commit(s) — fast-forwarding first."
+  if ! git merge --ff-only origin/main; then
+    echo >&2
+    echo "Cannot fast-forward to origin/main: this clone has commits the" >&2
+    echo "remote does not. Tell Claude what \`git log --oneline" >&2
+    echo "origin/main..HEAD\` says, and don't force anything." >&2
+    exit 1
+  fi
+  echo
+fi
+
 # --- apply -----------------------------------------------------------------
 before=$(git rev-parse --short HEAD)
 git fetch "$bundle" HEAD
