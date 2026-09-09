@@ -22,6 +22,53 @@ record those commits do not carry.
 
 ---
 
+## v1.32 — Tactical Scenario Simulator · 9 Sep 2026
+
+3,997,507 bytes · `36f119ec71240681bc5cb2c94df31b34`
+Rollback: v1.31, `bf383da46714ff81a90e3cc4250b2765`
+
+**The deployment plate now draws the mapsheet as it is printed**, which is a
+functional addition rather than a fix.
+
+1. **The turned-sheet mirror.** A mapsheet laid 180° round was drawn as its
+   *mirror*: a pushed-down column moves one row further under the turn,
+   `r' = (h-1) - r - (c & 1)`, where a plain double reverse is a reflection.
+   Every turned sheet on every plate was wrong before this.
+2. **Column 00 exists again.** MegaMek keeps 16 columns per sheet — the 15
+   playable ones and the east half column as its column 16 — and throws the west
+   half column away. All 162 have been rebuilt: 41 lifted out of larger boards
+   that embed the same sheet, 4 from a printed partner, 29 set by hand, the rest
+   by rule. The rules agree with the 41 real ones on 97.4% of hexes.
+3. **The seam is drawn as two halves.** Two sheets share their touching half
+   hexes as one hex, now painted twice — once in each sheet's ink — with
+   terrain, features, elevation and roads each following the half they belong
+   to. A road runs across only when both sheets bring one to it.
+4. **The two outer half columns are drawn**, so the plate is the whole printed
+   sheet rather than the playable rectangle. *Measured* on seed `938109900`: the
+   plate widens from 446 to 455 units and its hex count rises from 563 to 1,107.
+5. **The knife-fight cut runs to the paper's edge**, because the cut takes paper
+   out of play rather than hexes. Objective areas and deployment zones stop at
+   the last playable hex, which is the opposite case.
+6. **A road strip down column 00 or 16** is stored with no exits and was drawn as
+   a comb of diagonal stubs. It now works its exits out from its neighbours.
+7. Contours run against every half hex; Urban Sweep carries its footnote on every
+   exercise; roads and pavement are told apart on the plate.
+8. **The seam nudge — and this one is in the draw, not the plate.** Ignoring solo
+   and no-info boards: on a 5+, force a perfect join; otherwise draw normally but
+   redraw the first *poor* once. Over 1,721 scoreable two-sheet fields: perfect
+   3.6% → 16.7%, good 59.8% → 72.1%, poor 36.6% → 11.2%. It takes its own RNG
+   stream, and the board draw still takes exactly one number from the main stream
+   in every branch.
+
+**Shared links.** This release changes which boards some exercises draw, so a
+link shared before it can render a different battlefield. *Measured over 150
+seeds against v1.31, masthead excluded:* 111 identical, 39 changed — 34 of them
+two-sheet fields, and five not. Of those five, all Urban Sweep, three changed the
+boards drawn, including a **one-sheet** field. The exercise, world, year,
+belligerents and mission are unaffected.
+
+---
+
 ## v1.31 — Tactical Scenario Simulator · 8 Sep 2026
 
 `657b115` · 3,928,830 bytes · `bf383da46714ff81a90e3cc4250b2765`
