@@ -22,6 +22,47 @@ record those commits do not carry.
 
 ---
 
+## v1.4 — Tactical Scenario Simulator · 11 Sep 2026
+
+4,193,112 bytes · `3e80316c6d81daadbc6928d8ed7985bb`
+Rollback: v1.33, `15b56986e019692a848b2ce9300184fc`
+
+**Annex C, the jump plate** — the route a force flew to reach the exercise, on
+every exercise, with its stops, its recharge days and its uncharted stretches, an
+index of the Inner Sphere with the plate's own window marked, and a one-line
+approach strip in the masthead that says the shape of the journey without being
+opened. *Verified:* it draws on all twelve missions and on 30 of 30 free draws,
+alongside Annex B.
+
+Also in this release:
+
+1. **The aimed board draw.** Boards are drawn toward the seam they will make and
+   the whole field's order *and* rotation are solved together rather than greedily
+   left to right. Two-board fields go from 7.2% poor seams to 0.6%, three-board
+   from 15.6% to 4.8%, drawing the same 155 boards.
+2. **The instructor's notes band**, with every note on the sheet rewritten into
+   one sentence in the instructor's voice.
+3. Sublevel contours on the deployment plate, and roads that infer their exits
+   only inside their own mapsheet.
+4. **A jump graph without 172 islands in it.** Components a hair over the 30-light-year
+   jump are joined at the cost their own distance implies, which puts the Marian
+   Hegemony, Nueva Castile, the Hanseatic League and the Fronc Reaches back on the
+   map.
+
+**Shared links.** The new draw changes which boards some exercises get, so a link
+shared before this release can render a different battlefield. *Measured over 60
+seeds against the live v1.33:* the battlefield row is identical on 44 and changed
+on 16 — ten two-board fields, three three-board, one one-board, and two that were
+two boards and are now one. **The world is identical on all 60**, so the exercise
+itself does not move; only the ground does. Second release to do this, after
+v1.32.
+
+*Cut four times under this number.* The figures above are the round-81 cut, the
+only one that shipped; three superseded cuts sit beside it in `Release/` and were
+never live.
+
+---
+
 ## v1.33 — Tactical Scenario Simulator · 9 Sep 2026
 
 4,022,745 bytes · `15b56986e019692a848b2ce9300184fc`
