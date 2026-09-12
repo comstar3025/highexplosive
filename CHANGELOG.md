@@ -22,6 +22,46 @@ record those commits do not carry.
 
 ---
 
+## v1.43 — Tactical Scenario Simulator · 12 Sep 2026
+
+4,205,481 bytes · `6160b472619c833aae8af728b3c64fd1`
+Rollback: v1.41, `bfbe7ff42675dc19f95f011abeaef3bc`
+
+A **Print** button in the form's button row, and three fixes. **v1.42 carries the
+same first two fixes and was withdrawn before it shipped** — its print built an
+annex only if that annex's dialogue happened to be open, so printing a freshly
+generated sheet produced no plates at all. Nothing carrying `v1.42` was ever
+live.
+
+1. **Both annexes now print, always.** They are built at print time from the
+   exercise itself, through the same two builders the dialogues use, with no
+   dialogue involved. *Verified through a real print rather than by calling the
+   builder:* with **no dialogue ever opened**, `beforeprint` fires once and the
+   `#printannex` container holds exactly two plates — Annex B at 1,198 SVG nodes
+   and Annex C at 2,359 — and is removed afterwards. With a dialogue **open** at
+   print time it still holds exactly two, and the document has **zero duplicate
+   ids**, because each build stamps its patterns and clip paths with its own
+   random suffix. Under print media `.actions` is `display:none`, so the button
+   cannot print itself.
+2. **The annex plates were destroyed below about 520px.** The 520px floor stays
+   wherever it can be delivered; below that the centring box put the overflow
+   where `scrollLeft` cannot reach. *Measured on both builds:* on the live v1.41
+   the plate is 520px wide with its left edge at **−80px at 360, −65px at 390 and
+   −20px at 480**, and the scroller reaches only 119, 105 and 61px — less than
+   the overflow, so the cut part is genuinely unreachable. On v1.43 the plate
+   fits: 282, 310 and 397px wide, left edge at 39–42px, nothing cut.
+3. **Steel Rain was losing half the dropping side.** Identical arrival lines were
+   collapsed by string identity, which is right for a direction and wrong for a
+   count: two lances of four printed one line and four machines had no arrival
+   turn. A line carrying a count is never collapsed now.
+
+**The draw is untouched.** *Measured over 60 seeds against the live v1.41:*
+battlefield row identical on **60 of 60**, world identical on **60 of 60**, and
+exactly **one** Order of Battle changed — a Steel Rain sheet, which is fix 3
+doing its work. The only other text that moves is the new Print button.
+
+---
+
 ## v1.41 — Tactical Scenario Simulator · 12 Sep 2026
 
 4,196,979 bytes · `bfbe7ff42675dc19f95f011abeaef3bc`

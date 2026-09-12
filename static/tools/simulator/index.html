@@ -402,6 +402,17 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   border:1px solid var(--rule);border-radius:3px;padding:10px;margin:10px 0}
 .platebody svg{display:block;height:auto}
 .platemiss{color:var(--ink-3);margin:0;padding:18px 4px;font-size:var(--t-detail)}
+/* ROUND 85, V42-03, HIS RULING: the annexes print, appended at the end of the
+   document. The container is built on `beforeprint` and removed after, so it
+   is never on screen and never in the saved page. Each annex takes its own
+   page and its plate is scaled to the width of that page - the 520px floor is
+   a screen affordance and means nothing on paper. */
+#printannex{display:none}
+@media print{
+  #printannex{display:block}
+  #printannex .pannex{break-before:page;page-break-before:always;break-inside:avoid}
+  #printannex .pannex svg{width:100%;height:auto;max-width:100%;min-width:0;display:block}
+}
 /* ROUND 47P, his ruling. Where the whole plate FITS in the dialogue's height it
    is sized to fit rather than stretched to the full width — on a tablet in
    landscape that shows the entire plate at once, which is the reading position.
@@ -419,8 +430,26 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    box hugs the plate and the UA's `margin:auto` can centre it again. */
 @media (max-width:640px){ .platedlg[open]{height:fit-content;max-height:96vh}
   .platebody{flex:0 1 auto} }
+/* ROUND 85, V42-02. The 520px floor above is HIS RULING OF 47P and it stays
+   wherever it can be delivered: on a narrow screen the plate should scroll
+   sideways rather than shrink below legibility. Below about 520px of dialogue
+   it CANNOT be delivered. The body is a centring flex box, so an item wider
+   than it overflows BOTH ways and the left overflow sits before the scroll
+   origin, where `scrollLeft` cannot reach it. Measured at 390px: the plate
+   starts 65px left of the viewport and 94px left of its own scroll box, and
+   the document does not scroll horizontally - so the left of every plate is
+   DESTROYED, not merely offscreen. The title printed as "LOYMENT PLATE - ..."
+   and the route lost its first stop.
+
+   Three fixes were measured and only one works. `justify-content:safe center`
+   is supported here and makes it worse (199px lost). `flex-start` reads better
+   in the geometry and is identical on screen. Dropping the floor fits the whole
+   plate - title, legend, index, colophon - inside the body at 480, 390 and
+   360px with room to spare. So the floor is dropped HERE ONLY, in the query
+   that already re-sizes the plate for a small screen; 47P is untouched
+   everywhere it still holds. */
 @media (max-width:640px){ .platebody{align-items:flex-start}
-  .platebody svg{height:auto;width:auto} }
+  .platebody svg{height:auto;width:auto;min-width:0} }
 .row>.lbl-one{color:var(--comstar)}
 .row>.lbl-two{color:var(--bent)}
 .world .row>.lbl{grid-column:2}
@@ -792,7 +821,7 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
            comparator has. The words did not change. -->
       <p class="sub">Property of the Focht War College, Tukayyid.</p>
     </div>
-    <span class="ver">v1.41</span>
+    <span class="ver">v1.43</span>
   </div>
   <hr class="titlerule">
 
@@ -809,6 +838,14 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
            to where settings live. -->
       <button type="button" id="clear">Clear pins</button>
       <button type="button" id="sets">Maps<span id="setsdot" hidden></span></button>
+      <!-- ROUND 87, his request: a Print button between Maps and Notes. It takes
+           the PLAIN treatment, the one Clear pins and Maps already wear - not
+           the gold of Generate, which is the page's one primary action, and not
+           the ComStar blue of Notes, which is the College's own voice. Olivia's
+           round-84 catch was that four buttons already carry four treatments;
+           a fifth would make the row a palette. The print block hides `.actions`
+           whole, so the button cannot print itself. -->
+      <button type="button" id="printsheet">Print</button>
       <button type="button" id="notes" class="comstar">Notes</button>
     </div>
   </form>
@@ -12166,7 +12203,7 @@ const ROW_LOCALES=7;
 const NWORD=n=>NUMWORD10[n]||String(n);
 /* Larger half first, which is the rule the roster sizes already follow. */
 const halves=n=>[Math.ceil(n/2),Math.floor(n/2)];
-function entryLine(r,side,gi,gcount,g){
+function entryLine(r,side,gi,gcount,g,meta){
   const D2=(bl().deploy_line)||{}; if(!D2.edge)return null;
   const m=r.mission||{}, {E,pair}=edgesFor(r);
   /* ROUND 41f (role_inversion). `one` is not "the form's first side" - it is
@@ -12252,6 +12289,11 @@ function entryLine(r,side,gi,gcount,g){
     key=key+'_waves';
   }
   const e=D2[key]; if(!e||!e.text)return null;
+  /* ROUND 85, V42-01. Whether this line CARRIES A COUNT, reported to the caller
+     so it can decide whether two identical lines may be collapsed into one. The
+     count tokens are the three the table above fills - [n], [n_a], [n_b] - and
+     the template is the only place that knows which of them it used. */
+  if(meta)meta.counted=/\[n(_a|_b)?\]/.test(String(e.text));
   let out=String(e.text);
   for(const k in T)out=out.split('['+k+']').join(String(T[k]));
   out=out.replace(/\[[a-z_]+\]/g,'').replace(/\s{2,}/g,' ').trim();
@@ -13514,8 +13556,21 @@ function renderSheet(r){
          which is most sheets - the line belongs to the SIDE and is printed once.
          Printing "in place before the first turn, in from the north" twice
          running is noise, and noise is what layout D exists to remove. */
-      const ents=groups.map((g,i)=>entryLine(r,side,i,groups.length,g));
-      const same=ents.length>1&&ents.every(x=>x===ents[0]);
+      /* ROUND 85, V42-01, JOE'S J164 AND IT IS A WRONG NUMBER ON A PRINTED
+         SHEET. The collapse below is by STRING IDENTITY, which is right for a
+         DIRECTION - "from the north, turn one" is true of the side and of each
+         of its formations, so saying it twice is noise - and wrong for a COUNT.
+         Two equal lances of four both render "two on turn one and two on turn
+         two"; the strings match, the collapse fires, and one statement of "2 of
+         my 4" is printed as if it covered 8. Four machines lost their arrival
+         turn. Seed 14 at Steel Rain is the case to read; seed 10 escapes only
+         because its groups are 5 and 4 and the strings therefore differ.
+         Measured: 16 of 120 Steel Rain sheets carry a side of two equal groups.
+         So a line that carries a count is never collapsed, however identical. */
+      const _meta=groups.map(()=>({}));
+      const ents=groups.map((g,i)=>entryLine(r,side,i,groups.length,g,_meta[i]));
+      const _counted=_meta.some(m=>m.counted);
+      const same=!_counted&&ents.length>1&&ents.every(x=>x===ents[0]);
       /* ROUND 48G, his ask: the belligerent's name takes its side's colour, the
          same two the form's "Blue force" / "Red force" labels and both diagrams
          already use. The Order of Battle is where a reader matches a name to a
@@ -14495,6 +14550,11 @@ function boot(){
   $('#plateclose').addEventListener('click',()=>$('#platedlg').close());
   $('#platedlg').addEventListener('close',()=>{$('#platebody').innerHTML='';});
   $('#notes').addEventListener('click',()=>$('#notesdlg').showModal());
+  /* ROUND 87. The browser's own print, reached from the page rather than from a
+     menu. Everything that makes a printed sheet what it is already hangs off
+     `beforeprint` - the two annexes are built there - so this button adds no
+     print behaviour of its own and cannot drift from the menu's. */
+  {const b=$('#printsheet'); if(b)b.addEventListener('click',()=>window.print());}
   /* ROUND 47N. The plate is drawn on demand and thrown away on close: it is a
      few hundred kilobytes of SVG and nobody needs it sitting in the document. */
   document.addEventListener('click',ev=>{
@@ -14592,6 +14652,84 @@ function boot(){
     });
   }
   $('#notesclose').addEventListener('click',()=>$('#notesdlg').close());
+
+  /* ROUND 85, V42-03, HIS RULING: "Plates = annexes = appended at end of
+     document." The print sheet has never carried either annex, and the reason
+     is in the print block: `.home,dialog,.ver{display:none}`. That rule is NOT
+     a mistake and it must stay. An open <dialog> is `position:fixed` and lives
+     in the TOP LAYER; un-hidden for print, Chrome stamps it on EVERY PAGE at
+     full size, over the sheet - measured, a three-page PDF became three copies
+     of one plate with the exercise visible only as a sliver at each margin.
+     Taking it out of the top layer instead is not enough either: the dialogue
+     sits early in the DOM, so the plate lands at the TOP of page one and
+     displaces the masthead, serial, codename and the whole briefing.
+
+     So nothing about the live dialogue is touched. On `beforeprint` the open
+     annexes are CLONED into a plain container at the end of <body>, each on its
+     own page; on `afterprint` the container goes away. The original stays
+     hidden by the rule above, exactly as it is today.
+
+     THE IDS HAVE TO MOVE WITH THE CLONE. Both plates build their patterns,
+     clip paths and gradients with a per-build random suffix (`P=n=>n+U`) and
+     refer to them as `url(#id)`. Cloned verbatim, every one of those ids would
+     exist twice and the clone's references would resolve to the ORIGINAL, which
+     is inside a display:none subtree in print. So every id and every reference
+     to one is re-suffixed inside the clone before it is inserted. */
+  const PRINT_ANNEX='printannex';
+  /* ROUND 86, HIS REPORT: "printing the page does not seem to display either
+     plate at all". MY FAULT, and it was an assumption I made without saying so:
+     round 85 only printed an annex if its DIALOGUE HAPPENED TO BE OPEN when the
+     print began. Generate a sheet, press print, and you get no plates - which is
+     what he saw. His instruction was "plates = annexes = appended at end of
+     document", and an annex is part of the document whether or not a reader has
+     opened it on screen. So both are now BUILT AT PRINT TIME from the exercise
+     itself, through the same two builders the dialogues use, and no dialogue is
+     involved at any point.
+
+     That also retires the id-rewriting round 85 needed. Each plate stamps its
+     patterns and clip paths with a per-build random suffix, so a FRESH build
+     can never collide with one already on screen - there is nothing to rewrite
+     because nothing is cloned.
+
+     An annex that does not exist for this exercise - an unencoded battlefield,
+     a world with no charted route - prints nothing rather than printing the
+     screen's "we have not encoded this" notice. On screen that notice answers a
+     reader who just clicked; on paper it would be a page asserting an absence
+     nobody asked about. */
+  function buildAnnexSVG(which){
+    const r=state.last; if(!r||r.fail)return null;
+    try{
+      if(which==='B'){
+        if(!window.MAPVIEW)return null;
+        MAPVIEW.exerciseName=(typeof exerciseName==='function')?exerciseName:null;
+        return MAPVIEW.build(r,rr=>edgesFor(rr).pair,bd=>({
+          name:bd.n||'',
+          kind:(bd.w&&bd.h?bd.w+'x'+bd.h+' ':'')+((bd.w||0)>=24?'battlemat':'mapsheet'),
+          collection:setLabel(bd.set)||''
+        }))||null;
+      }
+      if(!window.JUMPVIEW)return null;
+      const out=JUMPVIEW.build(r,(typeof exerciseName==='function')?exerciseName(r):null);
+      return (out&&out.svg)||null;
+    }catch(e){ return null; }
+  }
+  function printAnnexes(){
+    const old=document.getElementById(PRINT_ANNEX); if(old)old.remove();
+    const box=document.createElement('div'); box.id=PRINT_ANNEX;
+    for(const which of ['B','C']){
+      const svg=buildAnnexSVG(which); if(!svg)continue;
+      const sec=document.createElement('section');
+      sec.className='pannex'; sec.innerHTML=svg;
+      box.appendChild(sec);
+    }
+    if(box.firstChild)document.body.appendChild(box);
+  }
+  addEventListener('beforeprint',printAnnexes);
+  addEventListener('afterprint',()=>{
+    const b=document.getElementById(PRINT_ANNEX); if(b)b.remove();});
+  /* Exposed so the harness can build the container without a print dialogue:
+     `page.pdf()` does not fire `beforeprint`. */
+  window.__printAnnexes=printAnnexes;
   // ROUND 41e: the corner close, to rhyme with the Comparator's dialogs.
   {const x=$('#notesx'); if(x)x.addEventListener('click',()=>$('#notesdlg').close());}
   const [p,seed,r0,sets]=fromURL();
