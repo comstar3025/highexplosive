@@ -22,6 +22,39 @@ record those commits do not carry.
 
 ---
 
+## v1.41 — Tactical Scenario Simulator · 12 Sep 2026
+
+4,196,979 bytes · `bfbe7ff42675dc19f95f011abeaef3bc`
+Rollback: v1.4, `3e80316c6d81daadbc6928d8ed7985bb`
+
+Three fixes, no features.
+
+1. **The battlefield caption was being cut off on phones.** The position word
+   hangs out of the card on a negative left margin; the narrow-width query drops
+   the gutter column that margin exists for, but the margin stayed — so the list
+   sat 27px off the left edge of the page, where the document does not scroll and
+   the overhang is destroyed rather than merely offscreen. `Map Pack: City`
+   printed as `Pack: City`. *Measured on both builds, twelve sheets at each of
+   320, 360, 390, 430 and 479px:* **v1.4 clipped 12 of 12 at every width, worst
+   −27px; v1.41 clips 0 of 12 at every width.** The one item a reader would have
+   noticed.
+2. **One idiom per kind of absence in the World card.** HPG class printed `None`
+   on some sheets and a bare em dash on others for what looked like the same
+   absence. It now says **`None on record`** where there is no record and `None`
+   where the fact is a known nil. No lone em-dash field values remain; every em
+   dash still on a sheet is inside real prose.
+3. **The third-party note named one holder where the record carries several.** On
+   a jointly held world the note credited the first and dropped the rest, while
+   the World card a hand's width below named them all. Both lines now come from
+   the same two helpers.
+
+**The draw is untouched** — a bookmark still resolves to the same exercise on the
+same ground. *Measured over 60 seeds against the live v1.4:* battlefield row
+identical on **60 of 60**, world identical on **60 of 60**. Twenty-two sheets
+changed text, and every change is item 2 or item 3.
+
+---
+
 ## v1.4 — Tactical Scenario Simulator · 11 Sep 2026
 
 4,193,112 bytes · `3e80316c6d81daadbc6928d8ed7985bb`

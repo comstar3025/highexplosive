@@ -725,7 +725,15 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
   .row>.lbl{grid-column:2/4;grid-row:1}
   .row>.val,.row>.ctl{grid-column:2/4;grid-row:2}
   .row>.pg{grid-column:2/4;grid-row:3}
-  .bdlist{grid-template-columns:minmax(0,1fr) auto;row-gap:6px}
+  /* ROUND 83, V41-01. The three-column rule hangs the position word out of the
+     card with `margin-left:calc(-3.25rem - 10px)`. This query drops the gutter
+     column, so there is nothing left to hang - but the negative margin stayed,
+     and below 30rem it pulled the whole list 27px off the LEFT EDGE OF THE
+     PAGE, where the document does not scroll and the overhang was simply cut:
+     "Map Pack: City" printed as "Pack: City". Measured at 60 of 60 sheets and
+     every width from 320 to 480. The margin belongs to the hanging indent, so
+     it goes where the hanging indent goes. */
+  .bdlist{grid-template-columns:minmax(0,1fr) auto;row-gap:6px;margin-left:0}
   .bd .bs{color:var(--ink-3)}
 }
 @media print{
@@ -784,7 +792,7 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
            comparator has. The words did not change. -->
       <p class="sub">Property of the Focht War College, Tukayyid.</p>
     </div>
-    <span class="ver">v1.4</span>
+    <span class="ver">v1.41</span>
   </div>
   <hr class="titlerule">
 
@@ -5423,13 +5431,32 @@ function solveOnce(pins,seed,state,attempt,seed0){
          for that, it hangs its numeral on the World line, and because the
          numbering runs on first appearance the note becomes [1] where it used
          to come last. */
+      /* ROUND 83, V41-03, HIS RULING on Olivia's P377. The note named
+         `ownNow[0]` and stopped, so on a world the record shows as JOINTLY
+         HELD it credited one holder and dropped the rest - while the World
+         card, a hand's width down the same sheet, named them all. Measured
+         over 80 neutral-ground draws: 72 carried this note, 7 stood on a
+         jointly held world, and all 7 named one holder. Tharkad in 3067 is
+         the case to read: the card says "The Lyran Alliance and the Word of
+         Blake hold it between them" and the note said "Lyran Alliance does".
+         `andList` and `the` are the World card's own two helpers (part3.js),
+         so the two lines now come out of the same shape and cannot drift
+         again; the verb follows the count. */
+      const _held=ownNow.map(c=>the(fname(c,year)));
       unmet.push({slot:'venue',
-        why:`neither side holds ${planet.n} in ${year}; ${fname(ownNow[0],year)} does`,
+        why:`neither side holds ${planet.n} in ${year}; ${andList(_held)} ${_held.length>1?'do':'does'}`,
         fix:`the exercise is framed as an engagement on third-party ground`});
     } else {
+      /* The same fault, in the sibling note: one holder named where the record
+         carries several. Told to Mario rather than reworded past - the FIX
+         clause reads "across X ground", which does not take a list, so it
+         names the ground for what it is when there is more than one holder. */
+      const _held=ownNow.map(c=>the(fname(c,year)));
       unmet.push({slot:'defender',
-        why:`${fname(dfd,year)} did not hold ${planet.n} in ${year}; ${fname(ownNow[0],year)} did`,
-        fix:`the exercise is fought across ${fname(ownNow[0],year)} ground`});
+        why:`${fname(dfd,year)} did not hold ${planet.n} in ${year}; ${andList(_held)} did`,
+        fix:_held.length>1
+            ?`the exercise is fought across ground held by ${andList(_held)}`
+            :`the exercise is fought across ${fname(ownNow[0],year)} ground`});
     }
   }
   if(!neutralGround&&(!dfd||(ownPolity.length&&!ownPolity.includes(dfd)&&!sp.defender))){
@@ -10062,7 +10089,11 @@ function diagram(r,boards){
     const step=(P1-P0)/span;
     /* `n` hexes in from an edge, as a pixel offset along the axis. `lead` is the
        edge the inset is measured from. */
-    const near=(lead)=>(lead===E.long[0]||lead===E.short[0])?'start':'end';
+    /* ROUND 82: NORTH AND WEST ARE THE START OF THE AXIS, by name. This read
+       `lead===E.long[0]`, and `E.long` is shuffled per seed so that its first
+       entry is side one's edge - which made the zones follow the SIDES while the
+       edge bars below follow the COMPASS. One drawing, two readings. */
+    const near=(lead)=>(lead==='north'||lead==='west')?'start':'end';
     /* ROUND 47K. AN OFF-BY-ONE AT THE FAR END OF THE AXIS, and Mario found it on
        the hex-accurate map diagram, where a band can be counted against the
        hexes it covers. Measured from the LOW end the book's row n is index n-1,
@@ -10191,13 +10222,22 @@ function diagram(r,boards){
       /* the literal row-bands, once the whole list is in hand: which of the two
          sits nearer side one's home edge is which side owns it. */
       if(literal.length){
+        /* ROUND 82. A LITERAL ROW IS AN ABSOLUTE BOARD ROW - row 01 is the north
+           edge - so it is measured from the board's own origin and not from
+           whichever edge side one happens to hold. Both of these read
+           `E.long[0]`, which is side one's edge and not a compass point, so on
+           every sheet where side one held the SOUTH the two bands were drawn at
+           the wrong end AND coloured the wrong way round. His FLAMING CRYSTAL is
+           one of them: the plate, the Order of Battle and the paragraph all put
+           the six machines off the south and the diagram drew them north. */
+        const ORIGIN=vertical?'west':'north';
         const mid=z=>(z.rows[0]+z.rows[1])/2;
-        const nearOne=z=>(E.long[0]===pair[0])?mid(z):(ROWS+1-mid(z));
+        const nearOne=z=>(near(pair[0])==='start')?mid(z):(ROWS+1-mid(z));
         const ord=literal.slice().sort((a,b)=>nearOne(a)-nearOne(b));
         for(const z of literal){
           let c=col;
           if(col===TEAMZONE)c=(literal.length===2&&z===ord[1])?RED:BLUE;
-          zones.push(strip(E.long[0],z.rows[0],z.rows[1],c,base));
+          zones.push(strip(ORIGIN,z.rows[0],z.rows[1],c,base));
         }
       }
     };
@@ -10467,10 +10507,27 @@ function atlasFor(p,ctx){
      on different sheets - "for a card meant to be re-scanned across dozens of
      sheets, position is memory, and this throws it away every time". The
      FOURTEEN rows below are now always present in one order; a fact the record
-     does not carry prints an em dash, which is also information. `In the
-     system` is the one genuine extra - it exists only when the fight is on a
-     body - and it is appended at the end so it cannot move anything above it. */
-  const putF=(k,v)=>at.push([k,(v===null||v===undefined||v==='')?'&mdash;':v]);
+     does not carry says so, which is also information. `In the system` is the
+     one genuine extra - it exists only when the fight is on a body - and it is
+     appended at the end so it cannot move anything above it.
+
+     ROUND 83, V41-04, HIS RULING on Olivia's P372: "Unify, but make nil/no-
+     record distinction as per Recharging station. I assume the '-' is where
+     data is missing --> 'None on record'." It is: this line is the only place
+     an em dash was produced, and it fires exactly when the record carries
+     nothing. So the card now speaks with ONE idiom per kind of absence, the
+     one `stationWord` already used:
+
+         no record of the fact   ->  None on record
+         a fact that is nil      ->  None  (with its qualifier where there is
+                                     one: `none since 2805`, `none - a
+                                     sterile rock`)
+
+     The fault it fixes was a near-even split inside a SINGLE field: HPG class
+     printed `None` on 22 sheets and an em dash on 20, for the same absence,
+     with nothing on the sheet to tell a reader they meant different things -
+     which they did. */
+  const putF=(k,v)=>at.push([k,(v===null||v===undefined||v==='')?'none on record':v]);
   const _fi=D.planets.indexOf(p);
   const WF=((D.worldFacts||[])[_fi])||[[],[],0,0,0,0,0,0];
   /* `hpg` and `si` are flat [year, value, year, value...] in date order, so they
