@@ -22,6 +22,62 @@ record those commits do not carry.
 
 ---
 
+## v1.44 — Tactical Scenario Simulator · 13 Sep 2026
+
+4,224,211 bytes · `85b7ae2532912285d65485b9a763eda0`
+Rollback: v1.43, `6160b472619c833aae8af728b3c64fd1`
+
+**The Third Succession War is on the sheet, the sentence that hid it is fixed,
+and Annex C gained a hover reach.**
+
+1. **149 years with no war on the sheet.** Between the Second Succession War
+   ending 2864 and the Fourth beginning 3028 the war table carried no
+   House-vs-House entry at all, so every Succession-era exercise told a reader
+   there was no war — while the tool's own planet record carried 936 changes of
+   ownership across the same span.
+2. **The missing rows were not a bug in the source.** The table is built from
+   MekHQ's `factionhints.xml`, which exists to compute *probabilities of
+   conflict*: `<war>` marks **limited periods of intense fighting**. It is a rate
+   modifier for a contract generator, not a chronicle. The Third Succession War
+   is 159 years of low-intensity border raiding — MekHQ's baseline — so marking
+   it would double a rate already normal.
+3. **So the sentence was fixed as well as the rows**, and that half matters more:
+   *"No recorded war between them in 3059"* asserted something the source cannot
+   support in any year. It now reads *"No war between them is named in the record
+   for 3059."* *Verified on live sheets:* the retired wording renders on none of
+   120 seeds.
+4. **Ten data corrections, nine of them upstream faults in MekHQ's file** — the
+   Fourth Succession War dated 3026 against canon's 3028, a Capellan war with no
+   Capellan in it, and two `Combine-Ghost Bear War` rows that are really the
+   Hell's Horses raids wearing a borrowed label.
+5. **Annex C: hovering a system draws its one-jump reach** — a dashed 30 ly
+   circle and faint lines to every system inside it — and a route stop's ring now
+   always contains a dot in the colour that system would carry off the route, so
+   the ring says whose journey it is and the dot says whose ground it stopped on.
+6. **Nothing the plate draws leaves the plate.** A system whose coordinates fall
+   on the window's own edge used to straddle the frame, and a 30 ly circle
+   centred near an edge spilled much further. One clip rect per panel now wraps
+   everything inside the frame and nothing outside it. *Verified by rendered
+   pixels, not by inspection:* with a hover circle active on a star sitting
+   **0 px** from the frame, the 12 px bands immediately outside all four edges
+   contain **zero** non-background pixels.
+7. **A pre-existing fault, older than the hover:** `<text>` labels are painted
+   after the marks, so a label crossing a star took the pointer and the star
+   answered nothing. Labels now give up the pointer — this affected Annex B too.
+
+**The exercise moves on some seeds, and only where it was sitting on a wrong date
+or a wrong belligerent.** *Measured over 120 free seeds against the live v1.43:*
+world, year, mission and boards identical on **113 of 120 (94%)**, matching the
+283 of 300 measured upstream. **Pinned** draws move further: narrowing the year
+window to the intersection of both sides' lifespans reshuffles the pick even
+where the old year was legal.
+
+*Cut five times under this number.* The figures above are the round-94 cut, the
+only one that shipped; four superseded cuts sit beside it in `Release/` and were
+never live.
+
+---
+
 ## v1.43 — Tactical Scenario Simulator · 12 Sep 2026
 
 4,205,481 bytes · `6160b472619c833aae8af728b3c64fd1`
