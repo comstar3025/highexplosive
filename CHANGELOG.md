@@ -13,12 +13,54 @@ record those commits do not carry.
 **Conventions.**
 
 1. The second digit is functionality; the third digit is fixes.
-2. Every simulator and comparator release is one self-contained HTML file copied
-   verbatim to `static/tools/…/index.html`. Nothing is fetched at runtime.
+2. Every simulator and comparator release is one HTML file copied verbatim to
+   `static/tools/…/index.html`. It was fully self-contained through v1.44;
+   **from v1.5 the simulator fetches one sidecar at runtime**, the order-of-battle
+   database on `archive.highexplosive.net`, and degrades to its former order of
+   battle when that is unreachable.
 3. `md5` is of that file as it sits in the repo and as it is served.
 4. Sources are named where a claim was measured rather than asserted. **Verified
    live** means checked from a browser against the running site after the push;
    **measured** means checked against the byte-identical file before it.
+
+---
+
+## v1.5 — Tactical Scenario Simulator · 16 Sep 2026
+
+4,702,523 bytes · `a3ec6de94259d2caeb81a05550beda71`
+Rollback: v1.44, `85b7ae2532912285d65485b9a763eda0`
+
+**The order of battle is drawn from real machines.** This is the first release
+that fetches anything at runtime: `oob-db-v1.json.gz` on
+`archive.highexplosive.net` — 4,187,958 bytes, sha256 `e4ba1b45…7fbd59`, 10,988
+units and 145 availability slices. The page carries the expected length and hash
+and treats a mismatch as unreachable.
+
+1. **A full pre-release review** — 48 items answered, 21 built. Focus restored to
+   the button, the failure card offering only pins actually set, the year capped
+   at 3200, achieved BV beside each side, `aria-labelledby` on the form, a gold
+   focus ring, West/Centre/East on the battlefield caption, the exercise title as
+   an `h2`, and the order of battle reading blue then red on every sheet.
+2. **Per-formation quality skew.** Each formation draws its own quality from the
+   side's table, so a command lance leans veteran and a support lance the other
+   way: a green command lance is 0.8% against 5.0% for an ordinary battle lance,
+   over 2,600 front-line forces.
+3. **The crew quality band is derived from the crews**, per formation, rather
+   than from the draw — a lance of 3/4s and 4/3s no longer reads as Regular.
+4. **The even split**, rank floors, a Level II being six machines and labelled
+   Understrength when short, and R9's spend relief for a Clan force that cannot
+   spend 90% of its ceiling.
+5. **The LosTech era is fixed** — it dated every exercise 3014 and never came up
+   on a free draw; it now spans 2904–3018.
+6. **Printing from dark mode** no longer puts pale tints on white paper.
+
+**The fallback is real, and measured rather than asserted.** Served from an
+origin the archive's CORS policy does not allow, the sidecar fetch fails and the
+page degrades exactly as designed: six sheets generated, the order of battle
+present, both annexes drawing (Annex B 2,468 nodes, Annex C 1,964), and the
+diegetic note — *"Detailed strength records could not be reconstructed for this
+engagement"* — on the sheet. No JavaScript errors; the only console output is the
+failed request itself.
 
 ---
 
