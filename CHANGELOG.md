@@ -25,6 +25,45 @@ record those commits do not carry.
 
 ---
 
+## v1.52 — Tactical Scenario Simulator · 17 Sep 2026
+
+4,707,669 bytes · `ad0c3bb44dee21fc7de288ba528b4094`
+Rollback: v1.51, `60490df28029747c887250c9082cfac2`
+
+**Three rulings from 17 Sep, and one of them reverses an older one.**
+
+1. **The Setup card prints the temperature the dice gave.** Where the roll asks
+   for a level the ground cannot reach, the card used to print the local maximum;
+   it now prints the rolled level, and the footnote carries the reconciliation.
+   This reverses an earlier ruling, on the grounds that substituting the local
+   maximum contradicted the *respect the rolled exercise* principle. The level
+   the ground can actually show is still what every temperature claim downstream
+   is built from — the tool still does not assert a reading it cannot produce.
+2. **That footnote is one sentence.** It read *"No ground here reaches Extreme
+   Heat 3. The exercise is played at Extreme Heat 2."* and now reads *"The
+   exercise requires Extreme Heat 3; the most this ground can reach is Extreme
+   Heat 2."*
+3. **The employer's liaison officer is named on the sheet.** He has been attached
+   to every contracted sheet since round 38, carrying the employer's rank and the
+   employer's faction rather than the mercenary's, and round 40 took him off the
+   roster. A diegetic line under the independent-command line now puts him where
+   the roster is not: *Liaison officer recorded as [rank] [name]*.
+
+*Measured on the byte-identical file, against v1.51 on the same seeds:* **19 of
+20 sheets are identical**, and the twentieth differs by exactly the new liaison
+line. On the two divergent-temperature sheets, v1.51 printed `Extreme Heat 1`
+with a two-sentence footnote and v1.52 prints `Extreme Heat 3` with the single
+sentence. The same seed generated twice from cold is identical.
+
+v1.51's fix is carried: **0 disagreements of 10 sheets** between the plate's
+home-edge strips and the order of battle's entry line, matching v1.51 exactly.
+
+The sidecar is untouched — same URL, same expected length and hash. One request
+on a cold load, still one after five sheets; no fallback note on any of them;
+both annexes drawing; no JavaScript errors.
+
+---
+
 ## v1.51 — Tactical Scenario Simulator · 17 Sep 2026
 
 4,703,951 bytes · `60490df28029747c887250c9082cfac2`
