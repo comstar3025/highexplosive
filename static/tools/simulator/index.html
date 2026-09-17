@@ -904,7 +904,7 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
            comparator has. The words did not change. -->
       <p class="sub">Property of the Focht War College, Tukayyid.</p>
     </div>
-    <span class="ver">v1.5</span>
+    <span class="ver">v1.51</span>
   </div>
   <hr class="titlerule">
 
@@ -17609,6 +17609,28 @@ const qSlotOf=k=>{const e=((bl().quality)||{})[k];
 
    The edge pair is resolved HERE, once, and both the card and the paragraph
    read it - they were computing it separately and could have drifted. */
+/*  R46, HIS BUG REPORT ON FWCX-072756687 (COPE CLAW), 17 Sep: "the diagram and
+    deployment plate show red force deploying (split) from the south; the blurb
+    and OOB show the opposite - inverted!"
+
+    HE IS RIGHT AND IT IS MY REGRESSION FROM ROUND 121C.  Round 47Z settled it -
+    "the ROLE follows `roleInvert`, the EDGE STAYS WITH THE SLOT" - and the
+    battlefield plate implements exactly that: `used[pair[0]]=1; used[pair[1]]=2`.
+    But `entryLine` and the blurb both derived the edge from `side==='a'`, which
+    is the ROLE LETTER and not the box, so on every sheet where the attacker sits
+    in slot two the three drawings disagreed.  Round 121c fixed this same
+    confusion for the order of battle's COLOUR and did not look for it anywhere
+    else; `entryLine`'s own comment says "The EDGE stays with the slot" over a
+    line that reads the role.
+
+    One function now, and all three read it. */
+function slotOfSide(r,side){
+  return (side==='a')?((r&&r.travellerSlot)||1):((r&&r.holderSlot)||2);
+}
+function edgeForSide(r,side){
+  const {pair}=edgesFor(r);
+  return (slotOfSide(r,side)===2)?pair[1]:pair[0];
+}
 function edgesFor(r){
   const m=r.mission||{}, E=r.edges||{long:['north','south'],short:['east','west'],assignable:true};
   const d0=m.deployment||{};
@@ -17674,7 +17696,7 @@ function entryLine(r,side,gi,gcount,g,meta){
      The EDGE stays with the slot. Roles swap; north does not become south. */
   const isA=(side==='a');
   const one=r.roleInvert?!isA:isA;
-  const myEdge=isA?pair[0]:pair[1];
+  const myEdge=edgeForSide(r,side);      /* R46: the SLOT, not the role letter */
   /* ROUND 39b. `extraComplication` was missing, and it is the slot Annihilation's
      second Master Complication fills - so a Waves result on an Annihilation
      sheet said "turn one" and nothing else, on every sheet where Waves arrived
@@ -18288,7 +18310,10 @@ function blurbParagraph(r){
        in edgesFor(), which the Order of Battle reads too so the two cannot
        drift apart. */
     const {E,pair}=edgesFor(r);
-    T.edge_1={t:pair[0],pl:false};        T.edge_2={t:pair[1],pl:false};
+    /*  R46.  `commander_1` is the ATTACKER and `commander_2` the defender, so
+        their edges must be their own slots' edges - pairing an attacker with
+        "side one's edge" is what put the paragraph the wrong way round. */
+    T.edge_1={t:edgeForSide(r,'a'),pl:false}; T.edge_2={t:edgeForSide(r,'d'),pl:false};
     T.edge_short_1={t:E.short[0],pl:false}; T.edge_short_2={t:E.short[1],pl:false};
     T.commander_1={t:A.commander,pl:false};
     T.commander_2={t:Bd.commander,pl:false};

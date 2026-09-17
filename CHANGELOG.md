@@ -25,6 +25,33 @@ record those commits do not carry.
 
 ---
 
+## v1.51 — Tactical Scenario Simulator · 17 Sep 2026
+
+4,703,951 bytes · `60490df28029747c887250c9082cfac2`
+Rollback: v1.5, `a3ec6de94259d2caeb81a05550beda71`
+
+**One fault. The entry edge now follows the slot, not the tactical role.**
+
+The rule has been settled since round 47Z — the role follows `roleInvert`, the
+edge stays with the slot — and the battlefield plate always implemented it. The
+order of battle's entry line and the briefing paragraph both derived the edge
+from the role letter instead, so on every sheet where the attacker sat in the
+second box, the picture and the prose disagreed: the diagram showed a force
+entering from the south while the text sent it in from the north. One function
+now, read by all three.
+
+*Measured on both builds, reading the home-edge strip colours out of the diagram
+and the entry line out of the order of battle:* **the live v1.5 disagrees with
+its own plate on 5 of 10 sheets; v1.51 on 0 of 10.** The reported case, seed
+`72756687`, is one of the five — the plate marks north for side one, and v1.5's
+order of battle sends the Federated Suns in from the south.
+
+The sidecar is unchanged and the page's expected length and hash still match the
+file on R2. One request on a cold load, still one after five sheets; no fallback
+note on any of them; both annexes drawing; no JavaScript errors.
+
+---
+
 ## v1.5 — Tactical Scenario Simulator · 16 Sep 2026
 
 4,702,523 bytes · `a3ec6de94259d2caeb81a05550beda71`
