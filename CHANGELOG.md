@@ -25,6 +25,55 @@ record those commits do not carry.
 
 ---
 
+## v1.53 — Tactical Scenario Simulator · 17 Sep 2026
+
+4,716,548 bytes · `dedd739537ab71a63809c974dcd4fbf9`
+Rollback: v1.52, `ad0c3bb44dee21fc7de288ba528b4094`
+
+**Six of the day's rulings, and four of them are the order of battle learning to
+speak per formation rather than per side.**
+
+1. **The deployment line sits under its formation heading.** It used to be
+   hoisted to the side and printed once wherever every formation entered the same
+   way. Its position now carries meaning, and on a contracted side it no longer
+   lands between the command's heading and the liaison's.
+2. **Steel Rain splits by formation.** A side of two lances printed *"two on turn
+   one and two on turn two"* twice, each lance halving itself. One lance now drops
+   on turn one and the other on turn two. Ambush and Extraction have worked this
+   way since rounds 41e and 48D.
+3. **Waves splits between formations too** — one formation *"from the [edge],
+   turn one"*, the other *"from the [edge], withheld"*. A lone formation is
+   unchanged and still withholds half of itself, which is round 39b and stands.
+4. **Focal Point's sentence pluralises where the diagram draws two objective
+   markers**: *"Two positions in the centre decide it."*
+5. **The liaison line breathes.** 9px under it, the sheet's own block-boundary
+   gap, so the command's heading ends before its first formation begins.
+6. **Both "no detailed records" notes move to the Instructor's notes**, numbered,
+   with their tags on the things they are about — `[1]` on the Order of battle
+   heading and `[2]` after the independent-command line. They were loose
+   paragraphs inside the Order of Battle band.
+
+*Measured on the byte-identical file, against v1.52 on the same seeds:* **12 of
+14 sheets are identical**, and the two that differ do so only by the note
+relocation and one hoisted deployment line. Before and after, same seed each
+time: Steel Rain at scale 4 seed `1373210` goes from the halving line printed
+twice to *"on turn one"* / *"on turn two"*; Waves at scale 4 seed `2369094` from
+four *"two … on turn one, two to follow"* lines to *"turn one"* / *"withheld"*
+per formation, while a lone formation at scale 1 is untouched; seed `14129077`
+from *"One position in the centre decides it."* to *"Two positions…"*; the
+liaison line's measured gap from 1px to 9px.
+
+**The diagram is not touched, checked rather than taken:** 20 battlefield plates
+compared between the two builds with generated ids normalised — **0 differ**.
+Entry-edge agreement carried from v1.51 at 0 disagreements of 10. Same seed twice
+from cold: identical.
+
+The sidecar is unchanged — same URL, same expected length and hash. One request
+on a cold load, still one after five sheets; no fallback note; both annexes
+drawing; no JavaScript errors.
+
+---
+
 ## v1.52 — Tactical Scenario Simulator · 17 Sep 2026
 
 4,707,669 bytes · `ad0c3bb44dee21fc7de288ba528b4094`
