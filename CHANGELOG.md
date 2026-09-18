@@ -25,6 +25,58 @@ record those commits do not carry.
 
 ---
 
+## v1.55 — Tactical Scenario Simulator · 18 Sep 2026
+
+4,766,346 bytes · `bbd62061c0593029354a6339fe70691e`
+Rollback: v1.54, `706c889e8c475acbf9134f32c3976878`
+
+**Three changes, all in the order of battle: how a force is sliced into
+formations, what order those formations print in, and the Clans.**
+
+1. **The split is drawn from the count actually delivered.** The shape was chosen
+   before the machines were, and then overwritten twice — by the scorer and by
+   delivery, where only 42.3% of forces arrived as the shape had planned. The
+   slice is now re-cut once the real count is known, and each changed group draws
+   its type from the machines actually in it. **Six machines splitting into two
+   threes: 24% before, 71% after**, on identical seeds.
+2. **A Command formation prints first and a Support formation last.** Display
+   only — the builder is not told, and nothing about the force changes. Matching
+   is on the exact formation name, because a substring test demoted every *Fire
+   Support* lance, which is a combat role.
+3. **The Keshik, and the availability rung becomes a per-formation fact.** A
+   front-line Clan force's Command Formation is appointed Keshik on a 1-in-6; the
+   appointment forces that formation to elite and draws its machines from the
+   Keshik table, which is now reached only by appointment rather than by 8.2% of
+   Clan forces. Four tags print on the formation line after the quality — KESHIK,
+   SOLAHMA and PROVISIONAL GARRISON per formation, GARRISON per force:
+   `Command Star · ELITE · KESHIK`.
+
+*Measured on the byte-identical file, against v1.54 on identical seeds:* the
+six-machine split goes **2 of 8 to 5 of 7**; **49 of 49** multi-formation bands
+print in the specified order.
+
+**The Clan change is contained, and this was checked against the cut it was made
+on rather than taken:** of 38 non-Clan forces on sheets with no Clan force,
+**0 differ**. The only non-Clan forces that move are on sheets that have a Clan
+force, which share one random stream with it. 5 of 11 Clan forces differ.
+
+**The builder ran on every force, checked directly.** The order-of-battle builder
+falls back to a legacy roster that carries no designation and no skill pair, and
+that fallback is caught, so a zero page-error count does not prove the builder
+ran. Across 52 forces and 230 crews: **0 crews with an empty designation or skill
+pair, 0 forces on the legacy roster**, Clan forces included.
+
+**The diagram is not touched:** 20 battlefield plates compared between the builds
+with generated ids normalised — **0 differ**. Entry-edge agreement holds at 0 of
+10. The button row is 67px resting and held at 1280, 768 and 390px with no
+horizontal scroll and no page errors. Same seed twice from cold: identical.
+
+The sidecar is unchanged — same URL, same expected length and hash. One request
+on a cold load, still one after five sheets; no fallback note; both annexes
+drawing; no JavaScript errors.
+
+---
+
 ## v1.54 — Tactical Scenario Simulator · 18 Sep 2026
 
 4,737,978 bytes · `706c889e8c475acbf9134f32c3976878`
