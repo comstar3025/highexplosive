@@ -221,7 +221,78 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .go{border-color:var(--gold);color:var(--gold);padding:10px 20px;font-size:var(--t-body);
     letter-spacing:.1em}
 .go:hover{background:var(--gold);color:var(--ground)}
-.actions{display:flex;gap:12px;align-items:center;margin:32px 0;flex-wrap:wrap}
+/* F2. The row bleeds to `.wrap`'s own edges (-20px, the wrap's side padding)
+   so the sheet scrolls UNDER it rather than beside it. `top:0` and not a gap,
+   because there is no fixed masthead above it to clear. THE TREATMENT - the
+   height, whether it carries a rule or a shadow once it is holding, and what
+   happens to it on a narrow screen where the row already wraps to two lines -
+   IS OLIVIA'S AND IS NOT SETTLED. This is the mechanism only. */
+/*  ROUND 127, HIS RULING: Olivia's IDEAL.  Three things she found and one rule
+    that governs all of them.
+
+    WHAT SHE FOUND.  Held, the row had no edge of ANY kind - no rule, no shadow,
+    and over the plain parts of the sheet its background and the page's are the
+    SAME TOKEN, so there was literally no boundary and text scrolled up and
+    vanished into nothing.  Her words: it did not read as a shelf the sheet
+    slides behind, it read as a sheet missing its top.  And Generate's focus ring
+    paints outside its border box, so only 8px of air showed above it, which at
+    the top of a window reads as clipping rather than as margin.
+
+    THE RULE THAT GOVERNS THE FIX.  A sticky element KEEPS ITS BOX IN THE FLOW
+    and is only painted elsewhere, so anything that changes its HEIGHT when it
+    sticks - padding, border-width, gap, showing or hiding a child - reflows the
+    whole document under the reader's eyes mid-scroll.  It judders, and it is
+    very hard to diagnose afterwards.  So the held state changes PAINT ONLY: a
+    border-colour that was already there at `transparent`, and a shadow.
+
+    The 16px top padding is PERMANENT - resting and held - for the same reason. */
+.actions{display:flex;gap:12px;align-items:center;margin:32px 0;flex-wrap:wrap;
+  position:sticky;top:0;z-index:20;background:var(--ground);
+  margin-inline:-20px;padding:16px 20px 12px;
+  border-bottom:1px solid transparent}
+/*  The shadow is not decoration: it carries the LAYER CONTRACT that a hairline
+    cannot.  `--rule` is 1.39:1 on `--ground` - correct for a document's
+    hairlines and far too quiet to say "in front" on its own.  The negative
+    spread pulls the shadow in so it blooms directly under the edge rather than
+    dropping like an app toolbar onto a page that is trying to be a document. */
+.actions.is-held{border-bottom-color:var(--rule);
+  box-shadow:0 6px 14px -12px rgb(0 0 0 / .45)}
+/*  Olivia's O15, LATENT rather than live: the only in-page anchor points at the
+    Instructor's notes near the FOOT of the document, so the page runs out of
+    scroll before the target can slide under the held row - measured, the target
+    lands at y=671 with the row's bottom at y=62.  One declaration now, so the
+    first anchor that points anywhere else does not have to find this out.
+    78px is the row's 62 plus 16 of clearance. */
+.note,.refs{scroll-margin-top:78px}
+/*  A BLACK SHADOW ON `#14140F` DOES NOTHING, which is the kind of thing that is
+    missed until somebody complains.  In dark the held row takes a tone step to
+    `--ground-2` instead - 1.6:1 against the ground, plus the rule - which is the
+    same signal carried by different means.  Background is paint, so this is free
+    under the flow rule above. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .actions.is-held{background:var(--ground-2)} }
+:root[data-theme="dark"] .actions.is-held{background:var(--ground-2)}
+/*  AT PHONE WIDTH the five buttons wrapped to two lines, which measured 99px
+    held - and the second line was left-ragged with an empty right half, so it
+    looked worse than it measured.  One line, scrolling sideways, brings it back
+    to the desktop's height and makes the held and resting states IDENTICAL, so
+    nothing changes on stick and the flow rule cannot bite.  Generate is first
+    and is therefore always the visible one, which is what he asked for.
+
+    The fade goes on an INNER TRACK and never on `.actions` itself: a mask on the
+    element that holds the buttons clips Generate's focus ring at the row's
+    edges, and R24 settled those rings deliberately.  The track's trailing
+    padding keeps a slice of the next button showing, which is the only reliable
+    cue that there is more to the right. */
+.actrack{display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-width:0}
+@media (max-width:480px){
+  .actions{display:block;padding-inline:0}
+  .actrack{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
+    scrollbar-width:none;padding:0 32px 0 20px;
+    -webkit-mask-image:linear-gradient(to left,transparent 0,#000 24px);
+            mask-image:linear-gradient(to left,transparent 0,#000 24px)}
+  .actrack::-webkit-scrollbar{display:none}
+  .actrack>*{flex:0 0 auto} }
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* ROUND 60, his ruling, and it settles a split that predates this arc: the
    SAME note carried a filled rust box on the FORM and a bare superscript on the
@@ -523,9 +594,26 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 /* A35, layout D. The belligerent's own name is the heading; one line says what
    the formation is and how many machines are in it; the pilots run on in a
    sentence. Citations are gathered once at the foot of the band. */
-.lean{margin:0 0 12px}
+/*  F5, ROUND 127.  Olivia measured the band and found the two FORCES were no
+    further apart than two formations of the same force - 12px against 9px, a
+    ratio of 1.33, where the eye needs about 2.5 before it reads a gap as a
+    BOUNDARY rather than comparing it with its neighbour.  Worse, the Blue/Red
+    boundary was exactly the same 12px as the gap between the band's own title
+    and its contents.  So the band read as four lances in a list rather than as
+    two forces of two, which is his own complaint.
+
+    HIS RULING 17 Sep: her ideal MINUS the content cuts, PLUS the badge
+    demotion.  `MechWarrior` and `CamOps p.` stay.  Three moves, below. */
+.lean{margin:0 0 20px}
+/*  Move one.  A RULE under the force name.  It gives the name authority without
+    making it bigger or louder: the type is untouched - still 13px tracked mono
+    in the side's colour - but a line spanning the column turns a caption
+    floating above some lances into the HEADER OF A BLOCK, and everything under
+    it is visibly inside that block.  It is how a sourcebook sets a roster, and
+    it is the half of the job that SURVIVES PRINT. */
 .lname{font:500 var(--t-detail)/1.6 var(--mono);text-transform:uppercase;
-       letter-spacing:.09em;color:var(--ink-3)}
+       letter-spacing:.09em;color:var(--ink-3);
+       border-bottom:1px solid var(--rule);padding-bottom:3px;margin-bottom:3px}
 /* ROUND 48G, his ask. The belligerent takes its side's colour - the same two the
    form's "Blue force" / "Red force" labels and both diagrams use - because the
    Order of Battle is where a reader matches a name to a band on the plate.
@@ -559,10 +647,37 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    keeps its place on the formation line - that ruling is untouched - and
    becomes a bordered tag, which is loud enough to find and quiet enough not to
    compete with the count it qualifies. */
-.lline .qual{display:none}
-.skill{font:600 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
-       border:1px solid currentColor;border-radius:2px;padding:3px 6px;
-       vertical-align:2px;margin-left:8px;white-space:nowrap}
+/*  R133: `.lline .qual` is gone. Olivia found it dead in round 127 and again
+    in 131; nothing has emitted a `.qual` since round 58. */
+/*  ROUND 132, HIS RULING.  The boxed tag on the formation line is GONE; the
+    rating now rides in the roster grid, on the deployment row, in the same
+    track as the skill pairs.  Three things went with it and each was his.
+
+    THE BOX.  Its border was drawn in `currentColor`, so the rectangle around
+    REGULAR was the strongest ink on the card - stronger than the formation name
+    it qualifies, because a continuous outline carries more weight than glyphs of
+    the same value.  Olivia: a rectangle is the strongest figure you can put in a
+    line of text, and the box, not the word, was the weight.
+
+    THE PLACE.  On the formation line the four tags sat at four different
+    horizontal positions with three different widths, right edges spread over
+    130px.  Over the skill column they are one column, which is a scale.
+
+    THE DEMOTION.  Round 130 set regular to `--ink-3` and the other three to
+    `--ink`.  HIS RULING, 17 Sep: "all in the same grey."  So the rating no
+    longer varies its weight with its value - the column does the finding now,
+    and the word does the saying. */
+/*  R133: `.skill` is gone too - the rating is `.lqual` inside the roster grid
+    now, and nothing emits the old span. */
+.pilots .lentry-in{grid-column:1/4;min-width:0;
+    font:400 var(--t-detail)/1.45 var(--mono);color:var(--ink-3);padding-right:8px}
+/*  `justify-self:center` on a track NARROWER than its content overflows evenly
+    both ways, which is what centres a seven-letter word over a three-character
+    skill pair.  Baseline, not centre, so it sits on the deployment line's own
+    baseline rather than floating against it. */
+.pilots .lqual{grid-column:4;justify-self:center;align-self:baseline;
+    font:600 var(--t-fine)/1.45 var(--mono);letter-spacing:.1em;
+    text-transform:uppercase;white-space:nowrap;color:var(--ink-3)}
 /* ROUND 59, his ruling: "no colour needed, just rely on the border". The four
    ratings are one object with one weight, and the two colours they were using
    are the SIDE ONE and SIDE TWO colours - the same double duty OC25 has just
@@ -570,9 +685,15 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    anything that needs to find it, and it costs nothing. */
 .lline>.lpg{font:400 var(--t-detail)/1.5 var(--mono);color:var(--ink-3);
        white-space:nowrap;flex:0 0 auto}
-.lentry{font:400 var(--t-detail)/1.6 var(--mono);color:var(--ink-3);margin:1px 0 2px}
+/*  Move two, and it PAYS FOR move one.  The deployment line prints under every
+    formation - his ruling of 17 Sep - so it appears four times on a two-and-two
+    sheet and its leading is multiplied by four.  13px mono at 1.45 is still
+    comfortable on a line that never wraps. */
+/*  R132: `.lentry` is retired - the deployment line is `.lentry-in` inside the
+    roster grid now, and nothing emits the old div. */
 /* A54: the roster is a column again. `.lpil`, the run-on sentence, is gone. */
-.lean .pilots{margin:0 0 9px;padding-left:0}
+.lean .pilots{margin:0 0 9px}   /* R129: the `padding-left:0` here was holding
+                                   back a rule that no longer exists. */
 /* A name the data does not know will be fielded as the player's own mercenary
    command. Said at the field, before Generate, not only in a note afterwards. */
 .mercflag{grid-column:2/4;font:400 var(--t-detail)/1.5 var(--sans);color:var(--bent);
@@ -629,9 +750,26 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    column went to 252px against its 73px of content and every rank was shoved
    away from the name it belongs to. Content-sized tracks throughout, and the
    roster hugs the left as it does on a phone. */
+/*  ROUND 129, OLIVIA'S O1 AND HIS RULING.  There WAS a `padding-left:calc(3px +
+    12px + 7rem + 12px)` here, and it had never once shipped: `.lean .pilots`
+    (specificity 0,2,0) beat this rule (0,1,0) everywhere inside the band, and
+    inside the band is the only place a roster exists - both emitters in
+    part3.js write `.pilots` into a `.lean`.  So the indent and the reasoning
+    above it described a layout nobody has ever seen.
+
+    RENDERED, to settle it rather than argue it: at that indent the roster moves
+    139px right and THE WHOLE SKILL COLUMN FALLS OFF THE PAGE - `Vindicator
+    VND-1AA 'Avenging Angel'` is cut mid-word and the 4/5 beside it is gone -
+    because the grid's column widths are computed for a FLUSH-LEFT roster.  His
+    ruling, 17 Sep: *"don't clip anything off the page of course. If it don't
+    fit, don't wear it."*  So it does not fit and it is not worn.  The roster is
+    flush left, which is what it has always been.
+
+    A modest indent DOES fit - 24px was rendered and clips nothing, since the
+    columns total 570px in a 600px band - and is his whenever he wants it.  It
+    is not in. */
 .pilots{display:grid;grid-template-columns:max-content max-content minmax(0,max-content) max-content;
-        column-gap:12px;row-gap:1px;margin:2px 0 14px;
-        padding-left:calc(3px + 12px + 7rem + 12px)}
+        column-gap:12px;row-gap:1px;margin:2px 0 14px}
 .pilots .rk{font:400 var(--t-fine)/1.7 var(--mono);color:var(--ink-3);
             text-align:right;white-space:nowrap}
 .pilots .nm{font:400 var(--t-detail)/1.55 var(--mono);color:var(--ink)}
@@ -734,6 +872,10 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .pilots .nm{grid-column:2 / span 2}
   .pilots .mc{grid-column:2}
   .pilots .sp{grid-column:3}
+  /*  R132: three tracks here, and the skill pair is in the third, so the rating
+      follows it.  The deployment row takes the other two. */
+  .pilots .lentry-in{grid-column:1/3}
+  .pilots .lqual{grid-column:3}
   .pilots .mc,.pilots .sp{padding-bottom:6px}
   /* The legacy roster carries neither, and two empty cells must not print as a
      blank line under every name. */
@@ -912,7 +1054,7 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
            comparator has. The words did not change. -->
       <p class="sub">Property of the Focht War College, Tukayyid.</p>
     </div>
-    <span class="ver">v1.53</span>
+    <span class="ver">v1.54</span>
   </div>
   <hr class="titlerule">
 
@@ -921,8 +1063,23 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
     <div class="grp"><h2>Date</h2><div id="g-time"></div></div>
     <div class="grp"><h2>Place</h2><div id="g-place"></div></div>
     <div class="grp"><h2>Exercise</h2><div id="g-game"></div></div>
-    <div class="actions">
-      <button type="submit" class="go" id="go">Generate</button>
+  </form>
+
+  <!-- ROUND 127: the sentinel the observer watches. One pixel, no ink. When it
+       leaves the top of the window the row above it has started holding. -->
+  <div id="actsentinel" aria-hidden="true"></div>
+
+  <!-- F2, HIS REQUEST 17 Sep: "When scrolling down, I would like to keep the
+       Generate button (and the rest of the button row) at the top of the
+       screen." A sticky element is held by ITS OWN PARENT's box, and this row
+       was the form's last child - so sticking it inside the form would have
+       held it only while the form was on screen, which is the one moment it
+       does not need holding. The row is now a child of `.wrap`, which spans the
+       form AND the sheet below it, and the Generate button keeps its form with
+       `form="f"` rather than by containment. Nothing is wired by containment:
+       every handler in part3.js finds its button by id. -->
+    <div class="actions"><div class="actrack">
+      <button type="submit" form="f" class="go" id="go">Generate</button>
       <!-- Round 29, Mario: "Swap the positions of the Map Sets and Clear Pins
            buttons." Clear pins now sits beside Generate, which is the pair a
            player uses in the same breath; Map sets is a setting and moves out
@@ -938,8 +1095,7 @@ dialog::backdrop{background:rgba(0,0,0,.5)}
            whole, so the button cannot print itself. -->
       <button type="button" id="printsheet">Print</button>
       <button type="button" id="notes" class="comstar">Notes</button>
-    </div>
-  </form>
+    </div></div>
 
   <!-- R19, his ruling 16 Sep. The result had no role, no label and no live
        region, so a screen-reader user pressed GENERATE and was told nothing at
@@ -9065,8 +9221,8 @@ function solveOnce(pins,seed,state,attempt,seed0){
       const lo=eraPin.start===null?-9999:eraPin.start, hi=eraPin.end===null?9999:eraPin.end;
       if(!(lo<=pins.year&&pins.year<=hi)){
         unmet.push({slot:'era',
-          why:`${pins.year} is not in the ${eraPin.name} (${lo}\u2013${eraPin.end||'present'})`,
-          fix:'kept the year; the era label follows it'});
+          why:`${pins.year} falls outside the ${eraPin.name} (${lo}\u2013${eraPin.end||'present'})`,
+          fix:'the year stands, and the era follows from it'});
         eraPin=null;
       }
     }
@@ -9181,8 +9337,8 @@ function solveOnce(pins,seed,state,attempt,seed0){
         .replace(/^megamek\/(unofficial\/)?/,'')
         .replace(/^highexplosive\/?/,'HX3026 ').trim()))];
       unmet.push({slot:'board',value:part[0].n,
-        why:`${part.length} enabled boards are called "${names[0]}" - `+listOr(sets),
-        fix:`took the one from ${sets[0]}; pick it from the list to choose another`});
+        why:`${part.length} boards here are called "${names[0]}" - `+listOr(sets),
+        fix:`the exercise uses the one from ${sets[0]}`});
       boardPin=part[0];
     }
     else if(q!==null)boardPin=part[0];
@@ -9206,8 +9362,10 @@ function solveOnce(pins,seed,state,attempt,seed0){
        pin, and only when the two strings genuinely differ. */
     if(pins.planet&&planetPin.n.trim().toLowerCase()!==String(pins.planet).trim().toLowerCase())
       unmet.push({slot:'planet',value:planetPin.n,
-        why:`the record files "${String(pins.planet).trim()}" under ${planetPin.n}`,
-        fix:`read as ${planetPin.n}`});
+        /*  R47, HIS RULING 17 Sep on Olivia's redraft.  The fix was an ECHO: once
+            the record has filed it under ${planetPin.n} the reader has already
+            been told.  One sentence. */
+        why:`the record files "${String(pins.planet).trim()}" under ${planetPin.n}`});
   }
 
   /* Round 29, and the other half of Mario's year question. The war record is
@@ -9606,7 +9764,9 @@ function solveOnce(pins,seed,state,attempt,seed0){
       year=(lo&&year<lo)?lo:hi;
       unmet.push({slot:'year',value:String(was),
         why:`${cmd[0]} ${lo&&was<lo?'was not raised until '+lo:'was gone by '+hi}`,
-        fix:`moved the exercise to ${year}`});
+        /*  R47B, his ruling of 17 Sep: the same diegetic pass as the twenty,
+            extended to the three notes Olivia's set did not reach. */
+        fix:`the exercise is set in ${year}`});
     }
   }
 
@@ -9817,7 +9977,7 @@ function solveOnce(pins,seed,state,attempt,seed0){
     const c=Math.max(1,Math.min(6,Math.round(scale)));
     if(c!==scale)unmet.push({slot:'scale',
       why:`Scale ${scale} is outside the book's range of 1 to 6`,
-      fix:`used Scale ${c}`});
+      fix:`the exercise is set at Scale ${c}`});
     scale=c;
   } else scale=null;
   if(!scale){
@@ -9836,8 +9996,8 @@ function solveOnce(pins,seed,state,attempt,seed0){
     const _q=String(pins.mission).trim().toLowerCase();
     mission=D.missions.missions.find(m=>m.id===pins.mission)||
             D.missions.missions.find(m=>m.name.toLowerCase()===_q);
-    if(!mission){unmet.push({slot:'mission',why:`unknown mission "${pins.mission}"`,
-      fix:'rolled a mission instead'});
+    if(!mission){unmet.push({slot:'mission',why:`the record carries no mission called "${pins.mission}"`,
+      fix:'the exercise draws one from the table'});
       mission=sampleUnder(D.missions.missions,P,'mission',r,
         (m,v)=>m.id===v||m.name.toLowerCase()===String(v).toLowerCase(),null,'mission')[0];}
     else if(scale<D.missions.scale.restricted_below&&mission.batch===2){
@@ -9845,7 +10005,7 @@ function solveOnce(pins,seed,state,attempt,seed0){
         why:`${mission.name} is not available at Scale ${scale} — the Core Rulebook `+
             `restricts Scale 1 and 2 to the first six missions (p. 212)`};
       unmet.push({slot:'scale',why:`${mission.name} is not available at Scale ${scale}`,
-                  fix:`raised Scale to ${D.missions.scale.restricted_below}`});
+                  fix:`the exercise is set at Scale ${D.missions.scale.restricted_below}`});
       scale=D.missions.scale.restricted_below;}
   }else{
     mission=sampleUnder(D.missions.missions.filter(m=>
@@ -10011,7 +10171,7 @@ function solveOnce(pins,seed,state,attempt,seed0){
             `. Unpin one of the two.`};
       unmet.push({slot:'mission',value:mission.name,
         why:`${mission.name} cannot carry ${hit.name}`,
-        fix:`rolled a mission that can`});
+        fix:`the exercise draws a mission that can`});
       const ok=D.missions.missions.filter(m2=>{
         const cr2=m2.complication_rules||{table:m2.complications,reroll:[]};
         const t2=D.missions.complications[cr2.table||m2.complications]||[];
@@ -10030,16 +10190,17 @@ function solveOnce(pins,seed,state,attempt,seed0){
     const both=condRule2?`${condRule.name} and ${condRule2.name}`:condRule.name;
     unmet.push({slot:'condition',
       why:`${both} can only reach the battlefield through Battlefield `+
-          `Conditions, and you pinned a different complication`,
-      fix:`complication pin kept, condition pin${condRule2?'s':''} dropped`});
+          `Conditions, and another complication is in force here`,
+      fix:`the exercise keeps the complication and drops the condition${condRule2?'s':''}`});
     condRule=null; condRule2=null;
   }
   if(condRule){
     comp=entries.find(c=>c.id==='battlefield_conditions')||null;
     compForced=!!comp;
     if(!comp)unmet.push({slot:'condition',
-      why:`${mission.name} does not roll Battlefield Conditions, so a condition `+
-          `cannot be in force here`, fix:'condition pin dropped'});
+      why:`${mission.name} does not carry Battlefield Conditions, and no `+
+          `condition reaches the battlefield without it`,
+      fix:'the exercise drops the condition'});
   } else if(compNone){
     /* The pin the tool could not express until round 39e: no complication, and
        it is a CHOICE rather than a roll that came up empty. */
@@ -10048,7 +10209,7 @@ function solveOnce(pins,seed,state,attempt,seed0){
     const [c,bent]=sampleUnder(entries,P,'complication',r,
       (x,v)=>x.id===v||x.name.toLowerCase()===String(v).toLowerCase(),null,'complication');
     comp=c; compForced=true;
-    if(bent)unmet.push({slot:'complication',why:bent,fix:'rolled instead'});
+    if(bent)unmet.push({slot:'complication',why:bent,fix:'the exercise draws another'});
   } else {
     /* `condition = none` keeps Battlefield Conditions out of the draw, because
        that entry ALWAYS brings a condition with it and the player has said
@@ -10144,8 +10305,15 @@ function solveOnce(pins,seed,state,attempt,seed0){
        cutting it back is a house override and says so in the margin. */
     if(cond2None&&ids.length>1){
       unmet.push({slot:'condition2',
-        why:`the table rolled two conditions and the second slot is pinned to none`,
-        fix:`kept ${(byId(ids[0])||{}).name||'the first'}, dropped the second`});
+        why:`the table calls for two conditions here, and this exercise carries one`,
+        /*  R47.  The fallback here was the literal string 'the first', which
+            rendered "Kept the first, dropped the second." - a sentence naming
+            nothing.  Olivia found it while redrafting.  Where the lookup misses
+            there is no name to print, so the note collapses to its `why`, which
+            already carries the whole fact. */
+        fix:((byId(ids[0])||{}).name
+              ?`the exercise keeps ${(byId(ids[0])||{}).name} and drops the second`
+              :undefined)});
       ids=[ids[0]];
     }
     conds=ids.map(byId).filter(Boolean);
@@ -10358,7 +10526,7 @@ function solveOnce(pins,seed,state,attempt,seed0){
            a pinned world is a genuine contradiction and refuses. */
         if(condRule)return{fail:true,pins:['planet','condition'],why:bad+'.'};
         unmet.push({slot:'condition',why:bad,
-          fix:'the exercise draws a different condition for this ground'});
+          fix:'the exercise draws a different condition'});
         const pl=D.missions.conditions.filter(c2=>condBestLocale(c2,planet));
         conds=pl.length?[bookPickCond(pl,r)||pick(r,pl)]:[];
         condLevels=conds.map(c2=>TEMP_LEVELS[c2.id]?tempLevelRoll(r):null);
@@ -10418,8 +10586,8 @@ function solveOnce(pins,seed,state,attempt,seed0){
       }
     }
     if(!freeCands.length&&boardPin&&boardPin.v){
-      unmet.push({slot:'venue',why:`${boardPin.n} is locked to ${boardPin.v}, which no pin here allows`,
-                  fix:'used the venue and dropped the other filters'});
+      unmet.push({slot:'venue',why:`${boardPin.n} is only ever fought on at ${boardPin.v}, and nothing else asked for here allows that ground`,
+                  fix:'the exercise takes the ground and sets the rest aside'});
       const v=byName.get(boardPin.v.split(';')[0].trim().toLowerCase());
       freeCands=v?[v]:[];
     }
@@ -10680,8 +10848,14 @@ function solveOnce(pins,seed,state,attempt,seed0){
        been here. So the exception moves the pin to the row it actually ended up
        on, instead of leaving the same name in both boxes. */
     if(wasPinned&&lost)unmet.push({slot:'defender',clear:'attacker',value:fname(lost,year),
-      why:`${fname(lost,year)} held ${planet.n} in ${year}, so it is the side that was already there`,
-      fix:`the exercise fields it as side two`});
+      /*  R47, Olivia's catch while redrafting the thirteen.  "side two" is the
+          FORM's slot number, and a reader holding a printed sheet has no way to
+          know what side two is - it is the same class of thing as "the pin" and
+          "the list".  No replacement word is safe either: attacker and defender
+          are uncoupled from the slot by his own ruling, so "the defender" may
+          be false, and "the side already in place" merely repeats the `why`.
+          Which is the tell - the `why` has already said the whole fact. */
+      why:`${fname(lost,year)} held ${planet.n} in ${year}, so it is the side that was already there`});
   }
   /* A named HOUSE command carries its own faction, and that faction can be
      swapped out from under it: pin the Death Commandos on Sian and the world is
@@ -11439,10 +11613,15 @@ function solveOnce(pins,seed,state,attempt,seed0){
     const lo=eraPin.start===null?'the record':eraPin.start,
           hi=eraPin.end===null?'now':eraPin.end;
     unmet.push({slot:'era',value:eraPin.code,
-      why:`These pins cannot be met in the ${eraPin.name} (${lo}\u2013${hi}); `+
-          `the year they do meet in is ${year}.`,
-      fix:`Set the exercise in ${_era.name} instead; unpin one of the others to `+
-          `hold the era.`});
+      /*  R47B.  Two faults at once.  The FIX said 'unpin one of the others',
+          which is the form's vocabulary and not the College's - the same class
+          as 'side two' and 'the list'.  And both strings ENDED IN A FULL STOP
+          while the renderer appends one unconditionally (part3.js), so this
+          note printed a double stop on both its lines every time it fired.
+          No other note on the sheet punctuates itself; this one no longer does. */
+      why:`these pins cannot be met in the ${eraPin.name} (${lo}\u2013${hi}); `+
+          `the year they do meet in is ${year}`,
+      fix:`the exercise is set in ${_era.name}`});
   }
   const _reachBand=bandName;
   const _mult=(tbl,code)=>{
@@ -12249,31 +12428,97 @@ function solveOnce(pins,seed,state,attempt,seed0){
 
           So the tag is DERIVED from the crews the formation actually got, not
           from the label the draw produced.  Take the formation's MEDIAN skill
-          multiplier off the Core Rulebook table and print the band whose target
-          it is nearest - his own round-110 medians, green 0.95, regular 1.00,
-          veteran 1.20, elite 1.44.  On his example the median is 1.26 and the
-          nearest target is veteran, which is what a player would call it.
+          multiplier off the Core Rulebook table and print the band whose own
+          multiplier it is nearest.
+
+          F4, HIS REPORT OF 17 Sep: "I'm seeing lances with all 4/4-4/5 labelled
+          as veteran, and all 3/3-3/4 labelled as elite."  BOTH ARE MINE, AND
+          BOTH CAME FROM COMPARING AGAINST THE WRONG TABLE.  I first wrote this
+          against `oob.skills.targets` - his round-110 AIMING medians, 0.95 /
+          1.00 / 1.20 / 1.44 - which are the numbers the SHOPPING is steered
+          towards, not the numbers the four bands cost.  The bands' own
+          multipliers are `forces.json quality.levels[].bv`, round 34, and they
+          come as PAIRS: green 5/6 at 0.86, regular 4/5 at 1.00, veteran 3/4 at
+          1.32, elite 2/3 at 1.68.
+
+          Measured over 592 real formations the two tables disagree on 170 of
+          them (28.7%), and every canonical pair lands on its own rung against
+          `levels` while THREE OF THE FOUR land on the wrong one against
+          `targets`: an all-3/4 lance came out ELITE and an all-4/4 lance came
+          out VETERAN, which is exactly the pair of complaints he filed.  The
+          aiming medians sit BETWEEN the rungs by construction - 1.20 is the 4/3
+          and 3/5 pair, not a band - so a median landing near one of them was
+          rounded to whichever band's target happened to be closer.
+
+          ONE CONSEQUENCE WORTH HIS EYE: a 4/6 crew (0.95, his own stated GREEN
+          target) now reads REGULAR, because 0.95 is nearer regular's 1.00 than
+          green's 0.86.  That is 17 of the 592.
 
           Per FORMATION and not per side, because after FQ11 two formations in
           one force can genuinely differ.  Falls back to the side's drawn quality
           if the table is missing, so the tag never disappears. */
       {
-        const OT=(((D.oob||{}).skills||{}).targets)||{}, TB=((D.oob||{}).skillTable)||null;
+        const TB=((D.oob||{}).skillTable)||null;   /* F4: `skills.targets` is no longer read here. */
+        /*  ROUND 130, HIS RULE, and it replaces the nearest-rung draw above it.
+            F4 fixed WHICH TABLE the label is compared against; he then caught
+            that comparing against it by NEAREST RUNG squeezed the outer two
+            bands almost off the sheet - green printed on 1.4% of formations
+            where the builder had DRAWN green on 6.8%, elite 0.8% against 3.2%.
+            His words: "You might have overcorrected on the quality label. I
+            wouldn't want Green to be squeezed out! My hypothesis: Anything worse
+            than 4/5 average should read as green. Anything better than 3/4
+            average should read as elite."
+
+            THRESHOLDS, NOT NEAREST RUNG.  The two cuts he named are the
+            multipliers of the REGULAR and VETERAN canonical pairs - 4/5 and 3/4,
+            1.00 and 1.32 - and they are read off `quality.levels` rather than
+            written down here, so they follow that table if it ever moves.  Both
+            are STRICT, which is his wording: an exactly-4/5 average is regular,
+            an exactly-3/4 average is veteran.
+
+            HIS RULING ON THE TWO THINGS THE HYPOTHESIS DID NOT SAY, 17 Sep:
+            "Midpoint, mean."  So regular gives way to veteran at the midpoint of
+            the two cuts, 1.16 - which keeps a gunnery-5 lance regular where a
+            4/4 cut would have promoted 5/2 to VETERAN, the same class of
+            wrongness he filed in the first place - and the formation's average
+            is the MEAN, so one ace moves it and a median would not.
+
+            THE CHECK THAT SOLD IT: his own round-110 aiming medians - green
+            0.95, regular 1.00, veteran 1.20, elite 1.44 - each land on their own
+            band under this rule.  Two systems written months apart agree.
+            Measured over 774 formations: green 12.8%, regular 57.8%, veteran
+            24.9%, elite 4.5%.  Working is in CALIB-129-QUALITY-LABEL.md.
+
+            THE LIAISON IS OUT OF THE AVERAGE.  He is an EMPLOYER's officer
+            attached to a hired command, and L80 is his own ruling that the man
+            "must not be part of a formation nor counted as a unit" - so he must
+            not move its rating either.  The old nearest-rung draw counted him. */
+        const _mult=q=>(q&&TB&&TB[q.gun]&&typeof TB[q.gun][q.pil]==='number')
+                        ?TB[q.gun][q.pil]:null;
+        const _qOf=id=>QLEV.find(q=>q.id===id)||null;
+        const LO=_mult(_qOf('regular')), HI=_mult(_qOf('veteran'));
+        const MID=(LO!==null&&HI!==null)?(LO+HI)/2:null;
         const bandOf=roster=>{
-          if(!TB||!roster||!roster.length)return null;
-          const ms=roster.map(u=>{const row=TB[u.gun];
-                                  return (row&&typeof row[u.pil]==='number')?row[u.pil]:1;})
-                         .sort((x,y)=>x-y);
-          const med=ms.length%2?ms[(ms.length-1)/2]:(ms[ms.length/2-1]+ms[ms.length/2])/2;
-          let best=null,bd=Infinity;
-          for(const q of QLEV){ const t=OT[q.id];
-            if(typeof t!=='number')continue;
-            const d=Math.abs(med-t); if(d<bd){bd=d;best=q;} }
-          return best?{id:best.id,name:best.name,median:med}:null;
+          const crew=(roster||[]).filter(u=>u&&!u.liaison);
+          if(!TB||!crew.length)return null;
+          const ms=crew.map(u=>{const row=TB[u.gun];
+                                return (row&&typeof row[u.pil]==='number')?row[u.pil]:1;});
+          const mean=ms.reduce((a,c)=>a+c,0)/ms.length;
+          let best;
+          if(LO!==null&&HI!==null){
+            best=_qOf(mean<LO?'green':(mean>HI?'elite':(mean>MID?'veteran':'regular')));
+          }
+          /*  Only if `quality.levels` cannot supply the two pairs.  Nearest rung
+              is the round-129 behaviour and is kept purely so the tag can never
+              disappear off a formation. */
+          if(!best){ let bd=Infinity;
+            for(const q of QLEV){ if(typeof q.bv!=='number')continue;
+              const d=Math.abs(mean-q.bv); if(d<bd){bd=d;best=q;} } }
+          return best?{id:best.id,name:best.name,mean:mean}:null;
         };
         for(const g of groups){
           const b=bandOf(g.roster);
-          if(b){ g.quality=b.id; g.qualityName=b.name; g.skillMedian=b.median; }
+          if(b){ g.quality=b.id; g.qualityName=b.name; g.skillMean=b.mean; }
         }
       }
 
@@ -13754,7 +13999,8 @@ function pickBoards(planet,mission,target,r,boardPin,boards,locale,clanTrial,yea
   const vac=noWeatherOf(planet);
   if(boardPin){
     const [ok,why]=missionOK(boardPin,mission);
-    if(!ok)notes.push({slot:'board',why,fix:'kept the pinned board anyway'});
+    /*  R47B.  Tool voice, and the last of the three. */
+    if(!ok)notes.push({slot:'board',why,fix:'the exercise lays it regardless'});
     forced.push(['pinned',boardPin]);
     target=Math.max(0,target-(boardPin.sh||1));
   }
@@ -19338,7 +19584,30 @@ function renderSheet(r){
            of a trailing aside. The class comes off the quality's own id, so a
            rating the record adds later lands unstyled rather than mislabelled. */
         const qid=(g.quality||f.quality||qn||'').toLowerCase().replace(/[^a-z]/g,'');
-        const qtag=qn?`<span class="skill sk-${qid}">${esc(qn)}</span>`:'';
+        /*  ROUND 132, HIS RULING on Olivia's round-131 pass.  THE TAG LEAVES THE
+            FORMATION LINE.  Her measurement: the four badges sat at four
+            different horizontal positions with three different widths, their
+            right edges spread over 130px, and each was a closed rectangle in a
+            line of open letterforms - which is why he read them as heavy when
+            only 42% of them were even at full ink.  Four boxes on a COLUMN are
+            a scale; four boxes scattered across 130px are four interruptions.
+
+            His instruction: over the skill ratings, centred on them, one grey.
+            So the tag is emitted into the ROSTER GRID, on the deployment row,
+            in the grid's fourth track - the same track the skill pairs are in -
+            which means it aligns to them BY CONSTRUCTION at every width and in
+            print, with nothing measured and nothing to drift.  `alignRosters`
+            already gives every grid on the sheet one set of four widths, so all
+            four tags land on one centre line.
+
+            HE ALSO ASKED FOR IT ONE ROW HIGHER, on the formation line, IF IT
+            FITS RELIABLY.  IT DOES NOT.  Measured over 34 formation lines: the
+            roster's fourth track sits under the CamOps citation on 8 of them
+            (24%), overlapping by up to 64px, because the track's position is a
+            function of the three columns to its left and those grow with the
+            longest name and machine on the sheet.  The deployment row is the
+            first row where the full width is the tool's own to spend. */
+        const qtag='';
         const line=(g.formation?namedGroup(g)
           :(f.units===1?`A single machine`
             :`${COUNT_WORD[g.units]||g.units} &#39;Mechs, too few for a formation`))+qtag;
@@ -19348,7 +19617,20 @@ function renderSheet(r){
         const c=g.formation?citeOf(g):'';
         out+=`<div class="lline"><span>${capFirst(line)}</span>`+
              (c?`<span class="lpg">${esc(c)}</span>`:'')+`</div>`;
-        if(ents[gi])out+=`<div class="lentry">${capFirst(esc(ents[gi]))}</div>`;
+        /*  ROUND 132.  The deployment line moves INTO the grid as its first row
+            so the rating can share that row.  It spans the first three tracks;
+            on about 6% of formations the longest strings - "Two already on the
+            ground, one from the south on turn one" - need more than those three
+            give, and they WRAP.  They must never be truncated: Olivia's draft
+            reached for `text-overflow:ellipsis` and that would cut the
+            exercise's own deployment instruction, on a sheet whose whole
+            principle is that nothing is substituted in silence. */
+        const _ent=ents[gi]?`<span class="lentry-in">${capFirst(esc(ents[gi]))}</span>`:'<span class="lentry-in"></span>';
+        /*  The `sk-` class carries no styling since his "all in the same grey"
+            ruling, and it stays anyway: it is the hook a later rating would be
+            found by, and round 58's reason holds - a rating the record adds
+            later should land unstyled rather than mislabelled. */
+        const _qual=qn?`<span class="lqual sk-${qid}">${esc(qn)}</span>`:'<span class="lqual"></span>';
         /* A54. Layout D ran the pilots on in a sentence, and Olivia's P233 is
            that a player at a table is looking ONE name up, not reading. The
            single formation line is what Mario picked and it stays; the roster
@@ -19388,7 +19670,7 @@ function renderSheet(r){
            rows have four cells in one formation and two in the next is not a
            grid; empty cells collapse to nothing because `max-content` of nothing
            is nothing. */
-        out+=`<div class="pilots">`+(g.roster||[])
+        out+=`<div class="pilots">`+_ent+_qual+(g.roster||[])
           .filter(u=>!u.liaison)
           .map(u=>`<span class="pw${u.lead?' lead':''}">`+
             `<span class="rk">${esc(u.rank)}</span>`+
@@ -19957,7 +20239,17 @@ function alignRosters(){
   const grids=[...root.querySelectorAll('.pilots')];
   if(!grids.length)return;
   const wide=window.matchMedia&&window.matchMedia('(min-width:30.0625rem)').matches;
-  if(!wide){grids.forEach(g=>{g.style.gridTemplateColumns='';});return;}
+  if(!wide){grids.forEach(g=>{g.style.gridTemplateColumns='';});
+            root.querySelectorAll('.lentry-in,.lqual').forEach(e=>{e.style.display='';});
+            return;}
+  /*  R132, AND IT IS LOAD-BEARING.  The deployment line and the rating now live
+      in this grid, and the deployment cell SPANS the first three tracks - so
+      under `max-content` it would size them to a 60-character sentence and blow
+      the roster's columns out to the width of the longest deployment string on
+      the sheet.  Both are taken out of the document for the measuring passes and
+      put back before anything is painted; the measurement is about the CREWS. */
+  const _extra=[...root.querySelectorAll('.lentry-in,.lqual')];
+  _extra.forEach(e=>{e.style.display='none';});
   /* pass one: content sizing, so a cell's box IS its content */
   grids.forEach(g=>{g.style.gridTemplateColumns='max-content max-content max-content max-content';});
   const widest=sel=>{let w=0;
@@ -19974,6 +20266,7 @@ function alignRosters(){
   const room=Math.min(...grids.map(g=>g.clientWidth))-rk-nm-sp-gaps;
   if(room>0&&mc>room)mc=Math.max(40,room);
   grids.forEach(g=>{g.style.gridTemplateColumns=rk+'px '+nm+'px '+mc+'px '+sp+'px';});
+  _extra.forEach(e=>{e.style.display='';});
 }
 /* A sheet that is on screen when the window crosses the breakpoint has to be
    re-measured, or it keeps the widths of the layout it is no longer in. */
@@ -20429,6 +20722,32 @@ function boot(){
      `beforeprint` - the two annexes are built there - so this button adds no
      print behaviour of its own and cannot drift from the menu's. */
   {const b=$('#printsheet'); if(b)b.addEventListener('click',()=>window.print());}
+  /*  F2, ROUND 127, HIS RULING on Olivia's ideal.  The button row is sticky, and
+      a sticky element gives the page no way of knowing when it has actually
+      STARTED holding - there is no event and no selector for it.  So a one-pixel
+      sentinel sits immediately above the row, and when the sentinel leaves the
+      top of the window the row is holding.
+
+      `threshold:0` with no root margin, and the class is driven off
+      `isIntersecting` rather off any measurement, so it cannot drift if the
+      row's height changes.  Both properties `.is-held` touches are PAINT ONLY -
+      a border-colour that is already there at `transparent`, and a shadow - so
+      the document does not reflow when it fires and the page cannot judder
+      under a reader mid-scroll.  If IntersectionObserver is missing the row
+      simply never gains its edge, which is where it was before today. */
+  {const sen=$('#actsentinel'), row=$('.actions');
+   if(sen&&row&&window.IntersectionObserver){
+     new IntersectionObserver(es=>{
+       row.classList.toggle('is-held',!es[0].isIntersecting);
+     },{threshold:0}).observe(sen);
+   }}
+  /*  Olivia's O15, and it is LATENT rather than live: the only in-page anchor on
+      the sheet points at the Instructor's notes, which sit near the foot of the
+      document, so the page runs out of scroll before the target can reach the
+      top of the window and slide under the held row.  Measured: the target lands
+      at y=671 with the row's bottom at y=62.  One declaration now, so the first
+      anchor that points anywhere else does not have to find this out. */
+  /*  The declaration itself is in part1.html beside the row's own rules. */
   /* ROUND 47N. The plate is drawn on demand and thrown away on close: it is a
      few hundred kilobytes of SVG and nobody needs it sitting in the document. */
   document.addEventListener('click',ev=>{

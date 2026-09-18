@@ -25,6 +25,68 @@ record those commits do not carry.
 
 ---
 
+## v1.54 — Tactical Scenario Simulator · 18 Sep 2026
+
+4,737,978 bytes · `706c889e8c475acbf9134f32c3976878`
+Rollback: v1.53, `dedd739537ab71a63809c974dcd4fbf9`
+
+**The quality label was being read off the wrong table, and the order of battle
+now looks like two forces rather than four lances.**
+
+1. **The formation rating is derived correctly.** Lances of 4/4s and 4/5s were
+   reading VETERAN and lances of 3/3s and 3/4s were reading ELITE: the formation's
+   average was compared against the round-110 *aiming* medians, which sit between
+   the rungs by construction, rather than against the four bands' own BV
+   multipliers. The rule is now thresholds rather than nearest rung — worse than a
+   4/5 average reads green, better than a 3/4 average reads elite, the middle
+   splits at the midpoint, and the average is the mean. **The employer's liaison
+   officer is out of that average**: he carries no gunnery and no piloting, so he
+   was contributing a fallback of 1 and dragging every hired command down.
+2. **Every exception note speaks in the College's voice.** Twenty-three strings.
+   His own example, *"complication pin kept, condition pin dropped"*, now reads
+   *"the exercise keeps the complication and drops the condition"*. Two notes lost
+   a second line that only echoed the first.
+3. **The button row holds at the top of the window.** A sentinel and an
+   IntersectionObserver give it a rule and a soft shadow when it holds; both are
+   paint-only, because changing a sticky element's height would reflow the page
+   under a reader mid-scroll.
+4. **The order of battle reads as two forces.** Force-to-force was no further
+   apart than formation-to-formation, so the band read as a flat list. Each force
+   name now carries a hairline rule, and the gap above it is wider than the gap
+   between its own formations.
+5. **The rating tag moved into the roster grid** and lost its box. Four badges
+   used to sit at four different horizontal positions in three different widths;
+   the tag now shares a column with the skill pairs, so it aligns to them by
+   construction at every width and in print. All one grey.
+
+*Measured on the byte-identical file, against v1.53 on 30 seeds including pinned
+era, scale, mission and condition:* **the briefing paragraph differs on 0, and the
+order of battle — every formation, every roster, every crew's gunnery and
+piloting — differs on 0** once the rating word is set aside. The builder is
+untouched; only the label and the layout moved. The rating changed on 20 of those
+30 sheets.
+
+**The new rating rule, checked against the page's own table rather than taken:**
+the two cuts are read off `quality.levels` — regular 4/5 at 1.00, veteran 3/4 at
+1.32, midpoint 1.16 — and across 36 formations the printed band matches the rule
+on **36 of 36**. Both squeezed bands are back: green and elite both appear.
+
+Measured layout: the button row is **67px resting and held** at 1280, 768 and
+390px, holds at the top of the window, with no horizontal scroll and no page
+errors at any width. Force-to-force spacing is **20px** against **9px** between
+formations, with a 1px rule under each force name. The four rating tags' right
+edges span **8px**, against **134px** on v1.53, in one grey with no border.
+
+**The diagram is not touched:** 20 battlefield plates compared between the builds
+with generated ids normalised — **0 differ**. Entry-edge agreement holds at 0 of
+10. Same seed twice from cold: identical.
+
+The sidecar is unchanged — same URL, same expected length and hash. One request
+on a cold load, still one after five sheets; no fallback note; both annexes
+drawing; no JavaScript errors.
+
+---
+
 ## v1.53 — Tactical Scenario Simulator · 17 Sep 2026
 
 4,716,548 bytes · `dedd739537ab71a63809c974dcd4fbf9`
