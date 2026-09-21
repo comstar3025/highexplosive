@@ -25,6 +25,49 @@ record those commits do not carry.
 
 ---
 
+## v1.61 — Tactical Scenario Simulator · 21 Sep 2026
+
+4,919,078 bytes · `ee7e77db881949d940c5fdab74cb02ec`
+Rollback: v1.6, `fd59eb6b13281af90e455caed0915a63`
+
+**Two prose fixes. Nothing about the page, the exports, the plates or the draw
+changes.**
+
+1. **The Clan size word reaches the prose.** A sheet could print **Bid-down** in
+   the order of battle three inches under *"an understrength assault Star"* — the
+   label was corrected in the band on 16 September and the paragraph takes its
+   size words from a different string. One string now feeds the fielding
+   sentence, the meeting sentence, the pay clause and the deployment line alike.
+   Inner Sphere and ComStar forces keep *understrength*: neither bids.
+2. **The tail ladder had a second caller it never knew about.** Where exactly one
+   side is a hired command the sentence a reader sees is the pay clause, not the
+   meeting sentence — the same shape, the same claim, and no slot for the tail, so
+   the tail never printed there at all. The ladder is one function with two
+   callers now, and the pay clause gains the whole ladder rather than one rung: a
+   hired sheet can say a side has older machines or came off a garrison posting,
+   which was always true of it and never said.
+
+*Measured on the byte-identical file, against v1.6 on the same seeds:* of 46
+sheets, **8 paragraphs differ and every one is classified** — 4 are the size-word
+substitution and 4 are a tail insertion, with nothing unexplained. The
+substitution is exact: *understrength* before a Clan formation goes **4 to 0**,
+*bid-down* **0 to 4**, and 11 occurrences of *understrength* before a Lance or
+Level II are untouched. The tail changes are **pure insertion on 4 of 4** — no
+word of the v1.6 paragraph removed.
+
+**Nothing outside the paragraph moved, checked rather than taken:** across 34
+sheets the order of battle, the formation lines and the world card are identical
+on **34 of 34**, and 20 battlefield plates compared with generated ids normalised
+**0 differ**. The export chain still produces the same three files with the same
+names.
+
+Entry-edge agreement 0 of 10. Sticky row 67px resting and held at 1180, 768 and
+390px, no horizontal scroll, no page errors. Same seed twice from cold:
+identical. The sidecar is unchanged — one request on a cold load, still one after
+five sheets; no fallback note; both annexes drawing.
+
+---
+
 ## v1.6 — Tactical Scenario Simulator · 21 Sep 2026
 
 4,917,213 bytes · `fd59eb6b13281af90e455caed0915a63`
