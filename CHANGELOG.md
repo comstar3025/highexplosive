@@ -25,6 +25,60 @@ record those commits do not carry.
 
 ---
 
+## v1.6 — Tactical Scenario Simulator · 21 Sep 2026
+
+4,917,213 bytes · `fd59eb6b13281af90e455caed0915a63`
+Rollback: v1.55, `bbd62061c0593029354a6339fe70691e`
+
+**The second digit. An exercise can now leave the page, and the prose has learned
+what to call people.**
+
+1. **Import and export.** An exercise leaves as a MegaMek V2 scenario and either
+   force leaves as a unit list. A force can be imported from a `.mul` and is then
+   locked, with a padlock on its own heading. The download control on the
+   designator row does one thing — it downloads the scenario — and each force
+   carries its own control on its heading, offering export, import and release.
+   The files name themselves after what they hold:
+   `FWCX-929114142 COMMANDO GREY.mms`, and
+   `FWCX-929114142 - Clan Jade Falcon (Recon Star).mul`.
+2. **A faction naming system.** A faction carries an ordered list of short forms
+   per printed name and a resolver answers each slot's ask, so a paragraph that
+   has already said *Clan Wolf* can later say *the Wolves*. First naming is
+   measured rather than assumed: a faction whose full name is not yet in the
+   paragraph gets the full name.
+3. **A notable line per era**, the narrowest window winning, and a **two-formation
+   plan tail** — where a side fields two formations the sentence says what the two
+   are for together.
+4. **Five smaller rulings**, including the Volcanic and Glacier map packs and the
+   Fire and Ice battlemats now off by default, being the only default-on products
+   with no board file behind any design.
+
+*Measured on the byte-identical file:* the export binding holds end to end — the
+Blue heading's control yields a `.mul` whose commander is the Blue force's own
+lead machine and crew, the Red heading's the Red force's, and the scenario file
+carries the serial and the exercise name. No new external dependency: one
+`fetch` (the sidecar), five external URLs, none added; export and import are
+`Blob` and `FileReader`, entirely local.
+
+**Two things about this release are worth knowing before you share a link.**
+The terrain clause moved: on 18 sheets carried over from v1.55, the world and the
+opening sentence are identical on **18**, and the ground sentence differs on
+**17**. On free draws the order of battle follows it on 5 of those 18. On a fully
+pinned sheet — same faction, era, scale and map library — the forces are
+**identical** and only the ground differs. So a v1.55 exercise link reproduces its
+forces under v1.6 but not always its ground.
+
+The `NAMING` switch restores **full names**, which is what its own code comment
+says; it does not restore v1.55 prose, because the forces clause was rewritten
+alongside it.
+
+Sticky row 67px resting and held at 1180, 768 and 390px, no horizontal scroll, no
+page errors. Entry-edge agreement 0 of 10. Same seed twice from cold: identical.
+The sidecar is unchanged — one request on a cold load, still one after five
+sheets; no fallback note; both annexes drawing.
+
+---
+
 ## v1.55 — Tactical Scenario Simulator · 18 Sep 2026
 
 4,766,346 bytes · `bbd62061c0593029354a6339fe70691e`
