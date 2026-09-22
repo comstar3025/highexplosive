@@ -25,6 +25,55 @@ record those commits do not carry.
 
 ---
 
+## v1.62 — Tactical Scenario Simulator · 22 Sep 2026
+
+4,930,306 bytes · `633e1b9e2547677b6697db5350dec95d`
+Rollback: v1.61, `ee7e77db881949d940c5fdab74cb02ec`
+
+**One change: how a force is divided into formations.** Twelve Kurita machines
+were coming out as two reinforced lances where they should have been three full
+ones.
+
+One rule generates every row and there are no exceptions: of the ways a total can
+be split, take the one whose groups sit closest to nominal strength in total,
+breaking ties on the most full formations and then the fewest groups. Three
+consequences worth naming:
+
+1. **Twelve lance machines are 4+4+4**, and the reinforced size is reserved for a
+   lone formation.
+2. **The parity set carries the role** — Ambush the attacker, Extraction and Steel
+   Rain the defender — which a mission-only list could not, and it reaches the
+   Waves complication, which it could not at all.
+3. **Waves deploys half the formations, rounding down.** It had been deploying the
+   first group and withholding every other, which was right at two and three and
+   wrong from four up.
+
+The table is data, in `data/oob/shape.json`, every row generated and none typed.
+
+**What this does to old links: a v1.61 link keeps its world, its year, its
+mission and its ground, and its forces change.** Measured on 39 sheets carried
+across, the ground sentence is **identical on 39 of 39** and the world card on
+**39 of 39** — the board draw sits earlier in the random stream than the force
+draw — while the crews differ on almost all of them. Twelve-machine lance forces
+came out **4+4+4** on every instance in the sample.
+
+**The diagram is not touched:** 20 battlefield plates compared with generated ids
+normalised — **0 differ**, which is the same fact their battery measures as an
+unchanged plate hash.
+
+**One known residual, theirs and documented rather than found:** seed `1266222`
+builds a lance force of ten that reads 6+4, which the table forbids. The table
+governs the plan; that sheet planned a larger force, the budget bought ten, and
+the first group arrived at its planned six. It reproduces exactly as described.
+Re-slicing once the delivered count is known is a round of its own.
+
+Entry-edge agreement 0 of 10. Sticky row 67px resting and held at 1180, 768 and
+390px, no horizontal scroll, no page errors. Same seed twice from cold:
+identical. The sidecar is unchanged — one request on a cold load, still one after
+five sheets; no fallback note; both annexes drawing.
+
+---
+
 ## v1.61 — Tactical Scenario Simulator · 21 Sep 2026
 
 4,919,078 bytes · `ee7e77db881949d940c5fdab74cb02ec`
