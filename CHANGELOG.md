@@ -25,6 +25,47 @@ record those commits do not carry.
 
 ---
 
+## v1.63 — Tactical Scenario Simulator · 23 Sep 2026
+
+4,936,146 bytes · `057887bb46770d9968a30e7154c4b917`
+Rollback: v1.62, `633e1b9e2547677b6697db5350dec95d`
+
+**Two prose rounds and one renderer fix.**
+
+1. **The world card says whose flag it is.** A new token resolves to the holder's
+   adjective where the naming system has one — *"It has flown the Kuritan flag"* —
+   and falls back to *"their"* where it does not. Two qualifiers now follow the
+   objective they qualify instead of preceding it, the Objective Raid night
+   override is cut to one sentence, and *"No other flag has ever flown over it"*
+   no longer repeats the line above it. The holding clause is rewritten to *"Since
+   it was settled, it has been held by …"*.
+2. **The seam half-hex takes the right ink.** Where two mapsheets meet, the shared
+   north half-hex was drawn as **one unclipped hex in the left sheet's colour**
+   whenever both halves carried the same ground — so a grassland sheet's green ran
+   across the seam onto a desert one. The gate now tests the ink as well as the
+   data. A road-exit inference at the same half-hex could also point into the
+   neighbouring sheet.
+
+*Measured on the byte-identical file, against v1.62 on the same seeds:* the world
+card moves on **30 of 40** sheets, *"their flag"* goes **3 to 0** and *"has flown
+the <adjective> flag"* **0 to 3**, *"No other flag has ever flown over it"* **6 to
+0**, and the new holding clause appears on 4. The exercise paragraph is untouched
+on all 40.
+
+**The seam fix, isolated:** the Annex B deployment plate changes on **4 of 22**
+sheets, and on each the node count rises by exactly one or two — one seam half-hex
+that had been a single unclipped hex is now the two clipped halves it should
+always have been. The battlefield-layout diagram is untouched on **34 of 34**,
+single-sheet and multi-sheet alike.
+
+Entry-edge agreement 0 of 10. Sticky row 67px resting and held at 1180, 768 and
+390px, no horizontal scroll, no page errors. Same seed twice from cold:
+identical. The sidecar is unchanged — one request on a cold load, still one after
+five sheets; no fallback note; both annexes drawing. The export files are
+byte-identical to v1.62.
+
+---
+
 ## v1.62 — Tactical Scenario Simulator · 22 Sep 2026
 
 4,930,306 bytes · `633e1b9e2547677b6697db5350dec95d`
