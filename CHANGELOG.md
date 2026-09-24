@@ -25,6 +25,55 @@ record those commits do not carry.
 
 ---
 
+## v1.64 — Tactical Scenario Simulator · 24 Sep 2026
+
+4,965,882 bytes · `709c92a7ce641841ec59e330288e9097`
+Rollback: v1.63, `057887bb46770d9968a30e7154c4b917`
+
+**The Periphery, the rank ladders, and the century.** Seven rounds.
+
+1. **Officers' ranks are rebuilt on six rulings** rather than read off the
+   echelon's English name. A command element climbs, a group short of its own
+   nominal drops, a bid-down Star is not an attrited one, and the force's
+   commander is the most senior officer present. Every ladder runs to five rungs,
+   the Capellan ladder splits at Xin Sheng in 3060, and forty-four factions carry a
+   rank culture of their own. *MechWarrior* as the commander of an Inner Sphere
+   force all but disappears, and a Colonel is reachable for the first time.
+2. **The Marian Hegemony** takes its ladder from *Field Manual: Periphery* —
+   *Legionnaire, Legionnaire, Centurion, Principes, Legatus, Prefect*, with no NCO
+   rung — and builds in **centuries of five**.
+3. **The briefing names the echelon that is actually present.** Three full-ish
+   lances are *a company*, two Stars *a Binary*, two centuries *a maniple*; 4+3+3 is
+   *an understrength company*, and 5+5 is *two lances*, because nothing in the
+   Inner Sphere ladder is eight machines. The order of battle still names every
+   formation separately. Capitalisation follows nine sourcebooks: *lance, company,
+   century, maniple* in lower case, *Star, Binary, Trinary, Cluster, Galaxy*
+   capitalised.
+4. **The Rim Worlds theatre reaches the sheet**, as the Amaris Empire, after a
+   liveness gate that MekHQ does not apply was removed and the Republic's end date
+   corrected to 2779. The venue note no longer contradicts the belligerents.
+5. **Paved half-hexes stay paved.** A half-hex with no hand-set data was being
+   given clear ground even on paved boards.
+
+**What this does to old links.** A link that draws its own year produces a
+different exercise. **A link with the year pinned keeps its world, its
+belligerents, its mission, its ground and its name — measured identical on 20 of
+20 — but its forces change: the machines were identical on only 3 of 20**, as the
+new rank draws move everything after them in the stream.
+
+*Measured on the byte-identical file, against v1.63:* the Marian ladder is
+exactly as ruled; the echelon nouns appear as specified — *"Star Captain Elidah's
+bid-down Binary"*, *"Chu-i Laney Ito's understrength company"*; the builder ran on
+every force, 316 crews and none empty. With the year pinned, the battlefield-layout
+diagram is untouched on 22 of 22 and the Annex B plate changes on one, where a
+single north half-hex goes from sand to pavement and nothing else moves.
+
+Entry-edge agreement holds, sticky row 67px at 1180, 768 and 390px, no horizontal
+scroll, no page errors, and the same seed twice from cold is identical. The
+sidecar is unchanged — one request on a cold load, still one after five sheets.
+
+---
+
 ## v1.63 — Tactical Scenario Simulator · 23 Sep 2026
 
 4,936,146 bytes · `057887bb46770d9968a30e7154c4b917`
