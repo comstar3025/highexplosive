@@ -25,6 +25,51 @@ record those commits do not carry.
 
 ---
 
+## v1.65 — Tactical Scenario Simulator · 25 Sep 2026
+
+4,998,064 bytes · `840c78b3b50ef8275f294fbb0ef9383f`
+Rollback: v1.64, `709c92a7ce641841ec59e330288e9097`
+
+**Ranks that tell a story, the seam fixes, and the command element in the
+blurb.** Nine rounds.
+
+1. **The commanding officer is found by rank, then level**, and listed first.
+2. **Seam half-hexes keep their hand-set elevation**, a padding dash in a road
+   string no longer blanks the hex, and a half-road joins across the seam.
+3. **Draconis Combine ranks** follow his rulings: *Sho-ko* at rung 1 from 3031,
+   *Sergeant Major* before it, and every non-command lance of three or more is
+   2-1-0-0. The Alliance of Border Worlds follows.
+4. **ComStar and Word of Blake** line seats draw a career from their own skill,
+   and formation leaders take a flat numeral. A Command Level II heads a Level
+   III, IV or V.
+5. **Military Base #1 and #2 are un-crossed** to match the physical Map Set 7
+   sheets.
+6. **The command element reaches the blurb** at battalion level and above, in
+   gender-neutral prose — *"The Kuritan regiment's commander, Tai-sa Aldi
+   Bajrami, has come forward in person, with their command lance and a ranger
+   lance."*
+
+**What this does to old links.** With the year pinned, the opening, ground,
+belligerents, mission and title are identical on 40 of 40 against v1.64, and
+the machines on 30 of 40. Sheets with a ComStar, Word of Blake or Combine side
+draw differently, and any sheet on a Military Base board shows the other board.
+
+*Measured on the byte-identical file, against v1.64:* the data diff is the new
+HQ blurb table, the Combine and ComStar rank tables, and exactly the two
+Military Base face rows. The builder ran on every force, 368 crews and none
+empty, and no briefing in 136 uses a gendered pronoun. The handover says the
+command element stays off mercenary sheets; one hired side measured carries it
+(`year=3030&scale=6&seed=586658`). **The Annex B plate changes on
+23 of 40 sheets, and every changed element sits on a board's north half-row,
+bar one on the row below it** — consistent with the seam rounds.
+
+Entry-edge agreement holds, sticky row 67px at 1180, 768 and 390px, no
+horizontal scroll, no page errors, and the same seed twice from cold is
+identical. The sidecar is unchanged — one request on a cold load, still one
+after five sheets.
+
+---
+
 ## v1.64 — Tactical Scenario Simulator · 24 Sep 2026
 
 4,965,882 bytes · `709c92a7ce641841ec59e330288e9097`
