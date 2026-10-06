@@ -25,6 +25,50 @@ record those commits do not carry.
 
 ---
 
+## v1.7 — Tactical Scenario Simulator · 7 Oct 2026
+
+6,736,917 bytes · `15fb61897324556e5007e0df9007eeae`
+Rollback: v1.65, `840c78b3b50ef8275f294fbb0ef9383f`
+
+**The historical record, named units and the sky.**
+
+1. **Every exercise is matched to the record.** The Archivist's notes grade how
+   closely a free roll follows a recorded battle, A+ to E, citing the sourcebook
+   and page.
+2. **Named units and people from the record** take the field with their
+   commanders, ranks, rides and ratings.
+3. **More kinds of war**: hired commands and their employers, false flags,
+   pirates, independents and militias, the Ronin and uprisings.
+4. **Refusals.** When the pins cannot be met, an F note says why and what to
+   unpin.
+5. **A new button bar** — New, All, Acolyte and Adept, Share, Settings — and the
+   Precentor Martial's Notes.
+6. **Climate and light**: fights favour settled ground, and the sun follows
+   latitude, tilt and season.
+7. **Names**: Clan Bloodnames by rank and holdings, and people under the name
+   they bore that year.
+
+**Data now updates independently of the page.** The simulator reads two
+manifests on `archive.highexplosive.net` — `units-db.json` and `oob-db.json` —
+and takes each database's file name, length and hash from them:
+`units-db-12320e8e45ee.json.gz` (1,068,406 bytes) and
+`oob-db-15314060cf29.json.gz` (4,329,709 bytes). `oob-db-v1.json.gz` stays on
+the archive for the v1.65 rollback.
+
+**What this does to old links.** Links from v1.65 and earlier draw different
+sheets: with the year pinned, belligerents and ground matched on 0 of 40.
+
+*Measured on the byte-identical file, with the four data files served beside it:*
+four data requests on a cold load and still four after five sheets; the builder
+ran on every force, 465 crews and none empty; 0 page errors on 40 sheets; the
+Archivist's notes print on every sheet sampled (A+, A, A−). The same seed twice
+from cold is identical, the button row holds at 1180, 768 and 390px with no
+horizontal scroll, and entry-edge agreement holds. **Without the data files the
+page still generates, with no page errors, but the MegaMek `.mms` and `.mul`
+exports are disabled** — so the databases go up before the page.
+
+---
+
 ## v1.65 — Tactical Scenario Simulator · 25 Sep 2026
 
 4,998,064 bytes · `840c78b3b50ef8275f294fbb0ef9383f`
