@@ -25,6 +25,45 @@ record those commits do not carry.
 
 ---
 
+## v1.71 — Tactical Scenario Simulator · 7 Oct 2026
+
+6,785,554 bytes · `7e6b9d1dcaa627707d4acbfb77046091`
+Rollback: v1.7, `15fb61897324556e5007e0df9007eeae`, with v1.7's `units-db.json`
+
+1. **Pinned commands are fielded or refused**, never swapped for another;
+   brigades are known by their regiments.
+2. **The FedCom civil war**: neutral regiments are named in the briefing; three
+   Allied defenders corrected.
+3. **The ground and weather clauses** no longer repeat each other.
+4. **Recorded battles favour the closer matches** — more A+ and A, fewer A−.
+5. **Ranks, ratings and names**: named people take their seats more cleanly,
+   quality words follow the crews as seated, Star League-in-Exile Royal
+   divisions fight Elite, and the Knights of the Inner Sphere carry their record
+   ratings.
+6. **Uprisings name the power they rise against**, unless the record names a
+   specific garrison.
+7. **Small fixes**: the re-roll buttons, the year and era boxes, and the export
+   label when the databases did not load.
+
+**Data.** One new units database on R2, `units-db-11e63ab2cb78.json.gz`
+(1,068,386 bytes), named by a new `units-db.json`. The order-of-battle database
+is unchanged. `units-db-12320e8e45ee.json.gz` stays on R2 for the v1.7 rollback.
+
+**What this does to old links.** Links from v1.7 draw a different sheet on most
+recorded-battle seeds. With the year pinned, 40 sheets against v1.7: title and
+mission identical on 40, belligerents on 31, the machines on 22.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 468 crews on
+40 sheets, none empty; 0 page errors. The Kell Hounds sheet
+(`blue=PIR&seed=932093679`) now lists Lieutenant Colonel Patrick Kell first, as
+CO. Without the databases the exports now read *"Cannot export: database did
+not load"*; with v1.7's units manifest the page runs on v1.7's data. Same seed
+twice from cold is identical on four seeds, and the button row holds at 1180,
+768 and 390px.
+
+---
+
 ## v1.7 — Tactical Scenario Simulator · 7 Oct 2026
 
 6,736,917 bytes · `15fb61897324556e5007e0df9007eeae`
