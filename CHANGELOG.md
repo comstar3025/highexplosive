@@ -25,6 +25,48 @@ record those commits do not carry.
 
 ---
 
+## v1.72 — Tactical Scenario Simulator · 11 Oct 2026
+
+6,847,678 bytes · `78e88af2d6d11bf3a2363154c24a3587`
+Rollback: v1.71, `7e6b9d1dcaa627707d4acbfb77046091`, with v1.71's `units-db.json`
+
+1. **The page title** names the exercise and its FWCX code.
+2. **The Aurigan Civil War**, with Mario's summaries.
+3. **Battle corrections** from the Battle Studio: some 200 records re-tagged,
+   duplicates merged, sites, worlds, years and sides corrected.
+4. **Recorded Keshiks** field at their record rating, with Bloodnames.
+5. **34 named campaigns and battles** in the war line, and Operation CLARITY.
+6. **Elite-rated warriors** have Elite skills.
+7. **Rank and command**: rulers and Khans lead at the size of their recorded
+   command.
+8. **Sub-units are named sub-unit first**, and duplicates are merged.
+9. **Exclusive and long-term mercenary contracts** print as such.
+10. **One-sided records are drawn**, graded A−, and Stein's Folly carries both
+    sides.
+11. **Grade A splits** into "an alternative version" and "loosely based", with
+    an Align to records button in Adept mode.
+12. **False flags** draw the 'Mechs of the power they copy.
+13. **Time of day and gravity** follow the record.
+14. **73 more named people** fielded.
+
+**Data.** One new units database on R2, `units-db-22af1e39a91c.json.gz`
+(1,084,495 bytes), named by a new `units-db.json`. The order-of-battle database
+is unchanged. `units-db-11e63ab2cb78.json.gz` stays on R2 for the v1.71 rollback.
+
+**What this does to old links.** With the year pinned, 32 sheets against v1.71
+in 3052–3075: title and mission identical on 32, belligerents on 26, machines on
+19. **In 3025 the Aurigan Civil War takes 13 of 24 free draws** (v1.71: none),
+by Mario's ruling A25.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 470 crews on
+40 sheets, none empty; 0 page errors. With v1.71's manifest the page runs on
+v1.71's data; with none, the export reads *"Cannot export: database did not
+load"*. Same seed twice from cold is identical on four seeds, and the button row
+holds at 1180, 768 and 390px.
+
+---
+
 ## v1.71 — Tactical Scenario Simulator · 7 Oct 2026
 
 6,785,554 bytes · `7e6b9d1dcaa627707d4acbfb77046091`
