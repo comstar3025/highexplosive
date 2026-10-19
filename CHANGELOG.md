@@ -25,6 +25,40 @@ record those commits do not carry.
 
 ---
 
+## v1.73 — Tactical Scenario Simulator · 20 Oct 2026
+
+7,022,818 bytes · `222820e7ac7ff080c430a3088b6afb9e`
+Rollback: v1.72, `78e88af2d6d11bf3a2363154c24a3587`, with v1.72's `units-db.json`
+
+1. **Every era of the record researched and re-checked**, Age of War to ilClan.
+2. **Leaders**: a senior officer the record gives no 'Mech is fielded only where
+   the book has them fighting in person.
+3. **Fewer built-up boards.**
+4. **Large forces**: company blocks, each with its own command formation; sides
+   named by their formations; command 'Mechs.
+5. **The League's Hammer and Anvil lances**, in pairs.
+6. **The Era box** takes an era, a year, a war or a campaign.
+7. **Precentor clearance.**
+8. **The Exodus road**, and Regulus after the Night of Fire.
+
+**Data.** One new units database on R2, `units-db-e405f43d1233.json.gz`
+(1,209,435 bytes, 3,015 battles), named by a new `units-db.json`. The
+order-of-battle database is unchanged. `units-db-22af1e39a91c.json.gz` stays on
+R2 for the v1.72 rollback.
+
+**What this does to old links.** The record changed (532 records out, 422 new),
+so most links draw differently. With the year pinned, 40 sheets against v1.72:
+mission identical on 40, belligerents on 23, machines on 1.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 454 crews on
+40 sheets, none empty; 0 page errors; free draws graded A on 20 of 20. With
+v1.72's manifest the page runs on v1.72's data; with none, the export reads
+*"Cannot export: database did not load"*. Same seed twice from cold is
+identical, and the button row holds at 1180, 768 and 390px.
+
+---
+
 ## v1.72 — Tactical Scenario Simulator · 11 Oct 2026
 
 6,847,678 bytes · `78e88af2d6d11bf3a2363154c24a3587`
