@@ -25,6 +25,37 @@ record those commits do not carry.
 
 ---
 
+## v1.74 — Tactical Scenario Simulator · 22 Oct 2026
+
+7,058,127 bytes · `6fab1fa6f9158f1dfd122526df4eda54`
+Rollback: v1.73, `222820e7ac7ff080c430a3088b6afb9e`, with v1.73's `units-db.json`
+
+1. **The record's own commands can be pinned** in the force boxes: about 4,750
+   regiments, Galaxies and companies, by their full names.
+2. **Both pinned commands take the field**, and a pinned year stays pinned.
+3. **Precentor clearance has command boxes**, and you can field a mercenary
+   command of your own.
+4. **Record fixes**: the Nova Cats in the Combine, the ComStar lists, the Kathil
+   militia, Operation BULLDOG and the Tamar Pact.
+5. **A power with no worlds in a year still fights its recorded battles.**
+
+**Data.** One new units database on R2, `units-db-604edc968e3c.json.gz`
+(1,209,037 bytes, 3,016 battles), named by a new `units-db.json`. The
+order-of-battle database is unchanged. `units-db-e405f43d1233.json.gz` stays on
+R2 for the v1.73 rollback.
+
+**What this does to old links.** Nothing visible: with the year pinned, 40
+sheets against v1.73 kept their belligerents and machines on 40 of 40.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 454 crews on
+40 sheets, none empty; 0 page errors. With v1.73's manifest the page runs on
+v1.73's data; with none, the export reads *"Cannot export: database did not
+load"*. Same seed twice from cold is identical, and the button row holds at
+1180, 768 and 390px.
+
+---
+
 ## v1.73 — Tactical Scenario Simulator · 20 Oct 2026
 
 7,022,818 bytes · `222820e7ac7ff080c430a3088b6afb9e`
