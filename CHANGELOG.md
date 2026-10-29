@@ -25,6 +25,43 @@ record those commits do not carry.
 
 ---
 
+## v1.75 — Tactical Scenario Simulator · 29 Oct 2026
+
+7,620,780 bytes · `ae4775a2ba6031c5782a057623d773e2`
+Rollback: v1.74, `6fab1fa6f9158f1dfd122526df4eda54`, with v1.74's `units-db.json`
+
+1. **A bigger record**: 3,425 recorded battles (3,016 in v1.74), across every
+   era; mutinies, risings and friendly fire recorded as such.
+2. **The worlds**: cards for Terra and the key worlds, capitals by year,
+   landmasses, places and their ground; the moons the record fights on.
+3. **The ground**: the Glacier and Volcanic map packs, on by default; recorded
+   fights lean toward maps with their feature; fewer deserts.
+4. **The Locale box**: name a landmass, a place or a recorded battle site.
+5. **Serials** on every sheet; "Enter a serial…" opens any of them.
+6. **Operations**: a pinned operation names the banner; the notes flag
+   coalition partners set against each other, forced incidents, and Clan
+   worlds the Inner Sphere could not have known.
+7. **Forces**: successor states, sides without worlds, outposts, occupation
+   garrisons; formations print the rating they were drawn at.
+
+**Data.** One new units database on R2, `units-db-7f1b1f542c39.json.gz`
+(1,317,180 bytes, 3,425 battles), named by a new `units-db.json`. The
+order-of-battle database is unchanged. `units-db-604edc968e3c.json.gz` stays on
+R2 for the v1.74 rollback.
+
+**What this does to old links.** With the year pinned, a v1.74 link drawn on
+v1.74's data keeps its war and sides; on v1.75's data some draws land on the
+new battles. Measured on 40 sheets against v1.74: the same war on 25 of 40.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 450 crews on
+40 sheets, none empty; 0 page errors. With v1.74's manifest the page runs on
+v1.74's data; with none, the export reads *"Cannot export: database did not
+load"*. Same seed twice from cold is identical, and the button row holds at
+1180, 768 and 390px.
+
+---
+
 ## v1.74 — Tactical Scenario Simulator · 22 Oct 2026
 
 7,058,127 bytes · `6fab1fa6f9158f1dfd122526df4eda54`
