@@ -25,6 +25,42 @@ record those commits do not carry.
 
 ---
 
+## v1.76 — Tactical Scenario Simulator · 1 Nov 2026
+
+8,345,799 bytes · `4d95ad97654082efa1c19df28ddc3dc5`
+Rollback: v1.75, `ae4775a2ba6031c5782a057623d773e2`, with v1.75's `units-db.json`
+
+1. **The Archivist and the Instructor** can be dismissed and recalled; without
+   the Archivist an exercise is off the record, with no grade and no notes.
+2. **The Archivist speaks**: at most one remark in his own voice under his
+   note; his refusals add what he would tell the cadet, remedy first.
+3. **The record**: MMR's research since v1.75, several hundred records
+   corrected and a confidence grade on every record; Operations as campaigns
+   under their wars; new forces and worlds, among them the Minnesota Tribe and
+   Charlie Zone on Port Arthur (Operation BIRD DOG).
+4. **Unheld ground** is a theoretical exercise, graded D or E.
+5. **The form**: command families ("Free Worlds Guards" finds every numbered
+   regiment); powers that never field a force are off the list; every map
+   product on by default.
+6. **The Precentor Martial's Notes** gain a Clearance section.
+
+**Data.** One new units database on R2, the first with a version label in its
+name: `units-db-v1.76-99015507.json.gz` (1,323,549 bytes, 3,420 battles), named
+by a new `units-db.json`. The order-of-battle database is unchanged.
+`units-db-7f1b1f542c39.json.gz` stays on R2 for the v1.75 rollback.
+
+**What this does to old links.** With the year pinned, 40 sheets against v1.75
+kept their war on 33 of 40; all 24 from 3060 on held.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 414 crews on
+40 sheets, none empty; 0 page errors. With v1.75's manifest the page runs on
+v1.75's data; with none, the export reads *"Cannot export: database did not
+load"*. Same seed twice from cold is identical, and the button row holds at
+1180, 768 and 390px.
+
+---
+
 ## v1.75 — Tactical Scenario Simulator · 29 Oct 2026
 
 7,620,780 bytes · `ae4775a2ba6031c5782a057623d773e2`
