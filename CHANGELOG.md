@@ -25,6 +25,80 @@ record those commits do not carry.
 
 ---
 
+## v1.78 — Tactical Scenario Simulator · 5 Nov 2026
+
+8,532,464 bytes · `cd5ae89c0db194a51def9c0c79eb0db5`
+Rollback: v1.77, `0777b473dc32c37a5854764645f79714`, with v1.77's `units-db.json`
+Published through GitHub's web interface from a phone.
+
+1. **The record**: Atria 2859 split in two; Goodna, Cammal, Somerset 3050 and
+   Cavanaugh II 2952 put right; Operation KILLING STROKE is a campaign; records
+   of atrocities are graded sombrely.
+2. **A record's own month** shows in the head and in the note.
+3. **The FedCom Civil War**: worlds one camp held keep their realm as holder,
+   and the card says who held them and when.
+4. **Gravity** on the World card in bands, "Earth-normal" within 0.15 g of 1 g.
+5. **The Archivist**: more stock lines, sharper on D and E sheets; with him
+   dismissed, a record sheet is set from the record's world, year and sides.
+6. **Forces**: a legend's side stays within about 2% of its budget; hired
+   commands draw mercenary formations.
+7. **A link whose record cannot be set** says so and sets a free sheet instead.
+
+**Data.** One new units database on R2, `units-db-v1.78-aa70d202.json.gz`
+(1,327,430 bytes, 3,439 battles), named by a new `units-db.json`. The
+order-of-battle database is unchanged. `units-db-v1.77-825d3d0a.json.gz` stays
+on R2 for the v1.77 rollback.
+
+**What this does to old links.** With the year pinned, 40 sheets against v1.77
+kept their war on 36 of 40.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 442 crews on
+40 sheets, none empty; 0 page errors. With v1.77's manifest the page runs on
+v1.77's data; with none, the export reads *"Cannot export: database did not
+load"*. Same seed twice from cold is identical, and the button row holds at
+1180, 768 and 390px.
+
+---
+
+## v1.77 — Tactical Scenario Simulator · 2 Nov 2026
+
+8,487,485 bytes · `0777b473dc32c37a5854764645f79714`
+Rollback: v1.76, `4d95ad97654082efa1c19df28ddc3dc5`, with v1.76's `units-db.json`
+Published through GitHub's web interface from a phone.
+
+1. **Missions checked against their pages**: 731 records re-read, 178
+   corrected; a world taken with no fight described draws Control the Field,
+   Focal Point or Sensor Check.
+2. **Duplicates merged**: about 190 commands filed twice under different
+   spellings.
+3. **Legends and the Bounty Hunter**: the Archivist has lines for them; a
+   legend's own 'Mech is never drawn for anyone else.
+4. **Forces**: a command's printed equipment rating chooses its machines; rules
+   and weight leanings from the Force Manuals; the Combine's Horde.
+5. **Records whose whole force is printed** are set at their own Scale, with
+   the record's people seated.
+6. **A record's own extreme heat or cold stands** on its sheet, and the Now
+   line says why.
+7. **Align to records** on more sheets, with up to three tries.
+
+**Data.** One new units database on R2, `units-db-v1.77-825d3d0a.json.gz`
+(1,330,754 bytes, 3,439 battles), named by a new `units-db.json`. The
+order-of-battle database is unchanged. `units-db-v1.76-99015507.json.gz` stays
+on R2 for the v1.76 rollback.
+
+**What this does to old links.** With the year pinned, 40 sheets against v1.76
+kept their war on 36 of 40.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 447 crews on
+40 sheets, none empty; 0 page errors. With v1.76's manifest the page runs on
+v1.76's data; with none, the export reads *"Cannot export: database did not
+load"*. Same seed twice from cold is identical, and the button row holds at
+1180, 768 and 390px.
+
+---
+
 ## v1.76 — Tactical Scenario Simulator · 1 Nov 2026
 
 8,345,799 bytes · `4d95ad97654082efa1c19df28ddc3dc5`
