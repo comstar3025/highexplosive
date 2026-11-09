@@ -25,6 +25,41 @@ record those commits do not carry.
 
 ---
 
+## v1.79 — Tactical Scenario Simulator · 9 Nov 2026
+
+8,651,056 bytes · `61920cabea919aab1f216fe70cc51744`
+Rollback: v1.78, `cd5ae89c0db194a51def9c0c79eb0db5`, with v1.78's `units-db.json`
+
+1. **The order of battle is built from the record first**: the record's people
+   in their own machines, then its machines, before anything is drawn; each
+   side is one command.
+2. **The Scale fits the record**: a record sheet is fought at a Scale its forces
+   can fill; a pinned Scale outside that range is refused, with "Align to the
+   record".
+3. **The record**: people and machines from the newer Technical Readouts;
+   Wei 3081, Lum 3065, Kobe 2835 and Elnath 2832 follow print; Glengarry 3056 is
+   the Second Skye Rebellion; the Combine's Clan Invasion begins in 3050.
+4. **The sheet**: independent and local forces named as such; a line under the
+   heading ("A local incident.", "A realm divided."); successor states
+   "renamed", not "formed".
+
+**Data.** One new units database on R2, `units-db-v1.79-071a86d9.json.gz`
+(1,385,297 bytes, 3,438 battles), named by a new `units-db.json`. The
+order-of-battle database is unchanged. `units-db-v1.78-aa70d202.json.gz` stays
+on R2 for the v1.78 rollback.
+
+**What this does to old links.** With the year pinned, 40 sheets against v1.78
+kept their war on 38 of 40.
+
+*Measured on the byte-identical file, with the data files served beside it:*
+four data requests on a cold load and still four after five sheets; 432 crews on
+40 sheets, none empty; 0 page errors. With v1.78's manifest the page runs on
+v1.78's data; with none, the export reads *"Cannot export: database did not
+load"*. Same seed twice from cold is identical, and the button row holds at
+1180, 768 and 390px.
+
+---
+
 ## v1.78 — Tactical Scenario Simulator · 5 Nov 2026
 
 8,532,464 bytes · `cd5ae89c0db194a51def9c0c79eb0db5`
